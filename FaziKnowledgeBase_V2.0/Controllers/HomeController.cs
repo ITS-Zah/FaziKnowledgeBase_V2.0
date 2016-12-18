@@ -8,11 +8,23 @@ namespace FaziKnowledgeBase_V2._0.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase upload)
+        {
+            if (upload != null)
+            {
+                // получаем имя файла
+                string fileName = System.IO.Path.GetFileName(upload.FileName);
+                // сохраняем файл в папку Files в проекте
+                upload.SaveAs(Server.MapPath("~/Files/" + fileName));
+            }
+            return RedirectToAction("Index");
         }
     }
 }

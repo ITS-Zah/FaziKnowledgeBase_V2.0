@@ -36,5 +36,6 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         public void Delete(int id)
         {
         }
+
     }
 }
