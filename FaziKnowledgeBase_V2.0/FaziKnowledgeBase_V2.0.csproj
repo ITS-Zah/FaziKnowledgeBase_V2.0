@@ -213,7 +213,11 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FuzzyKnowledgeBase.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LinguisticVariable.cs" />
+    <Compile Include="Models\Rule.cs" />
+    <Compile Include="Models\Term.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
