@@ -3,10 +3,23 @@
     ViewBag.Title = "Index";
 }
 
-@foreach (var b in ViewBag.ListFiles)
-{
-    <tr>
-        <td><p>@b</p></td>
-    </tr>
-}
-
+<form name="ListFiles" action="http://fkb.azurewebsites.net/Home/Upload" enctype="multipart/form-data" method="POST">
+    Оберіть файл дл логічного виводу
+    @foreach (var b in ViewBag.ListFiles)
+    {
+        <input type="radio" name="file" value="@b" />@b     
+        <br />
+    }
+    <br>
+    <input type="button" value="Подготовить форму" onclick="RedyForms()">
+</form>
+<script>
+    function RedyForms()
+        {
+        for (i = 0; i < document.ListFiles.file.length; i++) {
+                if (document.ListFiles.file[i].checked) {
+                    document.location.href = "http://fkb.azurewebsites.net/Сonclusion/ReadyForms?FileName=" + document.ListFiles.file[i].value;
+                }
+            }
+        }
+</script>

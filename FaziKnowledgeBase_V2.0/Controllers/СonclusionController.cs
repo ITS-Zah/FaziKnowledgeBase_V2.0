@@ -15,7 +15,13 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         // GET: Сonclusion
         public ActionResult Index()
         {
-            List<string> ListFiles = new List<string>(Directory.GetFiles(Server.MapPath("~/Files")));
+            List<string> ListFiles = new List<string>();
+            DirectoryInfo dir = new DirectoryInfo(@"C:\MetaDoc");
+            // Для извлечения имени файла используется цикл foreach и свойство files.name
+            foreach (FileInfo files in dir.GetFiles())
+            {
+                ListFiles.Add(files.Name);
+            }
             ViewBag.ListFiles = ListFiles;
             //using (FileStream fs = new FileStream(Server.MapPath("~/Files/BNZ.txt"), FileMode.OpenOrCreate))
             //{
@@ -24,5 +30,11 @@ namespace FaziKnowledgeBase_V2._0.Controllers
             //}
             return View();
         }
+        public ActionResult ReadyForms(string FileName)
+        {
+            string s = "dfgf";
+            s += "sdf";
+            return View();
+        } 
     }
 }
