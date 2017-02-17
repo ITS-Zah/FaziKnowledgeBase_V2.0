@@ -15,7 +15,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         // GET: Сonclusion
         public ActionResult Index()
         {
-            using (FileStream fs = new FileStream("~/Files/" + "BNZ.txt", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(Server.MapPath("~/Files/BNZ.txt"), FileMode.OpenOrCreate))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
                 FuzzyKnowledgeBase FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
