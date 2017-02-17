@@ -27,11 +27,11 @@ namespace FaziKnowledgeBase_V2._0.Controllers
                 string fileName = System.IO.Path.GetFileName(upload.FileName);
                 // сохраняем файл в папку Files в проекте
                 upload.SaveAs(Server.MapPath("~/Files/" + fileName));
-                using(FileStream fs = new FileStream("~/Files/" + fileName, FileMode.OpenOrCreate))
-                {
-                    DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
-                    FuzzyKnowledgeBase FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
-                }
+                //using(FileStream fs = new FileStream("~/Files/" + fileName, FileMode.OpenOrCreate))
+                //{
+                //    DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
+                //    FuzzyKnowledgeBase FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
+                //}
             }
             return RedirectToAction("Index");
         }
