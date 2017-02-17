@@ -16,7 +16,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         public ActionResult Index()
         {
             List<string> ListFiles = new List<string>();
-            DirectoryInfo dir = new DirectoryInfo(@"C:\MetaDoc");
+            DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/Files/"));
             // Для извлечения имени файла используется цикл foreach и свойство files.name
             foreach (FileInfo files in dir.GetFiles())
             {
