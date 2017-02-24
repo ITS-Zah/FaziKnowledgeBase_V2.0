@@ -31,5 +31,9 @@ namespace FaziKnowledgeBase_V2._0.Controllers
             }
             return RedirectToAction("Index");
         }
+        public string Test(string z)
+        {
+            return z;
+        }
     }
 }

@@ -23,6 +23,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
                 ListFiles.Add(files.Name);
             }
             ViewBag.ListFiles = ListFiles;
+            ViewData["test"] = Environment.GetEnvironmentVariable("Test");
             //using (FileStream fs = new FileStream(Server.MapPath("~/Files/BNZ.txt"), FileMode.OpenOrCreate))
             //{
             //    DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
