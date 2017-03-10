@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace FaziKnowledgeBase_V2._0.Controllers
+namespace FuzzyKnowledgeBase_V2._0.Controllers
 {
     [Authorize]
     public class ValuesController : ApiController

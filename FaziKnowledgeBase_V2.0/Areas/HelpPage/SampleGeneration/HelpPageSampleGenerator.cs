@@ -13,7 +13,7 @@ using System.Web.Http.Description;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage
 {
     /// <summary>
     /// This class will generate the samples for the help page.

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using FaziKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions;
+using FuzzyKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage.Models
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

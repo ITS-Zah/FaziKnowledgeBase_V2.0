@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace FaziKnowledgeBase_V2._0.Controllers
+namespace FuzzyKnowledgeBase_V2._0.Controllers
 {
     public class HomeController : Controller
     {

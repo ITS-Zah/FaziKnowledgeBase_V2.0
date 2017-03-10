@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

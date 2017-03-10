@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Runtime.Serialization;
 
-namespace FaziKnowledgeBase_V2._0.Models
+namespace FuzzyKnowledgeBase_V2._0.Models
 {
     [DataContract]
     public class FuzzyKnowledgeBase

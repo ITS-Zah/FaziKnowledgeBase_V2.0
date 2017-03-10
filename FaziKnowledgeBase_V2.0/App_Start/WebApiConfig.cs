@@ -6,7 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
-namespace FaziKnowledgeBase_V2._0
+namespace FuzzyKnowledgeBase_V2._0
 {
     public static class WebApiConfig
     {

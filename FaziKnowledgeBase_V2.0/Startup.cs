@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(FaziKnowledgeBase_V2._0.Startup))]
+[assembly: OwinStartup(typeof(FuzzyKnowledgeBase_V2._0.Startup))]
 
-namespace FaziKnowledgeBase_V2._0
+namespace FuzzyKnowledgeBase_V2._0
 {
     public partial class Startup
     {

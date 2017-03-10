@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace FaziKnowledgeBase_V2._0
+namespace FuzzyKnowledgeBase_V2._0
 {
     public class BundleConfig
     {

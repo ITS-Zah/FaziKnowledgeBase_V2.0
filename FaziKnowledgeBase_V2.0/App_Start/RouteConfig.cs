@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace FaziKnowledgeBase_V2._0
+namespace FuzzyKnowledgeBase_V2._0
 {
     public class RouteConfig
     {

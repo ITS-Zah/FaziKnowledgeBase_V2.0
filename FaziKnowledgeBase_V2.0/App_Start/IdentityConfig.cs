@@ -3,9 +3,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using FaziKnowledgeBase_V2._0.Models;
+using FuzzyKnowledgeBase_V2._0.Models;
 
-namespace FaziKnowledgeBase_V2._0
+namespace FuzzyKnowledgeBase_V2._0
 {
     // Настройка диспетчера пользователей приложения. UserManager определяется в ASP.NET Identity и используется приложением.
 

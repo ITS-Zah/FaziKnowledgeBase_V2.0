@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using FaziKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions;
+using FuzzyKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.

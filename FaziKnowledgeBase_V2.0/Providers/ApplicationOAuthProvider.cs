@@ -9,9 +9,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using FaziKnowledgeBase_V2._0.Models;
+using FuzzyKnowledgeBase_V2._0.Models;
 
-namespace FaziKnowledgeBase_V2._0.Providers
+namespace FuzzyKnowledgeBase_V2._0.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {

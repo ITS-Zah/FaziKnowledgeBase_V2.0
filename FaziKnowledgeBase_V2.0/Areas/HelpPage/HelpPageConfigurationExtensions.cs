@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using FaziKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions;
-using FaziKnowledgeBase_V2._0.Areas.HelpPage.Models;
+using FuzzyKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions;
+using FuzzyKnowledgeBase_V2._0.Areas.HelpPage.Models;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

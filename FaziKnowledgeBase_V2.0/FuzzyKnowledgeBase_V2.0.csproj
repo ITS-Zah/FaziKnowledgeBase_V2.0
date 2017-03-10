@@ -171,6 +171,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionsFKB\Accumulation.cs" />
+    <Compile Include="ActionsFKB\Agregation.cs" />
+    <Compile Include="ActionsFKB\Defuzzication.cs" />
+    <Compile Include="ActionsFKB\Phasing.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -279,6 +283,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Сonclusion\Index.cshtml" />
+    <Content Include="Views\Сonclusion\ReadyForms.cshtml" />
+    <Content Include="Views\Сonclusion\GetConclusion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

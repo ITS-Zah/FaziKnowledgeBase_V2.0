@@ -8,10 +8,10 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using FaziKnowledgeBase_V2._0.Providers;
-using FaziKnowledgeBase_V2._0.Models;
+using FuzzyKnowledgeBase_V2._0.Providers;
+using FuzzyKnowledgeBase_V2._0.Models;
 
-namespace FaziKnowledgeBase_V2._0
+namespace FuzzyKnowledgeBase_V2._0
 {
     public partial class Startup
     {

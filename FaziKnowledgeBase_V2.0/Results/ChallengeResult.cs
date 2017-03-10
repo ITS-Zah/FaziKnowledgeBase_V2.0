@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace FaziKnowledgeBase_V2._0.Results
+namespace FuzzyKnowledgeBase_V2._0.Results
 {
     public class ChallengeResult : IHttpActionResult
     {

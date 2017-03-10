@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage
 {
     /// <summary>
     /// This is used to identify the place where the sample should be applied.

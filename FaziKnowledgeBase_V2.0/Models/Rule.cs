@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace FaziKnowledgeBase_V2._0.Models
+namespace FuzzyKnowledgeBase_V2._0.Models
 {
     public class Rule
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace FaziKnowledgeBase_V2._0.Models
+namespace FuzzyKnowledgeBase_V2._0.Models
 {
     // Модели, используемые в качестве параметров действий AccountController.
 

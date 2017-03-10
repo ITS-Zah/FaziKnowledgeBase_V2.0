@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace FaziKnowledgeBase_V2._0.Models
+namespace FuzzyKnowledgeBase_V2._0.Models
 {
     public class Term
     {
-        public Guid ID { get; set; }
+        private Guid ID {  get; set; }
         public String Name { get; set; }
         public String NameLP { get; set; }
         public String ShortNameLP { get; set; }
@@ -37,5 +37,69 @@ namespace FaziKnowledgeBase_V2._0.Models
         public int WeightOfTerm { get; set; }
         public double ag { get; set; }
         public double sigm { get; set; }
+        public void EvaluatingFp (double valueLv)
+        {
+            if (ProverLast == false && ProverFirst == false)
+            {
+                if (valueLv < a)
+                {
+                    this.ZnachFp = 0;
+                }
+                if (valueLv >= a && valueLv <= b)
+                {
+                    this.ZnachFp = (valueLv - a) / (b - a);
+                }
+
+                if (valueLv >= b && valueLv <= c)
+                {
+                    this.ZnachFp = (c - valueLv) / (c - b);
+                }
+                if (valueLv > c)
+                {
+                    this.ZnachFp = 0;
+                }
+            }
+            else if (ProverLast == true && ProverFirst == false)
+            {
+                if (valueLv < a)
+                {
+                    this.ZnachFp = 0;
+                }
+                if (valueLv >= a && valueLv <= b)
+                {
+                    this.ZnachFp = (valueLv - a) / (b - a);
+                }
+
+                if (valueLv >= b && valueLv <= c)
+                {
+                    this.ZnachFp = (c - valueLv) / (c - b);
+                }
+                if (valueLv > c)
+                {
+                    this.ZnachFp = 1;
+                }
+            }
+            else if (ProverLast == false && ProverFirst == true)
+            {
+                if (valueLv < a)
+                {
+                    this.ZnachFp = 1;
+                }
+                if (valueLv >= a && valueLv <= b)
+                {
+                    this.ZnachFp = (valueLv - a) / (b - a);
+                }
+
+                if (valueLv >= b && valueLv <= c)
+                {
+                    this.ZnachFp = (c - valueLv) / (c - b);
+                }
+                if (valueLv > c)
+                {
+                    this.ZnachFp = 0;
+                }
+            }
+            this.ZnachFp = 0;
+        }
     }
 }

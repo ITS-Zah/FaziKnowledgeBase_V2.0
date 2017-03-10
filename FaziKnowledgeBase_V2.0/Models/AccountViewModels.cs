@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FaziKnowledgeBase_V2._0.Models
+namespace FuzzyKnowledgeBase_V2._0.Models
 {
     // Модели, возвращаемые действиями AccountController.
 

@@ -1,4 +1,4 @@
-﻿
+﻿@Model List<string>
 @{
     ViewBag.Title = "Index";
 }
@@ -6,7 +6,7 @@
 <form name="ListFiles" action="http://fkb.azurewebsites.net/Home/Upload" enctype="multipart/form-data" method="POST">
     Оберіть файл дл логічного виводу
     <br />
-    @foreach (var b in ViewBag.ListFiles)
+    @foreach (var b in Model)
     {
         <input type="radio" name="file" value="@b" />@b     
         <br />

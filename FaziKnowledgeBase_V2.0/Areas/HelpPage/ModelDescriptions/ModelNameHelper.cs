@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions
 {
     internal static class ModelNameHelper
     {

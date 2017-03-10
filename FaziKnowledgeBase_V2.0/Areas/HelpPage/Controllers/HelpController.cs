@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using FaziKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions;
-using FaziKnowledgeBase_V2._0.Areas.HelpPage.Models;
+using FuzzyKnowledgeBase_V2._0.Areas.HelpPage.ModelDescriptions;
+using FuzzyKnowledgeBase_V2._0.Areas.HelpPage.Models;
 
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage.Controllers
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

@@ -13,11 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using FaziKnowledgeBase_V2._0.Models;
-using FaziKnowledgeBase_V2._0.Providers;
-using FaziKnowledgeBase_V2._0.Results;
+using FuzzyKnowledgeBase_V2._0.Models;
+using FuzzyKnowledgeBase_V2._0.Providers;
+using FuzzyKnowledgeBase_V2._0.Results;
 
-namespace FaziKnowledgeBase_V2._0.Controllers
+namespace FuzzyKnowledgeBase_V2._0.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

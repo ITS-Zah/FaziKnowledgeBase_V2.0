@@ -1,4 +1,4 @@
-namespace FaziKnowledgeBase_V2._0.Areas.HelpPage
+namespace FuzzyKnowledgeBase_V2._0.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response
