@@ -1,0 +1,12 @@
+﻿@Scripts.Render("~/bundles/ajax")
+
+<div id="ListLv"></div>
+@foreach (string NameLv in Model)
+{
+    @Ajax.ActionLink(NameLv, "VievFpOneLv", "VievFp", new { nameLv = NameLv }, new AjaxOptions { UpdateTargetId= "chart" })
+    <br />
+}
+
+<div id="chart">
+
+</div>

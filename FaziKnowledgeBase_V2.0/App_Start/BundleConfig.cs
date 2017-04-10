@@ -9,7 +9,7 @@ namespace FuzzyKnowledgeBase_V2._0
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-1.10.2.js"));
 
             // Используйте версию Modernizr для разработчиков, чтобы учиться работать. Когда вы будете готовы перейти к работе,
             // используйте средство построения на сайте http://modernizr.com, чтобы выбрать только нужные тесты.
@@ -23,6 +23,8 @@ namespace FuzzyKnowledgeBase_V2._0
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/ajax").Include(
+                      "~/Scripts/jquery.unobtrusive-ajax.js"));
         }
     }
 }
