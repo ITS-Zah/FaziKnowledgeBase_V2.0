@@ -25,4 +25,5 @@ textarea {
     top:50px;
     left:170px;
     bottom:0;right:0;
+    z-index: -100;
 }
