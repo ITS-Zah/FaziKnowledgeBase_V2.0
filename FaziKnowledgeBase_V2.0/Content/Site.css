@@ -23,7 +23,7 @@ textarea {
 }
 #chart{
     top:50px;
-    left:170px;
+    left:210px;
     bottom:0;right:0;
     z-index: -100;
 }
