@@ -27,11 +27,6 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 // сохраняем файл в папку Files в проекте
                 upload.SaveAs(Server.MapPath("~/Files/" + fileName));
                 HttpContext.Response.Cookies["FileName"].Value = fileName;
-                //using(FileStream fs = new FileStream("~/Files/" + fileName, FileMode.OpenOrCreate))
-                //{
-                //    DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
-                //    FuzzyKnowledgeBase FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
-                //}
             }
             return RedirectToAction("Index");
         }

@@ -18,7 +18,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         public ActionResult Index()
         {
             List<string> ListFiles = new List<string>();
-            DirectoryInfo dir = new DirectoryInfo(/*@"C:\MetaDoc\"*/Server.MapPath("~/Files/"));
+            DirectoryInfo dir = new DirectoryInfo(System.Environment.GetEnvironmentVariable("PathFkbFiles"));
             // Для извлечения имени файла используется цикл foreach и свойство files.name
             foreach (FileInfo files in dir.GetFiles())
             {
@@ -35,7 +35,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         {
             HttpContext.Response.Cookies["FileName"].Value = FileName;
             List<string> ParametrsLp = new List<string>();
-            using (FileStream fs = new FileStream(/*@"C:\MetaDoc\"*/ Server.MapPath("~/Files/") + FileName, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName, FileMode.OpenOrCreate))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
                 FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);

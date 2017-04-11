@@ -16,7 +16,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         public ActionResult Index()
         {
             List<string> NameAllLV = new List<string>();
-            using (FileStream fs = new FileStream(/*@"C:\MetaDoc\"*/ Server.MapPath("~/Files/") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
                 FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
