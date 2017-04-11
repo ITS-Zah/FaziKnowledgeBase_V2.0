@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,8 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            string s = System.Environment.GetEnvironmentVariable("Test");
+            ViewData["test"] = s;
             return View();
         }
 
