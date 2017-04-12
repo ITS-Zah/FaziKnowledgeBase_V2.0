@@ -32,31 +32,13 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         }
         public ActionResult VievFpOneLv(string nameLv)
         {
-            //           var chart = new SimpleChart.Chart(width: 700, height: 300)
-            //               .AddTitle("График посещений")
-            //               .AddSeries(
-            //                   name: "Моя программа",
-            //                   legend: "Моя программа",
-            //                   chartType: "Line",
-            //   xValue: new[] { 5, 6, 7, 8, 9 },
-            //   yValues: new[] { 7, 8, 9, 10, 11 })
-            //.AddSeries(
-            //   name: "Test",
-            //   legend: "Test",
-            //   chartType: "Line",
-            //   xValue: new[] { 1, 2, 3, 4 },
-            //   yValues: new[] { 1, 2, 3, 4 }
-            //   )
-
-            //.Write();ViewData["NameLv"]
             ViewData["NameLv"] = nameLv;
             return PartialView();
         }
+        
         public ActionResult CreateChart(string nameLv)
         {
-            const string Blue = "<Chart BackColor=\"#D3DFF0\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"26, 59, 105\" BorderlineDashStyle=\"Solid\" BorderWidth=\"15\" Palette=\"BrightPastel\">\r\n    <ChartAreas>\r\n        <ChartArea Name=\"Default\" _Template_=\"All\" BackColor=\"64, 165, 191, 228\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"64, 64, 64, 64\" BorderDashStyle=\"Solid\" ShadowColor=\"Transparent\" /> \r\n    </ChartAreas>\r\n    <Legends>\r\n        <Legend _Template_=\"All\" BackColor=\"Transparent\" Font=\"Trebuchet MS, 8.25pt, style=Bold\" IsTextAutoFit=\"False\" /> \r\n    </Legends>\r\n    <BorderSkin SkinStyle=\"Emboss\" /> \r\n  </Chart>";
-            string s = SimpleChart.ChartTheme.Blue;
-            
+            const string Blue = "<Chart BackColor=\"#D3DFF0\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"26, 59, 105\" BorderlineDashStyle=\"Solid\" BorderWidth=\"15\" Palette=\"BrightPastel\">\r\n    <ChartAreas>\r\n        <ChartArea Name=\"Default\" _Template_=\"All\" BackColor=\"64, 165, 191, 228\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"64, 64, 64, 64\" BorderDashStyle=\"Solid\" ShadowColor=\"Transparent\" /> \r\n    </ChartAreas>\r\n    <Legends>\r\n        <Legend _Template_=\"All\" BackColor=\"Transparent\" Font=\"Trebuchet MS, 8.25pt, style=Bold\" IsTextAutoFit=\"False\" /> \r\n    </Legends>\r\n    <BorderSkin SkinStyle=\"Emboss\" /> \r\n  </Chart>";     
             var chart = new SimpleChart.Chart(width: 800, height: 300,theme:Blue).AddTitle(("Membership function: " + nameLv)).AddLegend();
             
             for (int i =0; i < FKB.ListVar.Count; i++)
@@ -89,8 +71,6 @@ namespace FaziKnowledgeBase_V2._0.Controllers
                     break;
                 }
             }
-            
-
             return null;
         }
     }

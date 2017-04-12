@@ -37,6 +37,7 @@ namespace FuzzyKnowledgeBase_V2._0.Models
         public int WeightOfTerm { get; set; }
         public double ag { get; set; }
         public double sigm { get; set; }
+        public double NumericValue = 0;
         public void EvaluatingFp (double valueLv)
         {
             if (ProverLast == false && ProverFirst == false)
@@ -72,7 +73,7 @@ namespace FuzzyKnowledgeBase_V2._0.Models
 
                 if (valueLv >= b && valueLv <= c)
                 {
-                    this.ZnachFp = (c - valueLv) / (c - b);
+                    this.ZnachFp = 1;
                 }
                 if (valueLv > c)
                 {
@@ -87,7 +88,7 @@ namespace FuzzyKnowledgeBase_V2._0.Models
                 }
                 if (valueLv >= a && valueLv <= b)
                 {
-                    this.ZnachFp = (valueLv - a) / (b - a);
+                    this.ZnachFp = 1;
                 }
 
                 if (valueLv >= b && valueLv <= c)
@@ -99,7 +100,6 @@ namespace FuzzyKnowledgeBase_V2._0.Models
                     this.ZnachFp = 0;
                 }
             }
-            this.ZnachFp = 0;
         }
     }
 }

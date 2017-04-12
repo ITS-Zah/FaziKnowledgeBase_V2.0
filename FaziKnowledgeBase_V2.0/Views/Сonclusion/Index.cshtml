@@ -11,7 +11,6 @@
         <input type="radio" name="file" value="@b" />@b     
         <br />
     }
-    @ViewData["test"]
     <br>
     <input type="button" value="Подготовить форму" onclick="RedyForms()">
 </form>
@@ -20,7 +19,7 @@
         {
         for (i = 0; i < document.ListFiles.file.length; i++) {
                 if (document.ListFiles.file[i].checked) {
-                    document.location.href = "http://fkb.azurewebsites.net/Сonclusion/ReadyForms?FileName=" + document.ListFiles.file[i].value;
+                    document.location.href = "http://localhost:34976/Сonclusion/ReadyForms?FileName=" + document.ListFiles.file[i].value;
                 }
             }
         }

@@ -14,6 +14,7 @@ namespace FuzzyKnowledgeBase_V2._0.Models
         public double min = 0;
         public double max = 0;
         public string ShortName = "";
+        public double NumericValue=0;
         public LinguisticVariable()
         {
         }

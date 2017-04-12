@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "GetVievAgregation";
+}
+<div id="ListOfRule">
+    @for (int i = 0; i < Model.ListOfRule.Count; i++)//по всім правилам
+    {
+        FuzzyKnowledgeBase_V2._0.Models.Rule rule = Model.ListOfRule[i];
+        <p>Якщо </p>
+        for (int j = 0; j < @rule.Antecedents.Count - 1; j++)//по всім параметрам правила
+        {
+            FuzzyKnowledgeBase_V2._0.Models.Term term = @rule.Antecedents[j];
+            <p>@term.NameLP @term.Name (@term.ZnachFp) Та </p>
+        }
+
+        <p>@rule.Antecedents[@rule.Antecedents.Count-1].NameLP @rule.Antecedents[@rule.Antecedents.Count-1].Name (@rule.Antecedents[@rule.Antecedents.Count - 1].ZnachFp) То @rule.Cоnsequens.NameLP @rule.Cоnsequens.Name </p>
+        <p>Вага правила @rule.MinZnach</p>
+                <br />
+    }
+</div>
+<a href="/Сonclusion/GetVievAccumulation">Viev Accumulation</a>

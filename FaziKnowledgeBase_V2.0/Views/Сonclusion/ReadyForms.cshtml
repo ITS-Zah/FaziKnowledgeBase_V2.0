@@ -1,7 +1,4 @@
 ﻿
-
- @ViewData["NameLv"]
-
 <form name="ListLv" action="http://fkb.azurewebsites.net/Сonclusion/" enctype="multipart/form-data" method="POST">
     <br />
     @foreach (var b in Model)
@@ -9,25 +6,36 @@
         <p>@b</p>
         <input type="text" name="valueLv" value="" />
         <br />
-    }
-    @ViewData["test"]
+    }   
     <br>
     <input type="button" value="Провести виведення" onclick="RedyForms()">
+    <input type="button" value="Поетапне виведення" onclick="RedyFormsForPhasing()" />
 </form>
            <script>
     function RedyForms()
     {
-        var res = "http://fkb.azurewebsites.net/Сonclusion/GetConclusion?";
+        var res = "http://localhost:34976/Сonclusion/GetConclusion?";
         for (i = 0; i < document.ListLv.valueLv.length; i++) {
             if(i==0){
                 res = res + "valueLv=" + document.ListLv.valueLv[i].value;
             }else{
                 res = res + "&valueLv=" + document.ListLv.valueLv[i].value;
-            }
-            
+            }    
         }
         document.location.href = res;
-        //document.location.href = "http://fkb.azurewebsites.net/Сonclusion/GetConclusion?valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787";
+        //document.location.href = "http://localhost:34976/Сonclusion/GetConclusion?valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787";
+    }
+    function RedyFormsForPhasing() {
+        var res = "http://localhost:34976/Сonclusion/GetVievPhasing?";
+        for (i = 0; i < document.ListLv.valueLv.length; i++) {
+            if (i == 0) {
+                res = res + "valueLv=" + document.ListLv.valueLv[i].value;
+            } else {
+                res = res + "&valueLv=" + document.ListLv.valueLv[i].value;
+            }
+        }
+        //document.location.href = res;
+        document.location.href = "http://localhost:34976/Сonclusion/GetVievPhasing?valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787";
     }
 </script>  
 

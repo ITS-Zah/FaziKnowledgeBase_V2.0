@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "GetVievDefuzzication";
+}
+
+<p>Результат виводу:</p><br />
+@Model.NameLP: @Model.Name = @Model.NumericValue
+<div id="chartDefuzzication">
+    <img src="@Url.Action("CreateChartDefuzzication", new { nameLv = @Model.NameLP, ValueFp = @Model.ZnachFp, ResultСonclusion = @Model.NumericValue })" />
+</div>
+

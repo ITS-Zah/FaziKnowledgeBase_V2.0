@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "GetVievPhasing";
+}
+@Scripts.Render("~/bundles/ajax")
+<ul class="tree">
+    <li>
+        Лінгвістичні змінні
+        <ul>
+            <li>
+                @for(int i =0; i < Model.ListVar.Count-1; i++)
+                {
+                    string name = Model.ListVar[i].Name;
+                    @Ajax.ActionLink(name, "VievChartPhasing", "Сonclusion", new { nameLv = name }, new AjaxOptions { UpdateTargetId = "chartPhasing" })
+                    <ul>
+                        @for(int j =0; j < Model.ListVar[i].terms.Count; j++)
+                        {
+                            <li>@Model.ListVar[i].terms[j].Name  (@Model.ListVar[i].terms[j].ZnachFp)</li>
+                        }
+                    </ul>
+                }
+            </li>
+        </ul>
+    </li>
+</ul>
+<div id="chartPhasing">
+
+</div>
+<a href="/Сonclusion/GetVievAgregation">Viev Agregation</a>

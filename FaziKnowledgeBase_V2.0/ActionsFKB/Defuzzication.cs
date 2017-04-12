@@ -10,7 +10,7 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
     {
         public static void DefuzzicationStart(Term term)
         {
-            term.ZnachFp = term.b;
+            term.NumericValue = term.b;
         }
     }
 }

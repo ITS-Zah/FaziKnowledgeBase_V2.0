@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "GetVievAccumulation";
+}
+@for (int j = 0; j < @Model.Antecedents.Count - 1; j++)//по всім параметрам правила
+{
+    FuzzyKnowledgeBase_V2._0.Models.Term term = @Model.Antecedents[j];
+    <p>@term.NameLP @term.Name (@term.ZnachFp) Та </p>
+}
+
+<p>@Model.Antecedents[@Model.Antecedents.Count - 1].NameLP @Model.Antecedents[@Model.Antecedents.Count - 1].Name (@Model.Antecedents[@Model.Antecedents.Count - 1].ZnachFp) То @Model.Cоnsequens.NameLP @Model.Cоnsequens.Name </p>
+<p>Вага правила @Model.MinZnach</p>
+<br />
+<a href="/Сonclusion/GetVievDefuzzication">Viev Defuzzication</a>

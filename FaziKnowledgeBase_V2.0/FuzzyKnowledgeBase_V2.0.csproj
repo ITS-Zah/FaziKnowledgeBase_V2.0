@@ -290,6 +290,11 @@
     <Content Include="Views\Сonclusion\GetConclusion.cshtml" />
     <Content Include="Views\VievFp\Index.cshtml" />
     <Content Include="Views\VievFp\VievFpOneLv.cshtml" />
+    <Content Include="Views\Сonclusion\GetVievPhasing.cshtml" />
+    <Content Include="Views\Сonclusion\VievChartPhasing.cshtml" />
+    <Content Include="Views\Сonclusion\GetVievAgregation.cshtml" />
+    <Content Include="Views\Сonclusion\GetVievAccumulation.cshtml" />
+    <Content Include="Views\Сonclusion\GetVievDefuzzication.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

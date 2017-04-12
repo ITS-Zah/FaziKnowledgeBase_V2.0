@@ -17,7 +17,18 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
                     fkb.ListOfRule[i].Antecedents[j].EvaluatingFp(Convert.ToDouble(parematrlLv[j]));
                 }
             }
-
+        }
+        public static void PhasingLv(FuzzyKnowledgeBase fkb, string[] parematrlLv)
+        {
+            StartPhasing(fkb, parematrlLv);
+            for(int i = 0; i < fkb.ListVar.Count - 1; i++)
+            {
+                fkb.ListVar[i].NumericValue = Convert.ToDouble(parematrlLv[i]);
+                for (int j = 0; j < fkb.ListVar[i].terms.Count; j++)
+                {
+                    fkb.ListVar[i].terms[j].EvaluatingFp(Convert.ToDouble(parematrlLv[i]));
+                }
+            }
         }
     }
 }
