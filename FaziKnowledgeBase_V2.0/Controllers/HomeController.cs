@@ -13,7 +13,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         public ActionResult Index()
         {
             string s = System.Environment.GetEnvironmentVariable("Test");
-            ViewData["TestConvert"] = Convert.ToDouble("5,4");
+            ViewData["TestConvert"] = Double.Parse("5,4");;
             return View();
         }
 
