@@ -101,5 +101,19 @@ namespace FuzzyKnowledgeBase_V2._0.Models
                 }
             }
         }
+        public Term()
+        {
+
+        }
+        public Term(Guid ID, String Name, String NameLinLinguisticVariable)
+        {
+            this.NameLP = NameLinLinguisticVariable;
+            this.ID = ID;
+            this.Name = Name;
+            this.a = 0;
+            this.ProverLast = false;
+            this.ProverFirst = false;
+            this.ShortNameTerm = "";
+        }
     }
 }

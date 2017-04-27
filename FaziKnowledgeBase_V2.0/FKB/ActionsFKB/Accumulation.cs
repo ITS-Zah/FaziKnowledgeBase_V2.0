@@ -21,7 +21,6 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
                     resultTerm.ZnachFp = maxvalue;
                 }
             }
-
             return resultTerm;
         } 
     }

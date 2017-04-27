@@ -46,15 +46,24 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
             }
             return View(ParametrsLp);
         } 
-        public ActionResult GetConclusion(params string [] valueLv)
+        public ActionResult GetConclusion(string action,string file,params string [] valueLv)
         {     
-            Phasing.StartPhasing(FKB, valueLv);
-            Agregation.AgregationStart(FKB);
-            Term result = Accumulation.AccumulationStart(FKB);
-            Defuzzication.DefuzzicationStart(result);
-            return View(result);
+            if(action == "RedyForms")
+            {
+                Phasing.StartPhasing(FKB, valueLv);
+                Agregation.AgregationStart(FKB);
+                Term result = Accumulation.AccumulationStart(FKB);
+                Defuzzication.DefuzzicationStart(result);
+                return View(result);
+            }
+            else
+            {
+                Phasing.PhasingLv(FKB, valueLv);
+                return View("GetVievPhasing",FKB);
+            }
+           
         }
-        public ActionResult GetVievPhasing(params string[] valueLv)
+        public ActionResult GetVievPhasing(string[] valueLv)
         {
             Phasing.PhasingLv(FKB, valueLv);
             return View(FKB);
@@ -182,5 +191,6 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
             }
             return null;
         }
+        
     }
 }

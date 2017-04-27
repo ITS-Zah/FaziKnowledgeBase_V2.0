@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using FaziKnowledgeBase_V2._0.Helper;
 namespace FuzzyKnowledgeBase_V2._0.Controllers
 {
     public class HomeController : Controller
@@ -14,14 +14,13 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         {
             string s = System.Environment.GetEnvironmentVariable("Test");
            
-            double b = Double.Parse("5.4");
-            ViewData["TestConvert"] = b;
             return View();
         }
 
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase upload)
         {
+            string FileFormat = "";
             if (upload != null)
             {
                 // получаем имя файла
@@ -29,6 +28,15 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 // сохраняем файл в папку Files в проекте
                 upload.SaveAs(Server.MapPath("~/Files/" + fileName));
                 HttpContext.Response.Cookies["FileName"].Value = fileName;
+                FileFormat = FileHelper.CheckFileFormat(fileName);
+                if(FileFormat == "txt")
+                {
+                    return RedirectToAction("ReadyForms","Сonclusion",new {FileName = fileName });
+                }
+                else if (FileFormat == "xls")
+                {
+
+                }
             }
             return RedirectToAction("Index");
         }

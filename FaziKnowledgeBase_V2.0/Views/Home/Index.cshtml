@@ -6,14 +6,14 @@
     <title>Тег FORM, атрибут enctype</title>
 </head>
 <body>
-    @ViewData["TestConvert"];
-    <form action="http://fkb.azurewebsites.net/Home/Upload" enctype="multipart/form-data" method="POST">
-        Виберіть файл для загрузки?
-        <input name="upload" size="40" type="file">
-        <br>
-        <input type="submit">
-    </form>
+    <h3>Выберите файл для загрузки</h3>
+    @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="upload" /><br>
+        <input type="submit" value="Загрузить" />
+    }
     <br />
-    <a href='javascript: document.location.href = "http://localhost:34976/Сonclusion/index";'>Перейти до списку файлів</a>
+    @Html.ActionLink("Перейти до списку файлів", "Index", "Сonclusion")
+    <br />
 </body>
 </html>
