@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using FaziKnowledgeBase_V2._0.FKB.DataStructures;
 using FuzzyKnowledgeBase_V2._0.Models;
+using FaziKnowledgeBase_V2._0.Helper;
+
 namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
 {
     public class K_means
@@ -260,7 +262,7 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
                 UpdateCentroids();
                 ++iteration;
             }
-            //Program.ProcessedDataFromFile(Clusters);
+            ExelReader.ProcessedDataFromFile(Clusters);
         }
 
         public void GausFunction(int countColumnData, FuzzyKnowledgeBase FKB)
@@ -282,7 +284,7 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
                         SummNumeral += Math.Pow(MembershipMatrixTemp[k, i], 2) * Math.Pow(ElementsMatrix[k, j] - Clusters.ElementAt(i).Centroid.ElementAt(j), 2);
                     }
                     sigm = Math.Sqrt(SummNumeral / SummDenominator);
-                  //  Program.SimpsonsMethodFindingIntegrall(a, sigm, i, j, countColumnData, FKB);
+                    ExelReader.SimpsonsMethodFindingIntegrall(a, sigm, i, j, countColumnData, FKB);
                 }
             }
             //sigm = FuzzyLogicBase.ListOfRule.Count;
