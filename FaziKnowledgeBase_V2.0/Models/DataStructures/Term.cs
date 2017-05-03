@@ -7,7 +7,7 @@ namespace FuzzyKnowledgeBase_V2._0.Models
 {
     public class Term
     {
-        private Guid ID {  get; set; }
+        public Guid ID {  get; set; }
         public String Name { get; set; }
         public String NameLP { get; set; }
         public String ShortNameLP { get; set; }
@@ -37,7 +37,7 @@ namespace FuzzyKnowledgeBase_V2._0.Models
         public int WeightOfTerm { get; set; }
         public double ag { get; set; }
         public double sigm { get; set; }
-        public double NumericValue = 0;
+        public double NumericValue { get; set; }
         public void EvaluatingFp (double valueLv)
         {
             if (ProverLast == false && ProverFirst == false)
@@ -106,14 +106,15 @@ namespace FuzzyKnowledgeBase_V2._0.Models
 
         }
         public Term(Guid ID, String Name, String NameLinLinguisticVariable)
-        {
-            this.NameLP = NameLinLinguisticVariable;
-            this.ID = ID;
+        {        
+            this.ID = new Guid();
             this.Name = Name;
+            this.NameLP = NameLinLinguisticVariable;
             this.a = 0;
             this.ProverLast = false;
             this.ProverFirst = false;
             this.ShortNameTerm = "";
+            this.NumericValue = 0;
         }
     }
 }

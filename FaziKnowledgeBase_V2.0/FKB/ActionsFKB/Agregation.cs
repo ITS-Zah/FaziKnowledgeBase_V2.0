@@ -15,10 +15,14 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
                 double minvalue = Double.PositiveInfinity;
                 for (int j = 0; j < fkb.ListOfRule[i].Antecedents.Count; j++)//по всім параметрам правила
                 {
-                    if(fkb.ListOfRule[i].Antecedents[j].ZnachFp < minvalue)
+                    if(fkb.ListOfRule[i].Antecedents[j].ZnachFp < minvalue && fkb.ListOfRule[i].Antecedents[j].ZnachFp != 0)
                     {
                         minvalue = fkb.ListOfRule[i].Antecedents[j].ZnachFp;
                     }
+                }
+                if(minvalue == Double.PositiveInfinity)
+                {
+                    minvalue = 0;
                 }
                 fkb.ListOfRule[i].MinZnach = minvalue;
             }

@@ -44,7 +44,6 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 }
                 else if (FileFormat == "xls")
                 {
-
                     ExelReader.ReadFromXLS(upload.FileName);
                     K_means k = new K_means(ExelReader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
                     double epsilon = 0.05;

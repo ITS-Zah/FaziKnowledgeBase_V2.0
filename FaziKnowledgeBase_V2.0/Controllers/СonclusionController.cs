@@ -29,7 +29,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         public ActionResult ReadyForms(string FileName)
         {
             HttpContext.Response.Cookies["FileName"].Value = FileName;
-            List<string> ParametrsLp = new List<string>();
+            List<LinguisticVariable> ParametrsLp = new List<LinguisticVariable>();
             using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName, FileMode.OpenOrCreate))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
@@ -40,7 +40,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 {
                     if(FKB.ListVar[i].Name != LvConclusions)
                     {
-                        ParametrsLp.Add(FKB.ListVar[i].Name);
+                        ParametrsLp.Add(FKB.ListVar[i]);
                     }
                 }
             }

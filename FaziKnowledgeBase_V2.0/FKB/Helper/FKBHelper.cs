@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Web;
 
 namespace FaziKnowledgeBase_V2._0.FKB.Helper
@@ -13,9 +14,11 @@ namespace FaziKnowledgeBase_V2._0.FKB.Helper
         public static int ostanovkaTM = 0;
         public static void Save_BNZ(FuzzyKnowledgeBase FKB, string path2)  // path2 где сохраняем файлик с БНЗ
         {
-            using (StreamWriter sw = File.CreateText(path2))
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
+
+            using (FileStream fs = new FileStream(path2, FileMode.OpenOrCreate))
             {
-                sw.WriteLine(System.Web.Helpers.Json.Encode(FKB));
+                jsonFormatter.WriteObject(fs, FKB);
             }
         }
         public static void WithRullToVar(FuzzyKnowledgeBase FKB)
