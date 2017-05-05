@@ -40,3 +40,4 @@ textarea {
     .tree span {
       cursor: pointer;
     }
+    p,div { font: 18pt/15pt sans-serif; } 

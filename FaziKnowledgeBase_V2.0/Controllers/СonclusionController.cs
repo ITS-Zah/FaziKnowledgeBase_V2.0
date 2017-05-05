@@ -14,6 +14,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
     public class СonclusionController : Controller
     {
         public static FuzzyKnowledgeBase FKB;
+        public static Term result ;
         // GET: Сonclusion
         public ActionResult Index()
         {
@@ -138,7 +139,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         }
         public ActionResult GetVievDefuzzication()
         {
-            Term result = Accumulation.AccumulationStart(FKB);
+            result = Accumulation.AccumulationStart(FKB);
             Defuzzication.DefuzzicationStart(result);
             return View(result);
         }
@@ -155,7 +156,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                     chart.AddSeries(
                       name: "Центр Площ",
                       chartType: "Line",
-                      xValue: new[] { ResultСonclusion, ResultСonclusion },
+                      xValue: new[] { result.NumericValue, result.NumericValue },
                       yValues: new[] { 0, ValueFp });
                     chart.AddSeries(
                       name: "Value Fp",
