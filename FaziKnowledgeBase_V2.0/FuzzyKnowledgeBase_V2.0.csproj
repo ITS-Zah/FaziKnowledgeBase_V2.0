@@ -322,12 +322,14 @@
     <Content Include="Views\Сonclusion\GetVievAgregation.cshtml" />
     <Content Include="Views\Сonclusion\GetVievAccumulation.cshtml" />
     <Content Include="Views\Сonclusion\GetVievDefuzzication.cshtml" />
+    <Content Include="Views\EditFKB\Index.cshtml" />
+    <Content Include="Views\EditFKB\Edit.cshtml" />
+    <Content Include="Views\EditFKB\EditLvIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Account\" />
-    <Folder Include="Views\EditFKB\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

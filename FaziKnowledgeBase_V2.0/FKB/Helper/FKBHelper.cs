@@ -183,6 +183,31 @@ namespace FaziKnowledgeBase_V2._0.FKB.Helper
                 break;
             }
         }
+        public static void EditLinguisticVariable(FuzzyKnowledgeBase FKB, string OldNameLv, string NewNameLv)
+        {
+            foreach (var lv in FKB.ListVar)
+            {
+                if(lv.Name == OldNameLv)
+                {
+                    lv.Name = NewNameLv;
+                    break;//Імя ЛП унікальне, тому повторних співпадінь бути не може
+                }
+            }
+            foreach (var rule in FKB.ListOfRule)
+            {
+                if(rule.Cоnsequens.NameLP == OldNameLv)
+                {
+                    rule.Cоnsequens.NameLP = NewNameLv;
+                }
+                foreach (var term in rule.Antecedents)
+                {
+                    if(term.NameLP == OldNameLv)
+                    {
+                        term.NameLP = NewNameLv;
+                    }
+                }
+            }
+        }
 
     }
 

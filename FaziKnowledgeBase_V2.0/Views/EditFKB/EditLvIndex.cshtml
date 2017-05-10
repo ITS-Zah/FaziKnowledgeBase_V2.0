@@ -1,0 +1,9 @@
+﻿@using (Ajax.BeginForm("EditLV", "EditFKB", new AjaxOptions { UpdateTargetId = "results2" }))
+{
+    foreach (var b in Model.ListVar)
+    {
+        <input type="text" name="valueLv" value="@b.Name" />
+        <br />
+    }
+    <input type="submit" value="Edit LV" />
+}
