@@ -16,7 +16,7 @@ namespace FaziKnowledgeBase_V2._0.FKB.Helper
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
 
-            using (FileStream fs = new FileStream(path2, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(path2, FileMode.Create))
             {
                 jsonFormatter.WriteObject(fs, FKB);
             }
@@ -204,6 +204,36 @@ namespace FaziKnowledgeBase_V2._0.FKB.Helper
                     if(term.NameLP == OldNameLv)
                     {
                         term.NameLP = NewNameLv;
+                    }
+                }
+            }
+        }
+        public static void EditTerm(FuzzyKnowledgeBase FKB, string NameLv, string OldNameTerm, string NewNameTerm)
+        {
+            foreach (var linguisticVariable in FKB.ListVar)//заміна у спику лінгвістичних мінних
+            {
+                if(linguisticVariable.Name == NameLv)
+                {
+                    foreach (var term  in linguisticVariable.terms)
+                    {
+                        if(term.Name == OldNameTerm)
+                        {
+                            term.Name = NewNameTerm;
+                        }
+                    }
+                }
+            }
+            foreach (var rule in FKB.ListOfRule)
+            {
+                if(rule.Cоnsequens.NameLP == NameLv && rule.Cоnsequens.Name == OldNameTerm)
+                {
+                    rule.Cоnsequens.Name = NewNameTerm;
+                }
+                foreach (var term in rule.Antecedents)
+                {
+                    if(term.NameLP == NameLv && term.Name == OldNameTerm)
+                    {
+                        term.Name = NewNameTerm;
                     }
                 }
             }

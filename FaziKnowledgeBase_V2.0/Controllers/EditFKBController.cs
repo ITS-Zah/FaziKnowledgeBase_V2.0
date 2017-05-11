@@ -41,6 +41,16 @@ namespace FaziKnowledgeBase_V2._0.Controllers
             }
             return View(FKB);
         }
+        public ActionResult EditTermsIndex()
+        {
+
+            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + fileName, FileMode.OpenOrCreate))
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
+                FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
+            }
+            return View(FKB);
+        }
         public void EditLV(params string[] valueLV)
         {
             for(int i = 0; i < FKB.ListVar.Count; i++)
@@ -50,8 +60,26 @@ namespace FaziKnowledgeBase_V2._0.Controllers
                     FKBHelper.EditLinguisticVariable(FKB, FKB.ListVar[i].Name, valueLV[i]);
                 }             
             }
-            FKBHelper.Save_BNZ(FKB, @"C:\MetaDoc\BNZauto.txt");
+            FKBHelper.Save_BNZ(FKB, System.Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
            // return View();
+        }
+        public void EditTerm(string nameLv, params string[] valueTerm)
+        {
+            foreach (var linguisticVariable in FKB.ListVar)//заміна у спику лінгвістичних мінних
+            {
+                if (linguisticVariable.Name == nameLv)
+                {
+                    for(int i = 0; i < linguisticVariable.terms.Count; i++)
+                    {
+                        if(linguisticVariable.terms[i].Name != valueTerm[i])
+                        {
+                            FKBHelper.EditTerm(FKB, linguisticVariable.Name, linguisticVariable.terms[i].Name, valueTerm[i]);
+                        }
+                    }
+                    
+                }
+            }
+            FKBHelper.Save_BNZ(FKB, System.Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
         }
     }
 }

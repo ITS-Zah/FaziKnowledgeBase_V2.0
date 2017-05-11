@@ -325,6 +325,7 @@
     <Content Include="Views\EditFKB\Index.cshtml" />
     <Content Include="Views\EditFKB\Edit.cshtml" />
     <Content Include="Views\EditFKB\EditLvIndex.cshtml" />
+    <Content Include="Views\EditFKB\EditTermsIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
