@@ -1,0 +1,16 @@
+﻿<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+@foreach (FuzzyKnowledgeBase_V2._0.Models.Term term in Model)
+{
+    @Ajax.ActionLink(term.Name, "EditFpIndex", "EditFKB", new { NameTerm = term.Name }, new AjaxOptions { UpdateTargetId = "ListTerm" })
+    <br />
+}
+<div id="ListTerm">
+
+</div>

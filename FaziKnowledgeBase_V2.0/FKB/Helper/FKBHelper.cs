@@ -238,7 +238,25 @@ namespace FaziKnowledgeBase_V2._0.FKB.Helper
                 }
             }
         }
-
+        public static void EditFpTerm(FuzzyKnowledgeBase FKB, string NameLv, string NameTerm, string a, string b, string c)
+        {
+            foreach (var linguisticVariable in FKB.ListVar)//заміна у спику лінгвістичних мінних
+            {
+                if (linguisticVariable.Name == NameLv)
+                {
+                    foreach (var term in linguisticVariable.terms)
+                    {
+                        if (term.Name == NameTerm)
+                        {
+                            term.a = Convert.ToDouble(a);
+                            term.b = Convert.ToDouble(b);
+                            term.c = Convert.ToDouble(c);
+                        }
+                    }
+                }
+            }
+           
+        }
     }
 
 }

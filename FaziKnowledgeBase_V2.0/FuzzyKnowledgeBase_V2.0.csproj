@@ -326,6 +326,10 @@
     <Content Include="Views\EditFKB\Edit.cshtml" />
     <Content Include="Views\EditFKB\EditLvIndex.cshtml" />
     <Content Include="Views\EditFKB\EditTermsIndex.cshtml" />
+    <Content Include="Views\EditFKB\EditFpTermsIndex.cshtml" />
+    <Content Include="Views\EditFKB\VievTermWithFp.cshtml" />
+    <Content Include="Views\EditFKB\EditFpIndex.cshtml" />
+    <Content Include="Views\EditFKB\EditFp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
