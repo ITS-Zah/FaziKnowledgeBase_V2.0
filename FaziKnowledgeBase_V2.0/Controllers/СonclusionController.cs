@@ -31,7 +31,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         {
             HttpContext.Response.Cookies["FileName"].Value = FileName;
             List<LinguisticVariable> ParametrsLp = new List<LinguisticVariable>();
-            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName, FileMode.Open))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
                 FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);

@@ -2,9 +2,22 @@
 <div id="ListLv"></div>
 @foreach (string NameLv in Model)
 {
-    @Ajax.ActionLink(NameLv, "VievTermWithFp", "EditFKB", new { nameLv = NameLv }, new AjaxOptions { UpdateTargetId= "chart" })
+    <a id="@NameLv" onclick="VievTermWithFp(this)">  @NameLv</a>
     <br />
 }
 <div id="chart">
 
 </div>
+
+<script type="text/javascript">
+    function VievTermWithFp(el) {
+        $.ajax({
+            url: '/EditFKB/VievTermWithFp',
+            data: 'nameLv='+el.id,
+            success: function (data) {
+                $('#chart').html(data);
+            }
+
+        });
+    }
+</script>

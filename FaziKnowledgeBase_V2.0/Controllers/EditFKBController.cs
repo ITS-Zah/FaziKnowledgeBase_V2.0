@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 
 namespace FaziKnowledgeBase_V2._0.Controllers
 {
@@ -30,10 +31,11 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         }
         public ActionResult Edit(string FileName)
         {
-            HttpContext.Response.Cookies["FileName"].Value = FileName;
+           // HttpContext.Response.Cookies["FileName"].Value = FileName;
             fileName = FileName;
             return View();
         }
+        [WebMethod]
         public ActionResult EditLvIndex()
         {
             using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + fileName, FileMode.OpenOrCreate))
