@@ -8,9 +8,20 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
 {
     public class Defuzzication
     {
-        public static void DefuzzicationStart(Term term)
+        public static Term DefuzzicationStart(List<Rule> ListRule)
         {
-            term.NumericValue = term.b;
+            Term res = new Term();
+            double max = double.MinValue;
+            for(int i = 0; i < ListRule.Count; i++)
+            {
+                if(ListRule[i].MinZnach > max)
+                {
+                    max = ListRule[i].MinZnach;
+                    res = ListRule[i].Cоnsequens;
+                }
+            }
+            res.NumericValue = res.b;//центр максимума
+            return res;
         }
     }
 }

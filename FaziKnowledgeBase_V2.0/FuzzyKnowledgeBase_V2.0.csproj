@@ -194,6 +194,7 @@
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CMDController.cs" />
     <Compile Include="Controllers\EditFKBController.cs" />
     <Compile Include="FKB\ActionsFKB\Accumulation.cs" />
     <Compile Include="FKB\ActionsFKB\Agregation.cs" />
@@ -336,6 +337,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="Views\CMD\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
