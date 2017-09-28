@@ -127,7 +127,9 @@ namespace FaziKnowledgeBase_V2._0.Helper
             }
 
             double interval = 0;
-            for (int i = 0; i < CheckerCount; i++)  // разбиение на промежутки значений. Нахождения возможных зон для значений термов одной ЛП 
+
+            // разбиение на промежутки значений. Нахождения возможных зон для значений термов одной ЛП 
+            for (int i = 0; i < CheckerCount; i++)  
             {
                 interval = (FindMinMaxValueTerm[i, 1] - FindMinMaxValueTerm[i, 0]) / (NumbersOfZonesOneLP - 1);
                 ValueIntervalTerm[i, 0] = FindMinMaxValueTerm[i, 0];
@@ -138,7 +140,8 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 }
             }
 
-            for (column = 0; column < countColumnData; column++)  // Запись возможных значений (числами) термов у ЛП. Для вывода.
+            // Запись возможных значений (числами) термов у ЛП. Для вывода.
+            for (column = 0; column < countColumnData; column++) 
             {
                 ValueTermVithoutRepeat[0, column] = Clusters.ElementAt(0).Centroid.ElementAt(column);
                 int countElements = 1;
@@ -159,7 +162,9 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 }
             }
         }
-        public static void GiveNameToTerms(int ClusterCount, int counterFoRowDataFromFile)  // функция для определения просранства имен термов, а также количества зон (возможных значений термов) одной ЛП
+
+        // функция для определения просранства имен термов, а также количества зон (возможных значений термов) одной ЛП
+        public static void GiveNameToTerms(int ClusterCount, int counterFoRowDataFromFile)  
         {
             /*if(ClusterCount <= 4 && ClusterCount > 0)
             {
