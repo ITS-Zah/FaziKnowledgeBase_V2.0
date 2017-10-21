@@ -268,27 +268,26 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
         public void GausFunction(int countColumnData, FuzzyKnowledgeBase FKB)
         {
             double SummDenominator = 0;
-            double SummNumeral = 0;
+            double SummNumerator = 0;
             double sigm = 0;
-            ValueGausFPForEachTerm = new double[ClusterCount, countColumnData - 1]; // [ClusterCount, countColumnData];
-
+            ValueGausFPForEachTerm = new double[ClusterCount, countColumnData - 1];
 
             for (int i = 0; i < ClusterCount; i++)
             {
-                for (int j = 0; j < countColumnData; j++)  // countColumnData 
+                for (int j = 0; j < countColumnData; j++)
                 {
                     double a = Clusters.ElementAt(i).Centroid.ElementAt(j);
                     for (int k = 0; k < Elements.Count; ++k)
                     {
+                        SummNumerator += Math.Pow(MembershipMatrixTemp[k, i], 2) * Math.Pow(ElementsMatrix[k, j] - Clusters.ElementAt(i).Centroid.ElementAt(j), 2);
                         SummDenominator += Math.Pow(MembershipMatrixTemp[k, i], 2);
-                        SummNumeral += Math.Pow(MembershipMatrixTemp[k, i], 2) * Math.Pow(ElementsMatrix[k, j] - Clusters.ElementAt(i).Centroid.ElementAt(j), 2);
                     }
-                    sigm = Math.Sqrt(SummNumeral / SummDenominator);
+                    sigm = Math.Sqrt(SummNumerator / SummDenominator);
                     ExelReader.SimpsonsMethodFindingIntegrall(a, sigm, i, j, countColumnData, FKB);
                 }
             }
-            //sigm = FuzzyLogicBase.ListOfRule.Count;
         }
+
         public double MaxValueGausFunction(int countColumnData, int NumbLP)
         {
             double SummDenominator = 0;
