@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+    <p>Enter the values of all variables to get the result conclusion</p>
 @using (Html.BeginForm("ReadyForms", "Сonclusion", FormMethod.Post))
 {
     foreach (var b in Model)
@@ -10,6 +10,6 @@
         <input type="radio" name="FileName" value="@b" />@b
         <br />
     }
-    <button name="action" value="RedyForms">Провести виведення</button>
+    <button name="action" value="RedyForms">Start</button>
 }
               

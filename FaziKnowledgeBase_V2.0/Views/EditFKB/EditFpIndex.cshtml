@@ -1,0 +1,9 @@
+﻿
+    @using (Ajax.BeginForm("EditFp", "EditFKB", new AjaxOptions { UpdateTargetId = "results2" }))
+    {
+        <p>A:</p><input type="text" name="a" value="@Model.a" />
+        <p>B:</p><input type="text" name="b" value="@Model.b" />
+        <p>C:</p><input type="text" name="c" value="@Model.c" /><br />
+        <input type="submit" value="Edit Term" />
+    }
+    <div id="results2"></div>

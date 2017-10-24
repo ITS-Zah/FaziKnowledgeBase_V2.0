@@ -1,0 +1,30 @@
+﻿<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+@foreach (FuzzyKnowledgeBase_V2._0.Models.Term term in Model)
+{
+    @*@Ajax.ActionLink(term.Name, "EditFpIndex", "EditFKB", new { NameTerm = term.Name }, new AjaxOptions { UpdateTargetId = "ListTerm" })*@
+    <a id="@term.Name" onclick="EditFpIndex(this)">@term.Name</a>
+    <br />
+}
+<div id="ListTerm">
+
+</div>
+<script type="text/javascript">
+    function EditFpIndex(el) {
+        $.ajax({
+            url: '/EditFKB/EditFpIndex',
+            data: 'NameTerm=' + el.id,
+            success: function (data) {
+                $('#ListTerm').html(data);
+            }
+
+        });
+    }
+</script>

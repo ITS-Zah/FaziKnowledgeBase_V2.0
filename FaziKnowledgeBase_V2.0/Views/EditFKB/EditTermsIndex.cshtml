@@ -1,0 +1,17 @@
+﻿@foreach (var Var in Model.ListVar)
+{
+    using (Ajax.BeginForm("EditTerm", "EditFKB", new AjaxOptions { UpdateTargetId = "results2" }))
+    {
+            <p>@Var.Name</p>
+            <input type="text" name="nameLv" value="@Var.Name" style="display:none" />
+            foreach (var term in Var.terms)
+            {
+                <p2> <input type="text" name="valueTerm" value="@term.Name" /> </p2>
+            }
+            <br />
+        
+        <input type="submit" value="Edit Term" />
+    }
+}
+
+

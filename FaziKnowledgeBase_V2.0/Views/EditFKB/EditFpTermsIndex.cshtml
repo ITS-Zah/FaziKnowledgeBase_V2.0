@@ -1,0 +1,23 @@
+﻿
+<div id="ListLv"></div>
+@foreach (string NameLv in Model)
+{
+    <a id="@NameLv" onclick="VievTermWithFp(this)">  @NameLv</a>
+    <br />
+}
+<div id="chart">
+
+</div>
+
+<script type="text/javascript">
+    function VievTermWithFp(el) {
+        $.ajax({
+            url: '/EditFKB/VievTermWithFp',
+            data: 'nameLv='+el.id,
+            success: function (data) {
+                $('#chart').html(data);
+            }
+
+        });
+    }
+</script>
