@@ -13,7 +13,9 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
 {
     public class HomeController : Controller
     {
-        
+
+        private double epsilon = 0.05;
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -44,12 +46,20 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 }
                 else if (FileFormat == "xls")
                 {
+                    // read xls data file
                     ExelReader.ReadFromXLS(upload.FileName);
                     K_means k = new K_means(ExelReader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
-                    double epsilon = 0.05;
+                    
+                    // clustering
                     k.Clustering(ExelReader.ClusterCount, epsilon);
-                    k.FindRulesModelTypeMamdani(ExelReader.NameOfLinguisticVariables, ExelReader.ValueIntervalTerm, ExelReader.NameOfTerms, ExelReader.countColumnData, ExelReader.NumbersOfZonesOneLP, ExelReader.counterFoRowDataFromFile, "Трикутна", ExelReader.WeightOfTerms, FKB);
+
+                    // find rules 
+                    k.FindRulesModelTypeMamdani(ExelReader.NameOfLinguisticVariables, ExelReader.ValueIntervalTerm, ExelReader.NameOfTerms, 
+                        ExelReader.countColumnData, ExelReader.NumbersOfZonesOneLP, ExelReader.counterFoRowDataFromFile, "Трикутна", ExelReader.WeightOfTerms, FKB);
+
+                    // find function for each term
                     k.GausFunction(ExelReader.countColumnData, FKB);
+
                     FKBHelper.WithRullToVar(FKB);
                     FKBHelper.Save_BNZ(FKB, Server.MapPath("~/Files/BNZauto.txt"));
                     return RedirectToAction("ReadyForms", "Сonclusion", new { FileName = "BNZauto.txt" });
