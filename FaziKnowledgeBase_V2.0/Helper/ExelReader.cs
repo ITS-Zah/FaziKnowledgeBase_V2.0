@@ -282,6 +282,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
         {
             double a = 0, b = 1, eps = 0.0001, result = 0; //Нижний и верхний пределы интегрирования (a, b), погрешность (eps).
             double I = eps + 1, I1 = 0;//I-предыдущее вычисленное значение интеграла, I1-новое, с большим N.
+            double aTrianglePoint = 0, bTrianglePoint = 0, cTrianglePoint = 0;
 
             //Запись новой точки (  a  )
             for (int i = 0; i < 4; i++)
@@ -313,39 +314,6 @@ namespace FaziKnowledgeBase_V2._0.Helper
             else
                 FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a = result;
 
-            /*//Запись новой точки (  b  )
-            result = 0;
-            for (int i = 0; i < 4; i++)
-            {
-                a = 0; b = 1; eps = 0.0001; //Нижний и верхний пределы интегрирования (a, b), погрешность (eps).
-                I = eps + 1; I1 = 0;//I-предыдущее вычисленное значение интеграла, I1-новое, с большим N.
-                for (int N = 2; (N <= 4) || (Math.Abs(I1 - I) > eps); N *= 2)
-                {
-                    double h, sum2 = 0, sum4 = 0, sum = 0;
-                    h = (b - a) / (2 * N);//Шаг интегрирования.
-                    for (int ind = 1; ind <= 2 * N - 1; ind += 2)
-                    {
-                        sum4 += Y(a + h * ind, i, i, aGaus, sigmGaus);//Значения с нечётными индексами, которые нужно умножить на 4.
-                        sum2 += Y(a + h * (ind + 1), i, i, aGaus, sigmGaus);//Значения с чётными индексами, которые нужно умножить на 2.
-                    }
-                    sum = Y(a, i, i, aGaus, sigmGaus) + 4 * sum4 + 2 * sum2 - Y(b, i, i, aGaus, sigmGaus);//Отнимаем значение f(b) так как ранее прибавили его дважды. 
-                    I = I1;
-                    I1 = (h / 3) * sum;
-                }
-                if (i == 0)
-                    result = (7 / 2) * I1;
-                else if (i == 1)
-                    result += (1 / 2) * I1;
-                else if (i == 2)
-                    result -= (9 / 2) * I1;
-                else if (i == 3)
-                    result -= (3 / 2) * I1;
-            }
-            if (countColumnDataNow + 1 == countColumnData) //часть для точки b
-                FKB.ListOfRule[FKB.ListOfRule.Count() - WebApplication1.FKB.Program.ClusterCount + ClusterCount].Cоnsequens.a = result;
-            else
-                FKB.ListOfRule[FKB.ListOfRule.Count() - WebApplication1.FKB.Program.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a = result;*/
-
             //Запись новой точки (  c  )
             result = 0;
             for (int i = 0; i < 4; i++)
@@ -374,34 +342,31 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 else if (i == 3)
                     result -= (9 / 2) * I1;
             }
-            if (countColumnDataNow + 1 == countColumnData) //часть для точки b
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c = result;
-            else
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c = result;
-
             double tempTerm = 0;
-            if (countColumnDataNow + 1 == countColumnData) //часть для точки b
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.b = (FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a + FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c) / 2;
-            else
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].b = (FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a + FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c) / 2;
 
+            cTrianglePoint = result;
+            bTrianglePoint = (aTrianglePoint + cTrianglePoint) / 2;
+
+            if (aTrianglePoint > cTrianglePoint)
+            {
+                tempTerm = cTrianglePoint;
+                cTrianglePoint = aTrianglePoint;
+                aTrianglePoint = tempTerm;
+            }   
+                
             if (countColumnDataNow + 1 == countColumnData)
             {
-                if (FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a > FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c)
-                {
-                    tempTerm = FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c;
-                    FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c = FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a;
-                    FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a = tempTerm;
-                }
+                // set triangle points (a, b, c) values for cоnsequent
+                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a = aTrianglePoint;
+                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.b = bTrianglePoint;
+                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c = cTrianglePoint;
             }
             else
             {
-                if (FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a > FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c)
-                {
-                    tempTerm = FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c;
-                    FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c = FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a;
-                    FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a = tempTerm;
-                }
+                // set triangle points (a, b, c) values for antecedent
+                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a = aTrianglePoint;
+                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].b = bTrianglePoint;
+                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c = cTrianglePoint;
             }
         }
     }
