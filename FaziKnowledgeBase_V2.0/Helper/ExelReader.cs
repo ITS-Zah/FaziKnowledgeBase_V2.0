@@ -309,10 +309,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 else if (i > 1 && i <= 3)
                     result -= I1;
             }
-            if (countColumnDataNow + 1 == countColumnData)
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a = result;
-            else
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a = result;
+            aTrianglePoint = result;
 
             //Запись новой точки (  c  )
             result = 0;
@@ -342,13 +339,13 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 else if (i == 3)
                     result -= (9 / 2) * I1;
             }
-            double tempTerm = 0;
-
             cTrianglePoint = result;
+
             bTrianglePoint = (aTrianglePoint + cTrianglePoint) / 2;
 
             if (aTrianglePoint > cTrianglePoint)
             {
+                double tempTerm = 0;
                 tempTerm = cTrianglePoint;
                 cTrianglePoint = aTrianglePoint;
                 aTrianglePoint = tempTerm;
