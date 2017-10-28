@@ -14,7 +14,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
     public class СonclusionController : Controller
     {
         public static FuzzyKnowledgeBase FKB;
-        public static Term result ;
+        public static List<Rule> result ;
         // GET: Сonclusion
         public ActionResult Index()
         {
@@ -31,7 +31,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         {
             HttpContext.Response.Cookies["FileName"].Value = FileName;
             List<LinguisticVariable> ParametrsLp = new List<LinguisticVariable>();
-            using (FileStream fs = new FileStream(@"D:/" + FileName, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName, FileMode.Open))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
                 FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
@@ -51,11 +51,11 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         {     
             if(action == "RedyForms")
             {
-                Phasing.StartPhasing(FKB, valueLv);
+                Phasing.PhasingLv(FKB, valueLv);
                 Agregation.AgregationStart(FKB);
-                Term result = Accumulation.AccumulationStart(FKB);
-                Defuzzication.DefuzzicationStart(result);
-                return View(result);
+                List<Rule> result = Accumulation.AccumulationStart(FKB);
+                
+                return View(Defuzzication.DefuzzicationStart(result));
             }
             else
             {
@@ -144,54 +144,54 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
             return View(result);
         }
         
-        public ActionResult CreateChartDefuzzication(string nameLv, double ValueFp,double ResultСonclusion)
-        {
-            const string Blue = "<Chart BackColor=\"#D3DFF0\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"26, 59, 105\" BorderlineDashStyle=\"Solid\" BorderWidth=\"15\" Palette=\"BrightPastel\">\r\n    <ChartAreas>\r\n        <ChartArea Name=\"Default\" _Template_=\"All\" BackColor=\"64, 165, 191, 228\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"64, 64, 64, 64\" BorderDashStyle=\"Solid\" ShadowColor=\"Transparent\" /> \r\n    </ChartAreas>\r\n    <Legends>\r\n        <Legend _Template_=\"All\" BackColor=\"Transparent\" Font=\"Trebuchet MS, 8.25pt, style=Bold\" IsTextAutoFit=\"False\" /> \r\n    </Legends>\r\n    <BorderSkin SkinStyle=\"Emboss\" /> \r\n  </Chart>";
-            var chart = new SimpleChart.Chart(width: 800, height: 300, theme: Blue).AddTitle(("Membership function: " + nameLv)).AddLegend();
+        //public ActionResult CreateChartDefuzzication(string nameLv, double ValueFp,double ResultСonclusion)
+        //{
+        //    const string Blue = "<Chart BackColor=\"#D3DFF0\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"26, 59, 105\" BorderlineDashStyle=\"Solid\" BorderWidth=\"15\" Palette=\"BrightPastel\">\r\n    <ChartAreas>\r\n        <ChartArea Name=\"Default\" _Template_=\"All\" BackColor=\"64, 165, 191, 228\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"64, 64, 64, 64\" BorderDashStyle=\"Solid\" ShadowColor=\"Transparent\" /> \r\n    </ChartAreas>\r\n    <Legends>\r\n        <Legend _Template_=\"All\" BackColor=\"Transparent\" Font=\"Trebuchet MS, 8.25pt, style=Bold\" IsTextAutoFit=\"False\" /> \r\n    </Legends>\r\n    <BorderSkin SkinStyle=\"Emboss\" /> \r\n  </Chart>";
+        //    var chart = new SimpleChart.Chart(width: 800, height: 300, theme: Blue).AddTitle(("Membership function: " + nameLv)).AddLegend();
 
-            for (int i = 0; i < FKB.ListVar.Count; i++)
-            {
-                if (FKB.ListVar[i].Name == nameLv)
-                {
-                    chart.AddSeries(
-                      name: "Центр Площ",
-                      chartType: "Line",
-                      xValue: new[] { result.NumericValue, result.NumericValue },
-                      yValues: new[] { 0, ValueFp });
-                    chart.AddSeries(
-                      name: "Value Fp",
-                      chartType: "Line",
-                      xValue: new[] {0,1 },
-                      yValues: new[] { ValueFp, ValueFp });
-                    chart.AddSeries(
-                                name: FKB.ListVar[i].terms[0].Name,
-                                chartType: "Line",
-                                xValue: new[] { FKB.ListVar[i].terms[0].a, FKB.ListVar[i].terms[0].b, FKB.ListVar[i].terms[0].c },
-                                yValues: new[] { 1, 1, 0 });
+        //    for (int i = 0; i < FKB.ListVar.Count; i++)
+        //    {
+        //        if (FKB.ListVar[i].Name == nameLv)
+        //        {
+        //            chart.AddSeries(
+        //              name: "Центр Площ",
+        //              chartType: "Line",
+        //              xValue: new[] { result.NumericValue, result.NumericValue },
+        //              yValues: new[] { 0, ValueFp });
+        //            chart.AddSeries(
+        //              name: "Value Fp",
+        //              chartType: "Line",
+        //              xValue: new[] {0,1 },
+        //              yValues: new[] { ValueFp, ValueFp });
+        //            chart.AddSeries(
+        //                        name: FKB.ListVar[i].terms[0].Name,
+        //                        chartType: "Line",
+        //                        xValue: new[] { FKB.ListVar[i].terms[0].a, FKB.ListVar[i].terms[0].b, FKB.ListVar[i].terms[0].c },
+        //                        yValues: new[] { 1, 1, 0 });
 
 
-                    for (int j = 1; j < FKB.ListVar[i].terms.Count - 1; j++)
-                    {
+        //            for (int j = 1; j < FKB.ListVar[i].terms.Count - 1; j++)
+        //            {
 
-                        chart.AddSeries(
-                        name: FKB.ListVar[i].terms[j].Name,
-                        chartType: "Line",
-                        xValue: new[] { FKB.ListVar[i].terms[j].a, FKB.ListVar[i].terms[j].b, FKB.ListVar[i].terms[j].c },
-                        yValues: new[] { 0, 1, 0 });
+        //                chart.AddSeries(
+        //                name: FKB.ListVar[i].terms[j].Name,
+        //                chartType: "Line",
+        //                xValue: new[] { FKB.ListVar[i].terms[j].a, FKB.ListVar[i].terms[j].b, FKB.ListVar[i].terms[j].c },
+        //                yValues: new[] { 0, 1, 0 });
 
-                    }
-                    chart.AddSeries(
-                               name: FKB.ListVar[i].terms[FKB.ListVar[i].terms.Count - 1].Name,
-                               chartType: "Line",
-                               xValue: new[] { FKB.ListVar[i].terms[FKB.ListVar[i].terms.Count - 1].a, FKB.ListVar[i].terms[FKB.ListVar[i].terms.Count - 1].b, FKB.ListVar[i].terms[FKB.ListVar[i].terms.Count - 1].c },
-                               yValues: new[] { 0, 1, 1 })
-                               .Write();
+        //            }
+        //            chart.AddSeries(
+        //                       name: FKB.ListVar[i].terms[FKB.ListVar[i].terms.Count - 1].Name,
+        //                       chartType: "Line",
+        //                       xValue: new[] { FKB.ListVar[i].terms[FKB.ListVar[i].terms.Count - 1].a, FKB.ListVar[i].terms[FKB.ListVar[i].terms.Count - 1].b, FKB.ListVar[i].terms[FKB.ListVar[i].terms.Count - 1].c },
+        //                       yValues: new[] { 0, 1, 1 })
+        //                       .Write();
 
-                    break;
-                }
-            }
-            return null;
-        }
+        //            break;
+        //        }
+        //    }
+        //    return null;
+        //}
         
     }
 }

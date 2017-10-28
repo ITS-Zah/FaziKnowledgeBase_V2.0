@@ -77,6 +77,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -193,6 +194,7 @@
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CMDController.cs" />
     <Compile Include="Controllers\EditFKBController.cs" />
     <Compile Include="FKB\ActionsFKB\Accumulation.cs" />
     <Compile Include="FKB\ActionsFKB\Agregation.cs" />
@@ -322,12 +324,20 @@
     <Content Include="Views\Сonclusion\GetVievAgregation.cshtml" />
     <Content Include="Views\Сonclusion\GetVievAccumulation.cshtml" />
     <Content Include="Views\Сonclusion\GetVievDefuzzication.cshtml" />
+    <Content Include="Views\EditFKB\Index.cshtml" />
+    <Content Include="Views\EditFKB\Edit.cshtml" />
+    <Content Include="Views\EditFKB\EditLvIndex.cshtml" />
+    <Content Include="Views\EditFKB\EditTermsIndex.cshtml" />
+    <Content Include="Views\EditFKB\EditFpTermsIndex.cshtml" />
+    <Content Include="Views\EditFKB\VievTermWithFp.cshtml" />
+    <Content Include="Views\EditFKB\EditFpIndex.cshtml" />
+    <Content Include="Views\EditFKB\EditFp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Account\" />
-    <Folder Include="Views\EditFKB\" />
+    <Folder Include="Views\CMD\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

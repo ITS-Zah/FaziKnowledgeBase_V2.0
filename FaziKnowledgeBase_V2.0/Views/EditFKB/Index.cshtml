@@ -1,0 +1,14 @@
+﻿@Model List<string>
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    @using (Html.BeginForm("Edit", "EditFKB", FormMethod.Post))
+    {
+        foreach (var b in Model)
+        {
+            <input type="radio" name="FileName" value="@b" />@b
+            <br />
+        }
+        <button name="action" value="Edit">Edit FKB</button>
+    }

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+@*<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" href="/EditFKB/EditLvIndex">Edit linguistic variable</a>
+@Ajax.ActionLink("Edit linguistic variable", "EditLvIndex", new AjaxOptions { UpdateTargetId = "results" }) 
+@Ajax.ActionLink("Edit terms of linguistic variable", "EditTermsIndex", new AjaxOptions { UpdateTargetId = "results" })
+@Ajax.ActionLink("Edit FP terms of linguistic variables", "EditFpTermsIndex", new AjaxOptions { UpdateTargetId = "results" })*@
+<br />
+
+<a onclick="EditLvIndex()">Edit linguistic variable</a>
+<a onclick="EditTermsIndex()">  Edit terms of linguistic variable</a>
+<a onclick="EditFpTermsIndex()">  Edit FP terms of linguistic variables</a>
+<br />
+<br />
+<div class="results"></div>
+
+<script type="text/javascript">
+    function EditLvIndex() {
+        $.ajax({
+            url: '/EditFKB/EditLvIndex',
+            success: function (data) {
+                $('.results').html(data);
+            }
+
+        });
+    }
+    function EditTermsIndex() {
+        $.ajax({
+            url: '/EditFKB/EditTermsIndex',
+            success: function (data) {
+                $('.results').html(data);
+            }
+
+        });
+    }
+    function EditFpTermsIndex() {
+        $.ajax({
+            url: '/EditFKB/EditFpTermsIndex',
+            success: function (data) {
+                $('.results').html(data);
+            }
+
+        });
+    }
+</script>
