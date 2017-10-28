@@ -51,7 +51,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                     k.FindRulesModelTypeMamdani(ExelReader.NameOfLinguisticVariables, ExelReader.ValueIntervalTerm, ExelReader.NameOfTerms, ExelReader.countColumnData, ExelReader.NumbersOfZonesOneLP, ExelReader.counterFoRowDataFromFile, "Трикутна", ExelReader.WeightOfTerms, FKB);
                     k.GausFunction(ExelReader.countColumnData, FKB);
                     FKBHelper.WithRullToVar(FKB);
-                    FKBHelper.Save_BNZ(FKB, Server.MapPath("~/Files/BNZauto.txt"));
+                    FKBHelper.Save_BNZ(FKB, /*Server.MapPath("~/Files/BNZauto.txt")*/@"D:/BNZauto.txt");
                     return RedirectToAction("ReadyForms", "Сonclusion", new { FileName = "BNZauto.txt" });
                 }
             }
