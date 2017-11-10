@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using NPOI.HSSF.UserModel;
 using System.IO;
 using NPOI.SS.UserModel;
 using FuzzyKnowledgeBase_V2._0.Models;
 using FaziKnowledgeBase_V2._0.FKB.DataStructures;
+using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;       //microsoft Excel 14 object in references-> COM tab
 
 namespace FaziKnowledgeBase_V2._0.Helper
 {
@@ -26,6 +27,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
         static HSSFWorkbook wb;
         static HSSFSheet sh;
         static double s;
+
         public static void ReadFromXLS(string path) // Function for reading data from the file .xls
         {
             HSSFWorkbook hssfwb;
@@ -36,7 +38,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
             }
             ISheet sheet = hssfwb.GetSheet("FirstList");
             List<string> Elements = new List<string>();
-            int column = 1, Row = 1;
+            int column = 1;
             countColumnData = 0;
             Elements.Clear();
 
@@ -45,19 +47,20 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 List<Term> t = new List<Term>();
                 NameOfLinguisticVariables.Add(string.Format("{0: 0.0}", sheet.GetRow(0).GetCell(column)));
                 LinguisticVariable LP = new LinguisticVariable(new Guid(), string.Format("{0: 0.0}", sheet.GetRow(0).GetCell(column)), t, 0, 1);
-                //FKB.ListVar.Add(LP);
                 countColumnData += 1;
             }
 
             if (counterFoRowDataFromFile == 0)
             {
-                for (Row = 1; sheet.GetRow(Row) != null && sheet.GetRow(Row).GetCell(0) != null; Row++)  // подсчет количества строк в файле
+                for (int row = 1; sheet.GetRow(row) != null && sheet.GetRow(row).GetCell(0) != null; row++)  // подсчет количества строк в файле
                 {
                     counterFoRowDataFromFile++;
                 }
             }
             column = 1;
+
             ElementsMatrix = new double[counterFoRowDataFromFile, countColumnData];
+
             for (int row = 1; row <= counterFoRowDataFromFile; row++)  // запись построчно с файла данных в список ElementsMulti -MultiDimensionalVector-
             {
                 MultiDimensionalVector h = new MultiDimensionalVector();
@@ -79,12 +82,56 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 column = 1;
                 Elements.Clear();
             }
-            ClusterCount = (counterFoRowDataFromFile / 2) + 3;
-            if (ClusterCount > 10)
-            {
-                ClusterCount = 7;
-            }
+
+            // TODO Cluster count should set the expert from UI.
+            // It should not be hardcoded!!!
+            ClusterCount = 7;
         }
+
+        public static void readDataFromExcelFile(string path)
+        {
+            //Create COM Objects. Create a COM object for everything that is referenced
+            Excel.Application xlApp = new Excel.Application();
+            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(path);
+            Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
+            Excel.Range xlRange = xlWorksheet.UsedRange;
+
+            int rowCount = xlRange.Rows.Count;
+            int colCount = xlRange.Columns.Count;
+
+            //iterate over the rows and columns and print to the console as it appears in the file
+            //excel is not zero based!!
+            for (int i = 1; i <= rowCount; i++)
+            {
+                for (int j = 1; j <= colCount; j++)
+                {
+                    //new line
+                    if (j == 1)
+                        Console.Write("\r\n");
+
+                    //write the value to the console
+                    if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
+                        Console.Write(xlRange.Cells[i, j].Value2.ToString() + "\t");
+                }
+            }
+
+            //cleanup
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            //release com objects to fully kill excel process from running in the background
+            Marshal.ReleaseComObject(xlRange);
+            Marshal.ReleaseComObject(xlWorksheet);
+
+            //close and release
+            xlWorkbook.Close();
+            Marshal.ReleaseComObject(xlWorkbook);
+
+            //quit and release
+            xlApp.Quit();
+            Marshal.ReleaseComObject(xlApp);
+        }
+
         public static void ProcessedDataFromFile(List<Cluster> Clusters)  // найти термы, возможные их значения 
         {
             GiveNameToTerms(ClusterCount, counterFoRowDataFromFile);  // выбор количества названий термов
@@ -166,32 +213,6 @@ namespace FaziKnowledgeBase_V2._0.Helper
         // функция для определения просранства имен термов, а также количества зон (возможных значений термов) одной ЛП
         public static void GiveNameToTerms(int ClusterCount, int counterFoRowDataFromFile)  
         {
-            /*if(ClusterCount <= 4 && ClusterCount > 0)
-            {
-                NameOfTerms.Add("якість низька");
-                NameOfTerms.Add("якість середня");
-                NameOfTerms.Add("якість висока");
-                WeightOfTerms.Add(1);
-                WeightOfTerms.Add(3);
-                WeightOfTerms.Add(5);
-                NumbersOfZonesOneLP = 3;
-           }
-            else if(ClusterCount > 4 && ClusterCount <=6)
-            {*/
-            /*NameOfTerms.Add("очень маленькая");
-            NameOfTerms.Add("маленькая");
-            NameOfTerms.Add("средняя");
-            NameOfTerms.Add("большая");
-            NameOfTerms.Add("очень большая");
-            WeightOfTerms.Add(0);
-            WeightOfTerms.Add(1);
-            WeightOfTerms.Add(3);
-            WeightOfTerms.Add(4);
-            WeightOfTerms.Add(5);
-            NumbersOfZonesOneLP = 5;*/
-            /*}
-             else if (ClusterCount >= 7 && ClusterCount <= (counterFoRowDataFromFile / 2) + 3) 
-             {*/
             NameOfTerms.Add("low");
             NameOfTerms.Add("middle");
             NameOfTerms.Add("high");
@@ -201,7 +222,6 @@ namespace FaziKnowledgeBase_V2._0.Helper
             WeightOfTerms.Add(2);
             WeightOfTerms.Add(3);
             NumbersOfZonesOneLP = 4;
-            /*}*/
         }
         public static double Y(double p, int CheckerOfPart, double aGaus, double sigmGaus) // Нахождения координаты точки а
         {
