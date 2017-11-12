@@ -48,6 +48,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 {
                     // read xls data file
                     ExelReader.ReadFromXLS(upload.FileName);
+                    //ExelReader.readDataFromExcelFile(upload.FileName);
                     K_means k = new K_means(ExelReader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
                     
                     // clustering

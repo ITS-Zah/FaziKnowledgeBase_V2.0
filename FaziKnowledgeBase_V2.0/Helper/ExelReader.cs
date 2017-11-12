@@ -24,9 +24,6 @@ namespace FaziKnowledgeBase_V2._0.Helper
         public static int ostanovkaTM = 0;
         public static List<string> NameOfTerms = new List<string>();
         public static List<int> WeightOfTerms = new List<int>();
-        static HSSFWorkbook wb;
-        static HSSFSheet sh;
-        static double s;
 
         public static void ReadFromXLS(string path) // Function for reading data from the file .xls
         {
@@ -37,99 +34,40 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 hssfwb = new HSSFWorkbook(file);
             }
             ISheet sheet = hssfwb.GetSheet("FirstList");
-            List<string> Elements = new List<string>();
-            int column = 1;
-            countColumnData = 0;
-            Elements.Clear();
-
-            for (column = 1; sheet.GetRow(0).GetCell(column) != null; column++) // подсчет количества колонок в файле, а также запись названия ЛП
+            
+            for (int column = 1; sheet.GetRow(0).GetCell(column) != null; column++) // подсчет количества колонок в файле, а также запись названия ЛП
             {
-                List<Term> t = new List<Term>();
                 NameOfLinguisticVariables.Add(string.Format("{0: 0.0}", sheet.GetRow(0).GetCell(column)));
-                LinguisticVariable LP = new LinguisticVariable(new Guid(), string.Format("{0: 0.0}", sheet.GetRow(0).GetCell(column)), t, 0, 1);
-                countColumnData += 1;
             }
 
-            if (counterFoRowDataFromFile == 0)
-            {
-                for (int row = 1; sheet.GetRow(row) != null && sheet.GetRow(row).GetCell(0) != null; row++)  // подсчет количества строк в файле
-                {
-                    counterFoRowDataFromFile++;
-                }
-            }
-            column = 1;
+            // get column number of the input table
+            // -1, because we do not read 1st column from the input table
+            countColumnData = sheet.GetRow(0).PhysicalNumberOfCells - 1; 
 
+            // get row number of the input table
+            // -1, because we do not read 1st row from the input table
+            counterFoRowDataFromFile = sheet.PhysicalNumberOfRows - 1;
+
+            // initialize element matrix which will represent input table
             ElementsMatrix = new double[counterFoRowDataFromFile, countColumnData];
 
-            for (int row = 1; row <= counterFoRowDataFromFile; row++)  // запись построчно с файла данных в список ElementsMulti -MultiDimensionalVector-
+            // read data from xls table for ElementsMulti and ElementsMatrix
+            for (int row = 1, column = 1; row <= counterFoRowDataFromFile; row++, column = 1)
             {
                 MultiDimensionalVector h = new MultiDimensionalVector();
                 while (sheet.GetRow(row).GetCell(column) != null)
                 {
-                    Elements.Add(string.Format("{0: 0.0}", sheet.GetRow(row).GetCell(column)));
-                    column += 1;
-                }
-                List<double> result = Elements.Select(x => double.Parse(x)).ToList();
-                int integer = 0;
-                foreach (double x in result)
-                {
-                    var newVector = x;
-                    h.Add(newVector);
-                    ElementsMatrix[row - 1, integer] = x;
-                    integer++;
+                    double value = double.Parse((sheet.GetRow(row).GetCell(column)).ToString());
+                    ElementsMatrix[row - 1, column - 1] = value;
+                    h.Add(value);
+                    column++;
                 }
                 ElementsMulti.Add(h);
-                column = 1;
-                Elements.Clear();
             }
 
             // TODO Cluster count should set the expert from UI.
             // It should not be hardcoded!!!
-            ClusterCount = 7;
-        }
-
-        public static void readDataFromExcelFile(string path)
-        {
-            //Create COM Objects. Create a COM object for everything that is referenced
-            Excel.Application xlApp = new Excel.Application();
-            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(path);
-            Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-            Excel.Range xlRange = xlWorksheet.UsedRange;
-
-            int rowCount = xlRange.Rows.Count;
-            int colCount = xlRange.Columns.Count;
-
-            //iterate over the rows and columns and print to the console as it appears in the file
-            //excel is not zero based!!
-            for (int i = 1; i <= rowCount; i++)
-            {
-                for (int j = 1; j <= colCount; j++)
-                {
-                    //new line
-                    if (j == 1)
-                        Console.Write("\r\n");
-
-                    //write the value to the console
-                    if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
-                        Console.Write(xlRange.Cells[i, j].Value2.ToString() + "\t");
-                }
-            }
-
-            //cleanup
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-
-            //release com objects to fully kill excel process from running in the background
-            Marshal.ReleaseComObject(xlRange);
-            Marshal.ReleaseComObject(xlWorksheet);
-
-            //close and release
-            xlWorkbook.Close();
-            Marshal.ReleaseComObject(xlWorkbook);
-
-            //quit and release
-            xlApp.Quit();
-            Marshal.ReleaseComObject(xlApp);
+            ClusterCount = 5;
         }
 
         public static void ProcessedDataFromFile(List<Cluster> Clusters)  // найти термы, возможные их значения 
@@ -210,7 +148,8 @@ namespace FaziKnowledgeBase_V2._0.Helper
             }
         }
 
-        // функция для определения просранства имен термов, а также количества зон (возможных значений термов) одной ЛП
+        // TODO term values should set the expert from UI.
+        // It should not be hardcoded!!!
         public static void GiveNameToTerms(int ClusterCount, int counterFoRowDataFromFile)  
         {
             NameOfTerms.Add("low");

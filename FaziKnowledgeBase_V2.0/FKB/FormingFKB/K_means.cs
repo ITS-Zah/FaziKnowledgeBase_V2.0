@@ -33,7 +33,6 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
         private double[,] MembershipMatrixTemp;
         private double[,] ElementsMatrix;  // data from the file
         public double[,] ValueGausFPForEachTerm;
-        private double[,] ValueLaplassFPForEachTerm;
 
         public static string[,] NameOfTermsByWords, NameOfTermsByWordsWhithoutRepeat;
 
@@ -47,41 +46,6 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
             Clusters = new List<Cluster>();
             this.ElementsMatrix = ElementsMatrix;
         }
-
-        /*#region InitMembershipMatrix222
-        public void InitMembershipMatrix222() //инициализация матрицы нечеткого разбиения (рандомом определяются элементы для матрицы, матрицы генерируеться согласно условиям, которые на нее накладываются)
-        {
-            MembershipMatrix = new double[Elements.Count, ClusterCount];
-            // double rowSum = 0; //дописать проверку суммы
-            double columnSum = 0;
-
-            for (int j = 0; j < Elements.Count; ++j)
-            {
-                for (int i = 0; i < ClusterCount; ++i)
-                {
-                    while (true)
-                    {
-                        double nextMatrixElement = rand.NextDouble();
-                        if (columnSum == 1) 
-                        { 
-                            nextMatrixElement = 0; 
-                        }
-                        columnSum += nextMatrixElement;
-                        if (columnSum <= 1)
-                        {
-                            MembershipMatrix[i, j] = nextMatrixElement;
-                            break;
-                        }
-                        else
-                        {
-                            MembershipMatrix[i, j] = 1 - columnSum;
-                        }
-                    }
-                }
-
-            }
-        }
-        #endregion*/
 
         public void InitCentroids()  //инициализация центроидов для  кластеров (рандомом выбираются элементы из выборки, которая кластеризуеться Elements)
         {
@@ -109,7 +73,7 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
         {
             InitCentroids();
             MembershipMatrix = new double[Elements.Count, Centroids.Count]; // changed from [Centroids.Count, Elements.Count]
-            MembershipMatrixTemp = new double[Elements.Count, Centroids.Count]; ///
+            MembershipMatrixTemp = new double[Elements.Count, Centroids.Count];
             FillDistanceMatrix();
             ReCalculateMembershipMatrix();
         }
@@ -147,7 +111,6 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
                 }
             }
         }
-
 
         public MultiDimensionalVector FindClosestCentroid(MultiDimensionalVector element)  //нахождение ближайшего центроида для элемента
         {
