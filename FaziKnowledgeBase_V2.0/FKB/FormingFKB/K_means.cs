@@ -24,7 +24,6 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
 
         private double[,] DistanceMatrix;   //матрица расстояний от элементов до центроидов по (i) - элементы, по (j) - центроиды
 
-
         /// матрица принадлежности элементов кластерам (матрица нечеткого разбиения) по (i) - элементы, по (j) - кластеры
         /// условия для матрицы:
         /// сумма в столбце = 1 - каждый элемент распределен между всеми кластерами 
@@ -37,7 +36,7 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
         public static string[,] NameOfTermsByWords, NameOfTermsByWordsWhithoutRepeat;
 
         private Random rand = new Random();
-        //public K_means(List<MultiDimensionalVector> Elements) : this(Elements, null) { }
+        
         public K_means(List<MultiDimensionalVector> Elements, List<MultiDimensionalVector> Centroids, int ClusterCount, double[,] ElementsMatrix)
         {
             this.Elements = Elements;
@@ -72,7 +71,7 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
         public void InitMembershipMatrix() //для генерироваиня случайной матрицы нечеткого разбиения, случайно выбираются центроиды и матрица рассчитывается по формуле для ее вычисления
         {
             InitCentroids();
-            MembershipMatrix = new double[Elements.Count, Centroids.Count]; // changed from [Centroids.Count, Elements.Count]
+            MembershipMatrix = new double[Elements.Count, Centroids.Count];
             MembershipMatrixTemp = new double[Elements.Count, Centroids.Count];
             FillDistanceMatrix();
             ReCalculateMembershipMatrix();
