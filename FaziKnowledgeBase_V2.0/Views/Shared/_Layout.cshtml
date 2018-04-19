@@ -4,41 +4,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-        <title>@ViewBag.Title</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/ajax")
+    <link rel="stylesheet" href="~/Content/main.css" />
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+    <title>Fkb</title>
 </head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Conclusion","Index","Home")</li>
-                    <li>@Html.ActionLink("All membership function","Index","VievFp")</li>
-                    <li>@Html.ActionLink("Edit FKB","Index","EditFKB")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
     <div class="container body-content">
         @RenderBody()
         
     </div>
-
-    
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-   
+    <div class="row">
+        <div class="footer span12">
+            <img class="logo1" src="~/Content/Images/its.png" alt="logoits">
+            <img class="logo2" src="~/Content/Images/fuzzy1.png" alt="FZLG">
+            <img class="logo3" src="~/Content/Images/kpi.png" alt="logokpi">
+        </div>
+    </div>
 </body>
 </html>

@@ -15,16 +15,18 @@ select,
 textarea {
     max-width: 280px;
 }
-#ListLv, #chart,#chartPhasing{position:absolute }
+#chart
+#ListLv, #chart,#chartPhasing, #ListTerm{position:absolute }
 #ListLv{
     width:auto;border-right:1px;
     top:50px;
     bottom:0;
 }
-#chart{
-    top:50px;
-    left:210px;
-    bottom:0;right:0;
+#ListTerm #chart {
+    top: 50px;
+    left: 610px;
+    bottom: 0;
+    right: 0;
     z-index: -100;
 }
 #chartPhasing{

@@ -1,17 +1,37 @@
-﻿<br />
-<p>Enter the values of all variables to get the result conclusion</p>
-<br />
-@using (Html.BeginForm("GetConclusion", "Сonclusion", FormMethod.Post))
-{
-    foreach (var b in Model)
-    {
-        <p> @b.Name  </p>
-        <input type="text" name="valueLv" value=""  />
-        <br />
-    }
+﻿
+<div class="container">
+    <div class="row">
+        <div class="header span12">
+            <nav>
+                <input type="checkbox" name="menu" id="btn-menu" />
+                <label for="btn-menu">menu</label>
+                <ul>
+                    <li><a href="~/Home/Index" title="Домашняя страница">Домашняя страница</a></li>
+                    @*<li><a href="FLcheck.html" title="О обработке">О обработке</a></li>*@
+                </ul>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="content span12 offset2">
+                <h2>Enter the values of all variables to get the result conclusion</h2>
+            </div>
+        </div>
+        <div class="row">
+           @using (Html.BeginForm("GetConclusion", "Сonclusion", FormMethod.Post))
+           {
+               foreach (var b in Model)
+               {
+                <p> @b.Name  </p>
+                <input type="text" name="valueLv" value="" />
+                <br />
+               }
 
-    <button name="action" value="RedyForms">Start conclusion</button>
+            <button name="action" value="RedyForms">Start conclusion</button>
 
-    <button name="action" value="RedyFormsForPhasing">Viev Defuzzication</button>
-    //document.location.href = "http://localhost:34976/Сonclusion/GetVievPhasing?valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787";
-}
+            <button name="action" value="RedyFormsForPhasing">Viev Defuzzication</button>
+               //document.location.href = "http://localhost:34976/Сonclusion/GetVievPhasing?valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787";
+           }
+        </div>
+    </div>
+</div>
+

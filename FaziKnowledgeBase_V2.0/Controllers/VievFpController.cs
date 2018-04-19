@@ -16,7 +16,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         public ActionResult Index()
         {
             List<string> NameAllLV = new List<string>();
-            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
                 FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
@@ -32,7 +32,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         }
         public ActionResult VievFpOneLv(string nameLv)
         {
-            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
                 FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
@@ -43,7 +43,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         
         public ActionResult CreateChart(string nameLv)
         {
-            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
                 FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);

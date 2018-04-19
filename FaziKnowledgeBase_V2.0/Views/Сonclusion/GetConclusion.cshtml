@@ -1,7 +1,27 @@
 ﻿
 
-<p>Result conclusion:</p><br />
-@Model.NameLP: @Model.Name = @Model.NumericValue;
-@Html.ActionLink("Enter new experiment", "ReadrForms");
-<a href="Conclusion/ReadyForms?FileName=BNZ.txt"></a>
 
+
+<div class="container">
+    <div class="row">
+        <div class="header span12">
+            <nav>
+                <input type="checkbox" name="menu" id="btn-menu" />
+                <label for="btn-menu">menu</label>
+                <ul>
+                    <li><a href="~/Home/Index" title="Домашняя страница">Домашняя страница</a></li>
+                    @*<li><a href="FLcheck.html" title="О обработке">О обработке</a></li>*@
+                </ul>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="content span12 offset2">
+                <h2>Result conclusion:</h2>
+                <h2>
+                    @Model.NameLP: @Model.Name = @Model.NumericValue;
+                </h2>
+                <a href="/Сonclusion/ReadyForms?FileName=BNZauto.txt">Enter new experiment</a>
+            </div>
+        </div>
+    </div>
+</div>

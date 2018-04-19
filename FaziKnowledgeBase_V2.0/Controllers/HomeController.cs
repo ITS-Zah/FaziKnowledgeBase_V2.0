@@ -35,7 +35,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 FuzzyKnowledgeBase FKB = new FuzzyKnowledgeBase();
                 FKB.ListOfRule.Clear();
                 FKB.ListVar.Clear();
-                upload.SaveAs(Server.MapPath("~/Files/" + fileName));
+                upload.SaveAs(System.Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
                 HttpContext.Response.Cookies["FileName"].Value = fileName;
                 FileFormat = FileHelper.CheckFileFormat(fileName);
                 if(FileFormat == "txt")
@@ -44,14 +44,14 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 }
                 else if (FileFormat == "xls")
                 {
-                    ExelReader.ReadFromXLS(upload.FileName);
+                    ExelReader.ReadFromXLS(System.Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
                     K_means k = new K_means(ExelReader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
                     double epsilon = 0.05;
                     k.Clustering(ExelReader.ClusterCount, epsilon);
                     k.FindRulesModelTypeMamdani(ExelReader.NameOfLinguisticVariables, ExelReader.ValueIntervalTerm, ExelReader.NameOfTerms, ExelReader.countColumnData, ExelReader.NumbersOfZonesOneLP, ExelReader.counterFoRowDataFromFile, "Трикутна", ExelReader.WeightOfTerms, FKB);
                     k.GausFunction(ExelReader.countColumnData, FKB);
                     FKBHelper.WithRullToVar(FKB);
-                    FKBHelper.Save_BNZ(FKB, /*Server.MapPath("~/Files/BNZauto.txt")*/@"D:/BNZauto.txt");
+                    FKBHelper.Save_BNZ(FKB, System.Environment.GetEnvironmentVariable("PathFkbFiles")+ "BNZauto.txt");
                     return RedirectToAction("ReadyForms", "Сonclusion", new { FileName = "BNZauto.txt" });
                 }
             }

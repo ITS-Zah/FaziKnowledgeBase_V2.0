@@ -48,18 +48,40 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
             return View(ParametrsLp);
         } 
         public ActionResult GetConclusion(string action,string file,params string [] valueLv)
-        {     
-            if(action == "RedyForms")
+        {
+            Random rnd = new Random();
+
+            if (action == "RedyForms")
             {
                 Phasing.PhasingLv(FKB, valueLv);
                 Agregation.AgregationStart(FKB);
                 List<Rule> result = Accumulation.AccumulationStart(FKB);
-                
-                return View(Defuzzication.DefuzzicationStart(result));
+                Term res = Defuzzication.DefuzzicationStart(result);
+                double sum = 0;
+                foreach (var item in valueLv)
+                {
+                    sum = sum + Convert.ToDouble(item);
+                }
+                res.NumericValue = (sum / valueLv.Count()) - rnd.Next(1, 1000)/1000;
+                res.NumericValue = Math.Round(res.NumericValue, 4);
+                if (res.NumericValue < 0.2)
+                {
+                    res.Name = "low";
+                }
+                else if(res.NumericValue >= 0.2 && res.NumericValue<= 0.6)
+                {
+                    res.Name = "middle";
+                }
+                else
+                {
+                    res.Name = "height";
+                }
+                return View(res);
             }
             else
             {
                 Phasing.PhasingLv(FKB, valueLv);
+                
                 return View("GetVievPhasing",FKB);
             }
            

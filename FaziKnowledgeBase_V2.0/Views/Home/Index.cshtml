@@ -3,10 +3,83 @@
 <html>
 <head>
     <meta charset="utf-8">
+    
     <title>Тег FORM, атрибут enctype</title>
 </head>
 <body>
-    <h3>Select File for Downloads</h3>
+    <div class="container">
+        <div class="row">
+            <div class="header span12">
+                <nav>
+                    <input type="checkbox" name="menu" id="btn-menu" />
+                    <label for="btn-menu">menu</label>
+                    <ul>
+                        <li><a href="~/Home/Index" title="Домашняя страница">Домашняя страница</a></li>
+                        @*<li><a href="FLcheck.html" title="О обработке">О обработке</a></li>*@
+                    </ul>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="content span12 offset2">
+                    <h2>Загрузите файл для обработки</h2>
+                </div>
+            </div>
+            <div class="row">
+                <form enctype="multipart/form-data" align="center" method="post" id="our_form">
+                    <p>
+                        <input type="file" name="upload" id="uploadFile">
+                        <input type="submit" id="submit" value="Отправить">
+                    </p>
+            </div></form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $('#submit').on('click', function (e) {
+            e.preventDefault();
+            var files = document.getElementById('uploadFile').files;
+            var extension = $('#uploadFile').val().trim().split(".").pop();
+            var allowedFileTypes = ["xls", "xml"];
+            if (extension == null || extension == "" || allowedFileTypes.indexOf(extension) == -1) {
+                alert("Запрещено загружать файлы с расширением ." + extension);
+                $('#our_form').removeAttr('action');
+                document.getElementById("uploadFile").style.border = "thick solid #fc0000";
+                return
+            }
+
+
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("upload", files[x]);
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/Home/Upload',
+                        contentType: false,
+                        async: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            window.location.href = "/Сonclusion/ReadyForms?FileName=BNZauto.txt";
+                        },
+                        error: function (xhr, status, p3) {
+                            alert('Ваш файл успешно загружен!');
+                            /*alert(xhr.responseText);*/
+                        }
+                    });
+                } else {
+                    alert("Браузер не поддерживает загрузку файлов HTML5!");
+                }
+            }
+        });
+    </script>
+    
+
+    @*<h3>Select File for Downloads</h3>
     @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input type="file" name="upload" /><br>
@@ -14,6 +87,6 @@
     }
     <br />
     @Html.ActionLink("Open file from the server", "Index", "Сonclusion")
-    <br />
+    <br />*@
 </body>
 </html>
