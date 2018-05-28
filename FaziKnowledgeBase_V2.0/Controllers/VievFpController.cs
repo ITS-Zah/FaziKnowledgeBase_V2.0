@@ -32,6 +32,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
         }
         public ActionResult VievFpOneLv(string nameLv)
         {
+            string s = System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value;
             using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + HttpContext.Request.Cookies["FileName"].Value, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
