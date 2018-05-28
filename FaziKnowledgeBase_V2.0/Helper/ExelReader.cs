@@ -273,6 +273,25 @@ namespace FaziKnowledgeBase_V2._0.Helper
             else
                 return 0;
         }
+        public static void FindingPoints (double aGaus, double sigmGaus, int ClusterCount, int countColumnDataNow, int countColumnData, FuzzyKnowledgeBase FKB)
+        {
+            double A = aGaus - 3*sigmGaus;
+            double B = aGaus;
+            double C = aGaus + 3*sigmGaus;
+            if(countColumnDataNow + 1 == countColumnData)
+            {
+                FKB.ListOfRule[ClusterCount].Cоnsequens.a = A;
+                FKB.ListOfRule[ClusterCount].Cоnsequens.b = B;
+                FKB.ListOfRule[ClusterCount].Cоnsequens.c = C;
+            }
+            else
+            {
+                FKB.ListOfRule[ClusterCount].Antecedents.ElementAt(countColumnDataNow).a = A;
+                FKB.ListOfRule[ClusterCount].Antecedents.ElementAt(countColumnDataNow).b = B;
+                FKB.ListOfRule[ClusterCount].Antecedents.ElementAt(countColumnDataNow).c = C;
+            }
+        }
+
         public static void SimpsonsMethodFindingIntegrall(double aGaus, double sigmGaus, int ClusterCount, int countColumnDataNow, int countColumnData, FuzzyKnowledgeBase FKB)//интегрирует любые данные (для точек фп)
         {
             double a = 0, b = 1, eps = 0.0001, result = 0; //Нижний и верхний пределы интегрирования (a, b), погрешность (eps).

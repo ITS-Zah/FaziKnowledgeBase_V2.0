@@ -284,7 +284,18 @@ namespace FaziKnowledgeBase_V2._0.FKB.FormingFKB
                         SummNumeral += Math.Pow(MembershipMatrixTemp[k, i], 2) * Math.Pow(ElementsMatrix[k, j] - Clusters.ElementAt(i).Centroid.ElementAt(j), 2);
                     }
                     sigm = Math.Sqrt(SummNumeral / SummDenominator);
-                    ExelReader.SimpsonsMethodFindingIntegrall(a, sigm, i, j, countColumnData, FKB);
+                    if (j + 1 == countColumnData)
+                    {
+                        FKB.ListOfRule[i].Cоnsequens.aGaus = a;
+                        FKB.ListOfRule[i].Cоnsequens.sigmGaus = sigm;
+                    }
+                    else
+                    {
+                        FKB.ListOfRule[i].Antecedents.ElementAt(j).aGaus = a;
+                        FKB.ListOfRule[i].Antecedents.ElementAt(j).sigmGaus = sigm;
+                    }
+                    // ExelReader.SimpsonsMethodFindingIntegrall(a, sigm, i, j, countColumnData, FKB);
+                    ExelReader.FindingPoints(a, sigm, i, j, countColumnData, FKB);
                 }
             }
             //sigm = FuzzyLogicBase.ListOfRule.Count;

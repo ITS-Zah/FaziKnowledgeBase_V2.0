@@ -62,8 +62,8 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 {
                     sum = sum + Convert.ToDouble(item);
                 }
-                res.NumericValue = (sum / valueLv.Count()) - rnd.Next(1, 1000)/1000;
-                res.NumericValue = Math.Round(res.NumericValue, 4);
+                //res.NumericValue = (sum / valueLv.Count()) - rnd.Next(1, 1000)/1000;
+                //res.NumericValue = Math.Round(res.NumericValue, 4);
                 if (res.NumericValue < 0.2)
                 {
                     res.Name = "low";
