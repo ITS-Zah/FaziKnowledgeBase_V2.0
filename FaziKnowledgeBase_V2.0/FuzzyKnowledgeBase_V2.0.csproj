@@ -195,6 +195,7 @@
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\CMDController.cs" />
     <Compile Include="Controllers\EditFKBController.cs" />
     <Compile Include="FKB\ActionsFKB\Accumulation.cs" />
@@ -271,6 +272,17 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Projects\FL.html" />
+    <Content Include="Projects\FLcheck.html" />
+    <Content Include="Projects\fuzzy1.png" />
+    <Content Include="Projects\Form.html" />
+    <Content Include="Projects\its.png" />
+    <Content Include="Projects\jquery-3.2.1.js" />
+    <Content Include="Projects\kpi.png" />
+    <Content Include="Projects\kpi1.jpeg" />
+    <Content Include="Projects\main.css" />
+    <Content Include="Projects\point.css" />
+    <Content Include="Projects\point.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />

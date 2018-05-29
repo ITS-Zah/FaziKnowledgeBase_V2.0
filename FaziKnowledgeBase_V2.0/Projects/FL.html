@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>Fuzzy Logic</title>
+		<link rel="stylesheet" href="main.css">
+		<script src="jquery-3.2.1.js"></script>
+	</head>
+<body>
+  <div class="container">
+   <div class="row">
+   	 <div class="header span12">
+   	 <nav>
+  <input type="checkbox" name="menu" id="btn-menu" />
+    <label for="btn-menu">menu</label> 
+  <ul>
+    <li><a href="~/Projects/FLcheck.html" title="Home">Home</a></li>
+    <li><a href="FLcheck.html" title="Help">Help</a></li>
+    <li><a href="point.html" title="Show Graph">Design modified</a>
+    <ul style="margin-top:10px;padding-left:10px;">
+      <li><a href="#">D/M</a></li>
+      <li><a href="#">Making Process</a></li>
+    </ul></li>
+    <li><a href="point.html" title="Data analysing">Data analysing</a>
+    <ul style="margin-top:10px;display:none;padding-left:  10px;   ">
+      <li><a href="#">Table</a></li>
+      <li><a href="#">Manual</a></li>
+    </ul></li>
+    <li class="language" style="text-align: right;position: absolute;top:10%;right: 10%;background-color: white;border-radius: 8px;"><a href="#">eng / ukr</a></li>
+  </ul>
+</nav>
+   	 </div>
+   	 <div class="row">
+   	<div class="content span12 offset2">
+		<h2>Monitoring system</h2></div></div>
+		  <div class="row">
+        <div class="button_system"><button id="form_action">Configure system</button> <button>Show system</button></div>
+		 <form  enctype="multipart/form-data" align="center" method="post" id="our_form">
+   <p><input type="file" name="upload" id="uploadFile">
+   <input type="submit" id="submit" value="Submit"></p>
+    </div></form></div></div></div>
+
+<script type="text/javascript">
+  document.getElementById('our_form').style.display='none';
+ $('#form_action').on('click', function(e){
+      document.getElementById('our_form').style.display='block'; 
+    $('#submit').on('click', function (e) {
+        e.preventDefault();
+		 var files = document.getElementById('uploadFile').files;
+         var extension = $('#uploadFile').val().trim().split(".").pop();
+        var allowedFileTypes = [  "xlsx","xml"];
+        if (extension == null || extension == "" || allowedFileTypes.indexOf(extension) == -1) {
+            alert("Запрещено загружать файлы с расширением ." + extension);
+			$('#our_form').removeAttr('action');
+			 document.getElementById("uploadFile").style.border = "thick solid #fc0000";
+		        return
+        } 
+	
+        
+        if (files.length > 0) {
+            if (window.FormData !== undefined) {
+                var data = new FormData();
+                for (var x = 0; x < files.length; x++) {
+                    data.append("file" + x, files[x]);
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: 'http://uploadfilefkb.azurewebsites.net/UploadFileXML',
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error: function (xhr, status, p3) {
+                        alert('Ваш файл успешно загружен!');
+                        /*alert(xhr.responseText);*/
+                    }
+                });
+            } else {
+                alert("Браузер не поддерживает загрузку файлов HTML5!");
+            }
+        }
+    });
+  });
+</script>
+	<div class="row">
+		<div class="footer span12">
+			<img  class="logo1" src=" its.png" alt="logoits">
+    		<img  class="logo2" src="fuzzy1.png" alt="FZLG">
+    		<img class="logo3" src="kpi.png" alt="logokpi">
+    	</div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

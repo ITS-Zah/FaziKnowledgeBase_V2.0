@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>Fuzzy Logic</title>
+		<link rel="stylesheet" href="main.css">
+		<script src="jquery-3.2.1.js"></script>
+	</head>
+<body>
+  <div class="container">
+   <div class="row">
+   	 <div class="header span12">
+     <nav>
+  <input type="checkbox" name="menu" id="btn-menu" />
+    <label for="btn-menu">menu</label> 
+  <ul>
+    <li><a href="FL.html" title="Home">Home</a></li>
+    <li><a href="FLcheck.html" title="Help">Help</a></li>
+    <li><a href="point.html" title="Show Graph">Design modified</a>
+    <ul style="margin-top:10px;padding-left:10px;">
+      <li><a href="#">D/M</a></li>
+      <li><a href="#">Making Process</a></li>
+    </ul></li>
+    <li><a href="point.html" title="Data analysing">Data analysing</a>
+    <ul style="margin-top:10px;display:none;padding-left:  10px;   ">
+      <li><a href="#">Table</a></li>
+      <li><a href="#">Manual</a></li>
+    </ul></li>
+    <li class="language" style="text-align: right;position: absolute;top:10%;right: 10%;background-color: white;border-radius: 8px;"><a href="#">eng / ukr</a></li>
+  </ul>
+</nav>
+     </div>
+        <div class="row">
+          <div class="form span12">
+              <form action="" method="post" name="Form">
+    <div id="DynamicExtraFieldsContainer">
+        <div id="addDynamicField">
+      <input type="text" id="count">
+            <input type="button" id="addDynamicExtraFieldButton" value="Add Field">
+        </div>
+        <div class="DynamicExtraField" style="display:none;">
+            <br>
+            <label for="DynamicExtraField">Доп. поле</label>
+            <input value="Удаление" type="button" class="DeleteDynamicExtraField">
+            <br>
+            <textarea name="DynamicExtraField[]" cols="50"></textarea>
+        </div>
+    </div>
+      <input type="button" id="send" value="Send">
+</form>
+</div>
+<script>
+    $('#addDynamicExtraFieldButton').click(function(event) {
+      var count = document.getElementById('count').value;
+      //alert(count);
+      var i;
+      for(i=0; i < count; i++) addDynamicExtraField();
+        
+      return false;
+  });
+ 
+      function addDynamicExtraField() {
+        
+        var div = $('<div/>', {
+        'class': 'DynamicExtraField'
+        }).appendTo($('#DynamicExtraFieldsContainer'));
+        var br = $('<br/>').appendTo(div);
+                  var br = $('<br/>').appendTo(div);
+          var textarea = $('<textarea/>', {
+            name: 'DynamicExtraField[]',
+            cols: '50',
+            rows: '3'
+          }).appendTo(div);
+        }
+        ('.DeleteDynamicExtraField').click(function(event) {
+        $(this).parent().remove();
+        return false;
+        });
+</script>
+</div>
+
+     <div class="row">
+      <!-- <canvas id="canvas" style="float:   right;"></canvas>
+      <input type="button" id="test" value="Canvas">
+      <script>
+          $('#test').click(function(event){
+            var canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(75,75,50,0,Math.PI*2,true); 
+    ctx.moveTo(110,75);
+    ctx.arc(75,75,35,0,Math.PI,false);  
+    ctx.moveTo(65,65);
+    ctx.arc(60,65,5,0,Math.PI*2,true);  
+    ctx.moveTo(95,65);
+    ctx.arc(90,65,5,0,Math.PI*2,true);  
+    ctx.stroke();
+    ctx.fill();
+      }
+          });
+      </script> -->
+
+    <div class="footer span12" style="position: relative; bottom:0;">
+      <img  class="logo1" src=" its.png" alt="logoits">
+        <img  class="logo2" src="fuzzy1.png" alt="FZLG">
+        <img class="logo3" src="kpi.png" alt="logokpi">
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="jquery-3.2.1.js"></script>
+    <style type="text/css">
+        body {
+            background: url(kpi1.jpeg) no-repeat fixed;
+            background-size: cover;
+            width: 100%;
+          
+            overflow-x: hidden;
+        }
+        .footer {
+            position: relative;
+            text-align: center;
+            left: 0;
+            bottom: 0;
+            z-index: -9999;
+        }
+        .span1 {
+            width: 8.3333333333%;
+        }
+
+        .span2 {
+            width: 16.666666667%;
+        }
+
+        .span3 {
+            width: 25%;
+        }
+
+        .span4 {
+            width: 33.333333333%;
+        }
+
+        .span5 {
+            width: 41.666666667%;
+        }
+
+        .span6 {
+            width: 50%;
+        }
+
+        .span7 {
+            width: 58.333333333%;
+        }
+
+        .span8 {
+            width: 66.666666667%;
+        }
+
+        .span9 {
+            width: 75%;
+        }
+
+        .span10 {
+            width: 83.333333333%;
+        }
+
+        .span11 {
+            width: 91.666666667%;
+        }
+
+        .span12 {
+            width: 100%;
+        }
+        span {
+            background: rgba(255,255,255,0.8);
+            width: 350px;
+            margin-left: 20px;
+            border-radius: 10px;
+            text-decoration:none;
+            color:rgb(0, 21, 255);
+          }
+        span:hover{
+            background:rgba(90, 135, 126, 0.61);
+            color:#fafafa;
+            transition:2s;
+            cursor:pointer;
+        }
+        #myCanvas {
+            position: absolute;
+            left: 650px;
+            top: 50px;
+            background: rgba(255,255,255,0.5);
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        function drawPoint(x, y) {
+
+        }
+        const colors = {
+            'low': 'red',
+            'high': 'yellow',
+            'middle': 'green',
+            'very high': 'blue',
+            'very low': 'black'
+        };
+        window.usedColors = {};
+        function drawRedLine(e, y1, y2, y3) {
+            ctx.beginPath();
+            ctx.strokeStyle = colors[e.Name];
+            usedColors[e.Name] = true;
+            if (y1 === 1 && y2 === 1 && y3 === 0) {
+                ctx.moveTo(25, (1 - y1) * maxY * 0.75 + 0.25 * maxY - 27);
+                ctx.lineTo(e.a * maxX / 1.5 + 25, (1 - y1) * maxY * 0.75 + 0.25 * maxY - 27);
+            } else {
+                ctx.moveTo(e.a * maxX / 1.5 + 25, (1 - y1) * maxY * 0.75 + 0.25 * maxY - 27);
+            }
+            ctx.lineTo(e.b * maxX / 1.5 + 25, (1 - y2) * maxY * 0.75 + 0.25 * maxY - 27);
+            ctx.lineTo(e.c * maxX / 1.5 + 25, (1 - y3) * maxY * 0.75 + 0.25 * maxY - 27);
+            if (y1 === 0 && y2 === 1 && y3 === 1) {
+                ctx.lineTo(325, (1 - y3) * maxY * 0.75 + 0.25 * maxY - 27)
+            }
+            ctx.stroke();
+        }
+        function drawLine(name) {
+            for (e in usedColors) delete usedColors[e];
+
+            var c = document.getElementById("myCanvas");
+            window.maxX = c.width;
+            window.maxY = c.height;
+            c.width = 0;
+            c.width = maxX;
+            window.ctx = c.getContext("2d");
+
+            ctx.font = "italic 12pt Arial";
+            ctx.textAlign = "center";
+            ctx.fillText(name, 200, 50);
+            ctx.moveTo(25, 375);
+            ctx.lineTo(375, 375);
+            ctx.stroke();
+
+            ctx.lineWidth = 4;
+            ctx.moveTo(25, 375);
+            ctx.lineTo(25, 25);
+            ctx.stroke();
+            ctx.font = "italic 15pt Arial";
+            ctx.fillText("Y", 25, 25);
+            ctx.moveTo(25, 375);
+            ctx.lineTo(375, 375);
+            ctx.stroke();
+            ctx.font = "italic 15pt Arial";
+            ctx.fillText("X", 375, 375);
+            ctx.fillText("0", 15, 395);
+            ctx.moveTo(85, 365);
+            ctx.lineTo(85, 385);
+            ctx.stroke();
+            ctx.fillText("0.2", 69, 395);
+            ctx.moveTo(145, 365);
+            ctx.lineTo(145, 385);
+            ctx.stroke();
+            ctx.fillText("0.4", 130, 395);
+            ctx.moveTo(205, 365);
+            ctx.lineTo(205, 385);
+            ctx.stroke();
+            ctx.fillText("0.6", 190, 395);
+            ctx.moveTo(265, 365);
+            ctx.lineTo(265, 385);
+            ctx.stroke();
+            ctx.fillText("0.8", 250, 395);
+            ctx.moveTo(325, 365);
+            ctx.lineTo(325, 385);
+            ctx.stroke();
+            ctx.fillText("1", 310, 395);
+            ctx.moveTo(375, 375);
+            ctx.lineTo(365, 365);
+            ctx.stroke();
+            ctx.moveTo(375, 375);
+            ctx.lineTo(365, 385);
+            ctx.stroke();
+            ctx.moveTo(25, 25);
+            ctx.lineTo(35, 35);
+            ctx.stroke();
+            ctx.moveTo(25, 25);
+            ctx.lineTo(15, 35);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.moveTo(325, 395);
+            ctx.lineTo(325, 55);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.lineWidth = 4;
+            ctx.moveTo(15, 75);
+            ctx.lineTo(35, 75);
+            ctx.stroke();
+            ctx.fillText("1", 10, 105);
+
+            let array = [].concat(obj[name]);
+            console.log(array);
+            let first = array.shift();
+            let last = array.pop();
+
+
+            // ctx.strokeStyle = `rgba(${Math.random() * 128},${Math.random() * 128},${Math.random() * 128},0.83)`;
+
+            ctx.strokeStyle = 'black';
+            drawRedLine(first, 1, 1, 0);
+            for (element of array) {
+                drawRedLine(element, 0, 1, 0);
+            }
+            drawRedLine(last, 0, 1, 1);
+
+            $(info).empty();
+            for (e in usedColors) {
+                $(info).append(`<span style="height:10px; border:0; background:${colors[e]};" >&nbsp;&nbsp;&nbsp;&nbsp;</span> ${e}`)
+                $(info).append('<br />');
+                console.log(e, colors[e])
+            };
+        }
+        $(document).ready(function () {
+            $.ajax({
+                url: 'http://localhost:34976/Chart/GetFkb',
+                type: 'GET',
+                //    data: { text: textValue },
+
+                success: function (data) {
+                    // alert(data);
+                    let div = $('#div1');
+                    window.obj = {};
+                    data.ListVar.forEach(x => {
+                        //    console.log(x)
+                        div.append(`<span href="/${x.Link}" onclick="drawLine('${x.Name}')">${x.Name}</span>`)
+                        div.append('<br />')
+                        obj[x.Name] = x.terms;
+                    })
+                }
+            });
+        });
+        function Send() {
+            $.ajax({
+                url: 'http://localhost:34976/Chart/GetVievAgregation',
+                type: 'GET',
+                
+
+                success: function (data) {
+                    rule_first.innerHTML = data.join('<br/>');
+                }
+            });
+        };
+        function Accept() {
+            $.ajax({
+                url: 'http://localhost:34976/Chart/GetVievAccumulation',
+                type: 'GET',
+
+
+                success: function (data) {
+                    rule_second.innerHTML = data.join('<br/>');
+                }
+            });
+        };
+
+
+    </script>
+    <div class="form" style="display: flex; flex-direction: row;margin-left:200px;margin-top:50px;">
+        <div id="div1" class="left-column" style="background:rgba(76, 255, 0, 0.5);height: 390px;justify-content:center;text-align:center; width: 400px;border:4px solid gray;display: flex;flex-direction:column;">
+            <br />
+        </div>
+        <canvas id="myCanvas" style="background:rgba(255,255,255,0.5);" width="400px" height="400px"></canvas>
+        <div id="info" class="info_graf" style="padding:10px;margin-left:450px; height:200px; width:200px; background:rgba(255,255,255,0.5);"></div>
+    </div>
+    <div class="first-rule" style="display:flex;flex-direction:row;justify-content:center;align-content:center;">
+        <input type="button" value="Start Agregation" onclick="Send()" style="margin-top:30px;height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;" />
+        <p id="rule_first" style="font-size:25px; display:flex;flex-direction:column;justify-content:center;align-content:center; width:1000px; background:rgba(255,255,255,0.5); height:500px;color:#000;font-weight:bold;text-align:center;"></p>
+    </div>
+    <div class="first-rule" style="display:flex;flex-direction:row;justify-content:center;align-content:center;">
+        <input type="button" value="Start Accumulation" onclick="Accept()" style="margin-top:30px;height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;" />
+        <p id="rule_second" style="font-size:25px; display:flex;flex-direction:column;justify-content:center;align-content:center; width:1000px; background:rgba(255,255,255,0.5); height:200px;color:#000;font-weight:bold;text-align:center;"></p>
+        </div>
+        <div class="footer span12">
+            <img class="logo1" src=" its.png" alt="logoits">
+            <img class="logo2" src="fuzzy1.png" alt="FZLG">
+            <img class="logo3" src="kpi.png" alt="logokpi">
+        </div>
+</body>
+</html >
