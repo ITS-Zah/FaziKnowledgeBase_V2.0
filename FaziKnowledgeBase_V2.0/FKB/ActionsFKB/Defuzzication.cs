@@ -21,6 +21,7 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
                 }
             }
             res.NumericValue = res.b;//центр максимума
+            res.ZnachFp = max;
             return res;
         }
     }

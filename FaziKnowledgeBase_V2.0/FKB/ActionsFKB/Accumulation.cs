@@ -26,6 +26,7 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
                         }
                     }
                 }
+                term.NumericValue = max;
                 ListResultRule.Add(maxRule);
             }
             return ListResultRule;

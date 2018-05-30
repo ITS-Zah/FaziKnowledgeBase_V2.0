@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using System.Web;
 using FuzzyKnowledgeBase_V2._0.Controllers;
 using FuzzyKnowledgeBase_V2._0.ActionsFKB;
+using FaziKnowledgeBase_V2._0.Models.Chart;
+using g3;
 
 namespace FaziKnowledgeBase_V2._0.Controllers
 {
@@ -68,16 +70,51 @@ namespace FaziKnowledgeBase_V2._0.Controllers
             return result;
         }
         [HttpGet, Route("GetVievDefuzzication")]
-        public Term GetVievDefuzzication()
+        public Chart GetVievDefuzzication()
         {
             List<Rule> rules = Accumulation.AccumulationStart(СonclusionController.FKB);
             Term res = Defuzzication.DefuzzicationStart(rules);
-            return res;
+            Chart chart = new Chart();
+            foreach (var item in СonclusionController.FKB.ListVar[СonclusionController.FKB.ListVar.Count - 1].terms)
+            {
+                chart.SimplyLines.Add(new Line(new List<Point>() { new Point(item.a, 0), new Point(item.b, 1), new Point(item.c, 0) }, false));
+            }
+            for (int i = 0; i < chart.SimplyLines.Count; i++)
+            {
+                if (i == 0)
+                {
+                    chart.SimplyLines[0].Points[0].Y = 1;
+                }
+                if (i == chart.SimplyLines.Count - 1)
+                {
+                    chart.SimplyLines[chart.SimplyLines.Count - 1].Points[2].Y = 1;
+                }
+            }
+            chart.points.Add(new Point(res.NumericValue, res.ZnachFp));
+            foreach (var item in СonclusionController.FKB.ListVar[СonclusionController.FKB.ListVar.Count - 1].terms)
+            {
+                chart.BoldLines.Add(new Line(new List<Point>() { new Point(item.a, 0), CulclPoint(new Point(item.a,0), new Point(item.b, 1), new Point(0,item.NumericValue), new Point(1, item.NumericValue)) , CulclPoint(new Point(item.b, 1), new Point(item.c, 0), new Point(0, item.NumericValue), new Point(1, item.NumericValue)), new Point(item.c, 0) }, true));
+            }
+            for (int i = 0; i < chart.BoldLines.Count; i++)
+            {
+                if (i == 0)
+                {
+                    chart.BoldLines[0].Points[0].Y = 1;
+                }
+                if (i == chart.BoldLines.Count - 1)
+                {
+                    chart.BoldLines[chart.BoldLines.Count - 1].Points[2].Y = 1;
+                }
+            }
+            return chart;
         }
-        [HttpGet, Route("GetFKB")]
-        public FuzzyKnowledgeBase GetFKB()
+        public Point CulclPoint(Point point1_1 , Point point1_2, Point point2_1, Point point2_2)
         {
-            return СonclusionController.FKB;
+            Line2d line2D = new Line2d(new Vector2d(point1_1.X, point1_1.Y), new Vector2d(point1_2.X - point1_1.X, point1_2.Y - point1_1.Y));
+            Line2d line2D2 = new Line2d(new Vector2d(point2_1.X, point2_1.Y), new Vector2d(point2_1.X - point2_2.X, point2_1.Y - point2_2.Y));
+            Vector2d vector = line2D.IntersectionPoint(ref line2D2);
+            Point res = new Point(vector.x, vector.y);
+            return res;
         }
     }
 }
