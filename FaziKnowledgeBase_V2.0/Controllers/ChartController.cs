@@ -75,9 +75,11 @@ namespace FaziKnowledgeBase_V2._0.Controllers
             List<Rule> rules = Accumulation.AccumulationStart(СonclusionController.FKB);
             Term res = Defuzzication.DefuzzicationStart(rules);
             Chart chart = new Chart();
+            chart.NameChart = rules[0].Cоnsequens.NameLP;
             foreach (var item in СonclusionController.FKB.ListVar[СonclusionController.FKB.ListVar.Count - 1].terms)
             {
-                chart.SimplyLines.Add(new Line(new List<Point>() { new Point(item.a, 0), new Point(item.b, 1), new Point(item.c, 0) }, false));
+                chart.SimplyLines.Add(new Line(new List<Point>() { new Point(item.a, 0), new Point(item.b, 1), new Point(item.c, 0) }, item.Name));
+
             }
             for (int i = 0; i < chart.SimplyLines.Count; i++)
             {
@@ -93,7 +95,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
             chart.points.Add(new Point(res.NumericValue, res.ZnachFp));
             foreach (var item in СonclusionController.FKB.ListVar[СonclusionController.FKB.ListVar.Count - 1].terms)
             {
-                chart.BoldLines.Add(new Line(new List<Point>() { new Point(item.a, 0), CulclPoint(new Point(item.a,0), new Point(item.b, 1), new Point(0,item.NumericValue), new Point(1, item.NumericValue)) , CulclPoint(new Point(item.b, 1), new Point(item.c, 0), new Point(0, item.NumericValue), new Point(1, item.NumericValue)), new Point(item.c, 0) }, true));
+                chart.BoldLines.Add(new Line(new List<Point>() { new Point(item.a, 0), CulclPoint(new Point(item.a,0), new Point(item.b, 1), new Point(0,item.NumericValue), new Point(1, item.NumericValue)) , CulclPoint(new Point(item.b, 1), new Point(item.c, 0), new Point(0, item.NumericValue), new Point(1, item.NumericValue)), new Point(item.c, 0) }, item.Name));
             }
             for (int i = 0; i < chart.BoldLines.Count; i++)
             {
