@@ -26,7 +26,16 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
                 fkb.ListVar[i].NumericValue = Convert.ToDouble(parematrlLv[i]);
                 for (int j = 0; j < fkb.ListVar[i].terms.Count; j++)
                 {
+                    if (j == 0)
+                    {
+                        fkb.ListVar[i].terms[j].ProverFirst = true;
+                    }
+                    if (j == fkb.ListVar[i].terms.Count - 1)
+                    {
+                        fkb.ListVar[i].terms[j].ProverLast = true;
+                    }
                     fkb.ListVar[i].terms[j].EvaluatingFp(Convert.ToDouble(parematrlLv[i]));
+
                 }
             }
         }

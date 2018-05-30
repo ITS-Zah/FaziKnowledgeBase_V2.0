@@ -88,6 +88,14 @@
             width: 400px;
             height: 400px;
         }
+        #Canvas {
+            position: absolute;
+            left: 650px;
+            top: 1250px;
+            background: rgba(255,255,255,0.5);
+            width: 400px;
+            height: 400px;
+        }
     </style>
 </head>
 <body>
@@ -283,7 +291,7 @@
             $.ajax({
                 url: 'http://localhost:34976/Chart/GetVievAgregation',
                 type: 'GET',
-                
+
 
                 success: function (data) {
                     rule_first.innerHTML = data.join('<br/>');
@@ -298,6 +306,17 @@
 
                 success: function (data) {
                     rule_second.innerHTML = data.join('<br/>');
+                }
+            });
+        };
+        function Defuzzication() {
+            $.ajax({
+                url: 'http://localhost:34976/Chart/GetVievDefuzzication',
+                type: 'GET',
+
+
+                success: function (data) {
+                    console.log(data);
                 }
             });
         };
@@ -318,11 +337,19 @@
     <div class="first-rule" style="display:flex;flex-direction:row;justify-content:center;align-content:center;">
         <input type="button" value="Start Accumulation" onclick="Accept()" style="margin-top:30px;height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;" />
         <p id="rule_second" style="font-size:25px; display:flex;flex-direction:column;justify-content:center;align-content:center; width:1000px; background:rgba(255,255,255,0.5); height:200px;color:#000;font-weight:bold;text-align:center;"></p>
+    </div>
+    <input type="button" value="Start Defuzzication" onclick="Defuzzication()" style="margin-top:30px;height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;" />
+    <div class="form" style="display: flex; flex-direction: row;margin-left:1200px;margin-top:150px;">
+        <div id="div2" class="left-column" style="background:rgba(76, 255, 0, 0.5);height: 390px;justify-content:center;text-align:center; width: 400px;border:4px solid gray;display: flex;flex-direction:column;">
+            <br />
         </div>
-        <div class="footer span12">
-            <img class="logo1" src=" its.png" alt="logoits">
-            <img class="logo2" src="fuzzy1.png" alt="FZLG">
-            <img class="logo3" src="kpi.png" alt="logokpi">
-        </div>
+        <canvas id="Canvas" style="background:rgba(255,255,255,0.5);" width="400px" height="400px"></canvas>
+        <div id="info" class="info_graf" style="padding:10px;margin-left:1450px; height:200px; width:200px; background:rgba(255,255,255,0.5);"></div>
+    </div>
+    <div class="footer span12">
+        <img class="logo1" src=" its.png" alt="logoits">
+        <img class="logo2" src="fuzzy1.png" alt="FZLG">
+        <img class="logo3" src="kpi.png" alt="logokpi">
+    </div>
 </body>
 </html >
