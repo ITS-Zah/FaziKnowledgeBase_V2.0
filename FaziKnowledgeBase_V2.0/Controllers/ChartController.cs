@@ -17,11 +17,6 @@ namespace FaziKnowledgeBase_V2._0.Controllers
     [RoutePrefix("Chart")]
     public class ChartController : ApiController
     {
-        [HttpGet, Route("GetFkb")]
-        public FuzzyKnowledgeBase GetFkb()
-        {
-            return СonclusionController.FKB;
-        }
         [HttpGet, Route("GetListLV")]
         public List<LinguisticVariable> GetListLV()
         {
@@ -68,11 +63,16 @@ namespace FaziKnowledgeBase_V2._0.Controllers
             return result;
         }
         [HttpGet, Route("GetVievDefuzzication")]
-        public Term GetVievDefuzzication()
+        public FuzzyKnowledgeBase GetVievDefuzzication()
         {
             List<Rule> rules = Accumulation.AccumulationStart(СonclusionController.FKB);
             Term res = Defuzzication.DefuzzicationStart(rules);
-            return res;
+            return СonclusionController.FKB;
+        }
+        [HttpGet, Route("GetFKB")]
+        public FuzzyKnowledgeBase GetFKB()
+        {
+            return СonclusionController.FKB;
         }
     }
 }
