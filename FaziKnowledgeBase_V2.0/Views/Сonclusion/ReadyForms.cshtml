@@ -38,6 +38,7 @@
                         for (i = 0; i < value_input.length; i++) {
                             array_value[i] = value_input[i].value.trim();
                             console.log(array_value);
+                            localStorage.data = JSON.stringify(array_value);
                         }
                     $.ajax({
                         type: 'POST',

@@ -103,24 +103,62 @@
             'very low': 'black'
         };
         window.usedColors = {};
+        function makeX(x) {
+            return x * maxX / 1.5 + 25;
+        }
+        function makeY(y) {
+            return (1 - y) * maxY * 0.75 + 0.25 * maxY - 27;
+        }
+        window.array_value = JSON.parse(localStorage.data).map(x => +x);
+        function drawCircle(x, y) {
+            if (y === 0) return;
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.fillStyle = 'green';
+            ctx.arc(makeX(x), makeY(y), 5, 0, 2 * Math.PI);
+            ctx.fill();
+
+            ctx.font = "italic 10pt Arial";
+            ctx.strokeStyle = ctx.fillStyle = 'black';
+            ctx.textAlign = 'left';
+            ctx.lineWidth = 1;
+
+            ctx.beginPath();
+            ctx.moveTo(makeX(0), makeY(y));
+            ctx.lineTo(325, makeY(y));
+            ctx.stroke();
+            ctx.textBaseline = 'middle';
+            ctx.fillText(y.toFixed(2), 325 + 5, makeY(y));
+
+
+            ctx.beginPath();
+            ctx.moveTo(makeX(x), makeY(0));
+            ctx.lineTo(makeX(x), 50);
+            ctx.stroke();
+            ctx.textBaseline = 'top';
+            ctx.fillText(x.toFixed(2), makeX(x) + 5, 50);
+
+            ctx.restore();
+        }
         function drawRedLine(e, y1, y2, y3) {
             ctx.beginPath();
             ctx.strokeStyle = colors[e.Name];
             usedColors[e.Name] = true;
             if (y1 === 1 && y2 === 1 && y3 === 0) {
-                ctx.moveTo(25, (1 - y1) * maxY * 0.75 + 0.25 * maxY - 27);
-                ctx.lineTo(e.a * maxX / 1.5 + 25, (1 - y1) * maxY * 0.75 + 0.25 * maxY - 27);
+                ctx.moveTo(25, makeY(y1));
+                ctx.lineTo(makeX(e.a), makeY(y1));
             } else {
-                ctx.moveTo(e.a * maxX / 1.5 + 25, (1 - y1) * maxY * 0.75 + 0.25 * maxY - 27);
+                ctx.moveTo(makeX(e.a), makeY(y1));
             }
-            ctx.lineTo(e.b * maxX / 1.5 + 25, (1 - y2) * maxY * 0.75 + 0.25 * maxY - 27);
-            ctx.lineTo(e.c * maxX / 1.5 + 25, (1 - y3) * maxY * 0.75 + 0.25 * maxY - 27);
+            ctx.lineTo(makeX(e.b), makeY(y2));
+            ctx.lineTo(makeX(e.c), makeY(y3));
             if (y1 === 0 && y2 === 1 && y3 === 1) {
-                ctx.lineTo(325, (1 - y3) * maxY * 0.75 + 0.25 * maxY - 27)
+                ctx.lineTo(325, makeY(y3))
             }
             ctx.stroke();
         }
-        function drawLine(name) {
+        function drawLine(name, X) {
             for (e in usedColors) delete usedColors[e];
 
             var c = document.getElementById("myCanvas");
@@ -208,6 +246,12 @@
             }
             drawRedLine(last, 0, 1, 1);
 
+            drawCircle(X, first.ZnachFp);
+            for (element of array) {
+                drawCircle(X, element.ZnachFp);
+            }
+            drawCircle(X, last.ZnachFp);
+
             $(info).empty();
             for (e in usedColors) {
                 $(info).append(`<span style="height:10px; border:0; background:${colors[e]};" >&nbsp;&nbsp;&nbsp;&nbsp;</span> ${e}`)
@@ -225,9 +269,10 @@
                     // alert(data);
                     let div = $('#div1');
                     window.obj = {};
-                    data.ListVar.forEach(x => {
+                    data.ListVar.forEach((x, i) => {
                         //    console.log(x)
-                        div.append(`<span href="/${x.Link}" onclick="drawLine('${x.Name}')">${x.Name}</span>`)
+                        x.X = array_value[i];
+                        div.append(`<span href="/${x.Link}" onclick="drawLine('${x.Name}', ${x.X})">${x.Name}</span>`)
                         div.append('<br />')
                         obj[x.Name] = x.terms;
                     })
