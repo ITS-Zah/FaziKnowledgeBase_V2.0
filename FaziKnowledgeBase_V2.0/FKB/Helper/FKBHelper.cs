@@ -67,6 +67,7 @@ namespace FaziKnowledgeBase_V2._0.FKB.Helper
 
 
                     }
+                    spusokTermans.Sort((x, y) => x.b.CompareTo(y.b));
                     LinguisticVariable lpans = new LinguisticVariable(new Guid(), FKB.ListOfRule[rule].Antecedents[anc].NameLP, spusokTermans, 0, 1);
                     if (FKB.ListVar.Count == 0)
                     {
