@@ -11,18 +11,18 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
         public static List<Rule> AccumulationStart(FuzzyKnowledgeBase fkb)
         {
             List<Rule> ListResultRule = new List<Rule>();
-            foreach(Term term in fkb.ListVar.Last().terms)
+            foreach (Term term in fkb.ListVar.Last().terms)
             {
                 double max = Double.MinValue;
                 Rule maxRule = new Rule();
                 foreach (Rule rule in fkb.ListOfRule)
                 {
-                    if(term.Name == rule.Cоnsequens.Name)
+                    if (term.Name == rule.Cоnsequens.Name)
                     {
                         if (max < rule.MinZnach)
                         {
                             max = rule.MinZnach;
-                            maxRule = rule;       
+                            maxRule = rule;
                         }
                     }
                 }
@@ -30,6 +30,6 @@ namespace FuzzyKnowledgeBase_V2._0.ActionsFKB
                 ListResultRule.Add(maxRule);
             }
             return ListResultRule;
-        } 
+        }
     }
 }

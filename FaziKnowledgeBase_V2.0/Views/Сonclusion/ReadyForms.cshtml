@@ -17,20 +17,42 @@
             </div>
         </div>
         <div class="row">
-           @using (Html.BeginForm("GetConclusion", "Сonclusion", FormMethod.Post))
-           {
-               foreach (var b in Model)
-               {
-                <p> @b.Name  </p>
-                <input type="text" name="valueLv" value="" />
-                <br />
-               }
+            @using (Html.BeginForm("GetConclusion", "Сonclusion", FormMethod.Post))
+    {
+        foreach (var b in Model)
+        {
+            <p> @b.Name  </p>
+            <input type="text" class="input_value" name="valueLv" value="" />
+            <br />
+}
 
-            <button name="action" value="RedyForms">Start conclusion</button>
+         <input type="button" name="action" onclick="Value()" value="Start conclusion" id="upload" alt="RedyForms" style="height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;">
 
-            <button name="action" value="RedyFormsForPhasing">Viev Defuzzication</button>
-               //document.location.href = "http://localhost:34976/Сonclusion/GetVievPhasing?valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787";
-           }
+
+//document.location.href = "http://localhost:34976/Сonclusion/GetVievPhasing?valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787";
+}
+            <script type="text/javascript">
+                function Send() {
+                        var value_input = document.getElementsByClassName('input_value');
+                        var array_value = [];
+                        for (i = 0; i < value_input.length; i++) {
+                            array_value[i] = value_input[i].value.trim();
+                            console.log(array_value);
+                        }
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://localhost:34976/Chart/StartPhasing',
+                        data: JSON.stringify(array_value),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function () {
+                            window.location.href = "http://localhost:34976/Projects/Form.html"
+                        }
+                    });
+                    return false;
+                };
+                           </script>
+            <input type="button" onclick="Send()" value="View Defuzzication" id="upload" style="height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;">
         </div>
     </div>
 </div>

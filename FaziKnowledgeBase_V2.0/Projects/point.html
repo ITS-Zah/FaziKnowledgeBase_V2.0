@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="UTF-8">
+		<title>Fuzzy Logic</title>
+	 	<link rel="stylesheet" href="point.css"> 
+
+<style type="text/css">
+    #myCanvas{
+    position: fixed;
+    left: 210px;
+    top: 150px;
+ 	background: rgba(255,255,255,0.5);
+ 	width: 400px;
+    height: 400px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+   		<div class="row">
+   	 		<div class="header span12">
+   	 <nav>
+  <input type="checkbox" name="menu" id="btn-menu" />
+    <label for="btn-menu">menu</label> 
+  <ul>
+    <li><a href="FL.html" title="Home">Home</a></li>
+    <li><a href="FLcheck.html" title="Help">Help</a></li>
+    <li><a href="point.html" title="Show Graph">Design modified</a>
+    <ul style="margin-top:10px;padding-left:10px;">
+      <li><a href="#">D/M</a></li>
+      <li><a href="#">Making Process</a></li>
+    </ul></li>
+    <li><a href="point.html" title="Data analysing">Data analysing</a>
+    <ul style="margin-top:10px;display:none;padding-left:  10px;   ">
+      <li><a href="#">Table</a></li>
+      <li><a href="#">Manual</a></li>
+    </ul></li>
+    <li class="language" style="text-align: right;position: absolute;top:10%;right: 10%;background-color: white;border-radius: 8px;"><a href="#" style="color:#000;">eng / ukr</a></li>
+  </ul>
+</nav>
+   	 </div> 
+					<canvas id="myCanvas" width="400px" height="400px"></canvas>
+		<script type="text/javascript">
+		var c = document.getElementById("myCanvas");
+		var maxX = c.width;
+		var maxY = c.height;
+		var ctx = c.getContext("2d");
+		ctx.strokeStyle="rgba(255,0,0,0.83)";
+		ctx.lineWidth=3;
+		var prevX = 0;
+		var prevY = 0;
+		var started = false;
+		function drawPoint(X, Y){
+		    ctx.beginPath();
+		    ctx.arc(X,Y, 6, 0, 2*Math.PI);
+		    ctx.fill();
+		}
+		function drawLine(X, Y)
+		{
+			if(X > maxX) X = maxX;
+			if(Y > maxY) Y = maxY;
+			if(X < 0) X = 0;
+			if(Y < 0) Y = 0;
+			if(!started){
+		    	drawPoint(0, 0);
+		    	started	= true;
+			}
+		    ctx.beginPath();
+		    ctx.moveTo(prevX,prevY);
+		    ctx.lineTo(X,Y);
+		    ctx.stroke();
+		    ctx.strokeStyle = "#30d369";
+		    ctx.textBaseline = "bottom";
+    		ctx.font = "italic 15pt Arial";
+		    ctx.fillText("Text",X/2,Y/2);
+		    drawPoint(X, Y)
+		    prevX = X;
+		    prevY = Y;
+		    ctx.moveTo(0,0);
+		    ctx.lineTo(398,0);
+		    ctx.stroke();
+		    ctx.moveTo(398,0)
+		    ctx.lineTo(385,5);
+		    ctx.stroke();
+		    ctx.fillText("X",385,25);
+		    ctx.moveTo(0,0);
+		    ctx.lineTo(0,398);
+		    ctx.stroke();
+		    ctx.moveTo(0,398)
+		    ctx.lineTo(5,385);
+		    ctx.stroke();
+		    ctx.fillText("Y",5,398);
+		    ctx.moveTo(0,0);
+		    ctx.lineTo(0,100);
+		    ctx.stroke();
+		    ctx.moveTo(0,100);
+		    ctx.lineTo(5,100);
+		    ctx.stroke();
+		    ctx.fillText("100",4,100);
+		    ctx.moveTo(0,0);
+		    ctx.lineTo(0,200);
+		    ctx.stroke();
+		    ctx.moveTo(0,200);
+		    ctx.lineTo(5,200);
+		    ctx.stroke();
+		    ctx.fillText("200",4,200);
+		    ctx.moveTo(0,0);
+		    ctx.lineTo(0,300);
+		    ctx.stroke();
+		    ctx.moveTo(0,300);
+		    ctx.lineTo(5,300);
+		    ctx.stroke();
+		    ctx.fillText("300",4,300);
+		    ctx.moveTo(0,0);
+		    ctx.lineTo(100,0);
+		    ctx.stroke();
+		    ctx.moveTo(100,0);
+		    ctx.lineTo(100,5);
+		    ctx.stroke();
+		    ctx.fillText("100",100,24);
+		    ctx.moveTo(150,0);
+		    ctx.lineTo(200,0);
+		    ctx.stroke();
+		    ctx.moveTo(0,200);
+		    ctx.lineTo(5,200);
+		    ctx.stroke();
+		    ctx.fillText("200",200,24);
+		    ctx.moveTo(200,0);
+		    ctx.lineTo(250,0);
+		    ctx.stroke();
+		    ctx.moveTo(250,0);
+		    ctx.lineTo(300,0);
+		    ctx.stroke();
+		    ctx.moveTo(0,300);
+		    ctx.lineTo(5,300);
+		    ctx.stroke();
+		    ctx.fillText("300",300,24);
+		    ctx.moveTo(300,0);
+		    ctx.lineTo(350,0);
+		    ctx.stroke();
+		    var test=document.getElementById("fill");
+		    test.onclick = function ()
+		    { 
+		    ctx.moveTo(400, 95);
+		    ctx.lineTo(150,150);
+		    ctx.lineTo(0,0);
+		    ctx.lineTo(400,0);
+		    ctx.fillStyle="rgba(255,0,0,0.5)";
+		    ctx.fill();
+			}
+		}
+	
+	</script>
+		<br>
+		<label for="x-coord">X </label><input type="text" id="x-coord" />
+		<br>
+		<label for="x-coord">Y </label><input type="text" id="y-coord" />
+		<br>
+		<button onclick="drawLine(document.getElementById('x-coord').value, document.getElementById('y-coord').value)">Join</button>
+		<button id="fill">Fill</button>
+ 	</div>
+</div>			
+</body>
+</html>
