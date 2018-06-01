@@ -91,7 +91,7 @@
         #Canvas {
             position: absolute;
             left: 650px;
-            top: 1250px;
+            top: 2050px;
             background: rgba(255,255,255,0.5);
             width: 400px;
             height: 400px;
@@ -100,8 +100,8 @@
 </head>
 <body>
     <script type="text/javascript">
-        function drawPoint(x, y) {
-
+        function drawPoint(point, type) {
+            console.log(point, type);
         }
         const colors = {
             'low': 'red',
@@ -112,7 +112,7 @@
         };
         window.usedColors = {};
         function makeX(x) {
-            return x * maxX / 1.5 + 25;
+            return x * maxX / 2.5 + 85;
         }
         function makeY(y) {
             return (1 - y) * maxY * 0.75 + 0.25 * maxY - 27;
@@ -133,7 +133,7 @@
             ctx.lineWidth = 1;
 
             ctx.beginPath();
-            ctx.moveTo(makeX(0), makeY(y));
+            ctx.moveTo(25, makeY(y));
             ctx.lineTo(325, makeY(y));
             ctx.stroke();
             ctx.textBaseline = 'middle';
@@ -175,10 +175,7 @@
             c.width = 0;
             c.width = maxX;
             window.ctx = c.getContext("2d");
-
-            ctx.font = "italic 12pt Arial";
-            ctx.textAlign = "center";
-            ctx.fillText(name, 200, 50);
+            
             ctx.moveTo(25, 375);
             ctx.lineTo(375, 375);
             ctx.stroke();
@@ -232,12 +229,8 @@
             ctx.moveTo(325, 395);
             ctx.lineTo(325, 55);
             ctx.stroke();
-            ctx.beginPath();
-            ctx.lineWidth = 4;
-            ctx.moveTo(15, 75);
-            ctx.lineTo(35, 75);
-            ctx.stroke();
             ctx.fillText("1", 10, 105);
+            ctx.lineWidth = 4;
 
             let array = [].concat(obj[name]);
             console.log(array);
@@ -266,6 +259,18 @@
                 $(info).append('<br />');
                 console.log(e, colors[e])
             };
+            ctx.save();
+            ctx.beginPath();
+            ctx.font = "bold 12pt Arial";
+            ctx.textAlign = "center";
+            ctx.fillText(name, 200, 350);
+            ctx.restore();
+
+            ctx.beginPath();
+            ctx.strokeStyle = 'black'
+            ctx.moveTo(15, 73);
+            ctx.lineTo(35, 73);
+            ctx.stroke();
         }
         $(document).ready(function () {
             $.ajax({
@@ -294,7 +299,7 @@
 
 
                 success: function (data) {
-                    rule_first.innerHTML = data.join('<br/>');
+                    rule_first.innerHTML = data.join('<br/><br/>');
                 }
             });
         };
@@ -305,20 +310,161 @@
 
 
                 success: function (data) {
-                    rule_second.innerHTML = data.join('<br/>');
+                    rule_second.innerHTML = data.join('<br/><br/>');
                 }
             });
         };
         function Defuzzication() {
+
             $.ajax({
                 url: 'http://localhost:34976/Chart/GetVievDefuzzication',
                 type: 'GET',
 
 
                 success: function (data) {
+                    for (e in usedColors) delete usedColors[e];
+
                     console.log(data);
+                    console.log(data.BoldLines[1].Points[0].X);
+                    
+                    var ctx = Canvas.getContext('2d');
+
+                    var [min, max] = [].concat(data.BoldLines, data.SimplyLines).reduce(([min, max], e) => {
+                        e.Points.forEach(point => {
+                            if (point.X < min) min = point.X;
+                            if (point.X > max) max = point.X;
+                        })
+                        return [min, max];
+                    }, [0.5, 0.5]);
+
+                    var diff = max - min;
+
+                    function normalizeX(x) {
+                        return (x - min) / diff;
+                    }
+
+                    function drawLL(size) {
+                        return bl => {
+                            ctx.beginPath();
+                            ctx.lineWidth = size;
+                            ctx.strokeStyle = colors[bl.NameLine];
+                            usedColors[bl.NameLine] = true;
+                            bl.Points.forEach((point, i) => {
+                                console.log(point)
+                                if (i) {
+                                    ctx.lineTo(normalizeX(point.X) * (Canvas.width - 100) + 50, (1 - point.Y) * (Canvas.height - 124) + 75);
+                                } else {
+                                    ctx.moveTo(normalizeX(point.X) * (Canvas.width - 100) + 50, (1 - point.Y) * (Canvas.height - 124) + 75)
+                                }
+                            })
+                            ctx.stroke();
+                        }
+                    }
+
+                    data.BoldLines.forEach(drawLL(5));
+                    data.SimplyLines.forEach(drawLL(2));
+
+                    data.points.forEach(point => {
+                        ctx.beginPath()
+                        ctx.arc(normalizeX(point.X) * (Canvas.width - 100) + 50, (1 - point.Y) * (Canvas.height - 100) + 50, 5, 0, 2 * Math.PI);
+                        ctx.fill();
+
+
+                        ctx.beginPath();
+                        ctx.font = "italic 12pt Arial";
+                        ctx.lineWidth = 1;
+                        ctx.strokeStyle = 'black'
+                        ctx.moveTo(25, (1 - point.Y) * (Canvas.height - 100) + 50);
+                        ctx.lineTo(325, (1 - point.Y) * (Canvas.height - 100) + 50);
+                        ctx.stroke();
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(point.Y.toFixed(2), 325 + 5, (1 - point.Y) * (Canvas.height - 100) + 50);
+                        
+
+                        ctx.beginPath();
+                        ctx.moveTo(normalizeX(point.X) * (Canvas.width - 100) + 50, 25);
+                        ctx.lineTo(normalizeX(point.X) * (Canvas.width - 100) + 50, 375);
+                        ctx.stroke();
+                        ctx.textBaseline = 'top';
+                        ctx.fillText(point.X.toFixed(2), normalizeX(point.X) * (Canvas.width - 100) + 50 + 5, 25);
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.font = "bold 12pt Arial";
+                        ctx.textAlign = "center";
+                        ctx.fillText(data.NameChart, 200, 330);
+                        ctx.restore();
+                        
+                    })
+
+                    $(info_sec).empty();
+                    for (e in usedColors) {
+                        $(info_sec).append(`<span style="height:10px; border:0; background:${colors[e]};" >&nbsp;&nbsp;&nbsp;&nbsp;</span> ${e}`)
+                        $(info_sec).append('<br />');
+                        console.log(e, colors[e]);
+                    };
+                    ctx.beginPath();
+                    ctx.lineWidth = 4;
+                    ctx.strokeStyle = "black";
+                    ctx.moveTo(25, 375);
+                    ctx.lineTo(25, 25);
+                    ctx.stroke();
+                    ctx.font = "italic 15pt Arial";
+                    ctx.fillText("Y", 35, 25);
+                    ctx.moveTo(25, 375);
+                    ctx.lineTo(375, 375);
+                    ctx.stroke();
+                    ctx.font = "italic 15pt Arial";
+                    ctx.fillText("X", 375, 375);
+                    ctx.fillText("0", 15, 395);
+                    ctx.moveTo(85, 365);
+                    ctx.lineTo(85, 385);
+                    ctx.stroke();
+                    ctx.fillText("0.2", 69, 395);
+                    ctx.moveTo(145, 365);
+                    ctx.lineTo(145, 385);
+                    ctx.stroke();
+                    ctx.fillText("0.4", 130, 395);
+                    ctx.moveTo(205, 365);
+                    ctx.lineTo(205, 385);
+                    ctx.stroke();
+                    ctx.fillText("0.6", 190, 395);
+                    ctx.moveTo(265, 365);
+                    ctx.lineTo(265, 385);
+                    ctx.stroke();
+                    ctx.fillText("0.8", 250, 395);
+                    ctx.moveTo(325, 365);
+                    ctx.lineTo(325, 385);
+                    ctx.stroke();
+                    ctx.fillText("1", 310, 395);
+                    ctx.moveTo(375, 375);
+                    ctx.lineTo(365, 365);
+                    ctx.stroke();
+                    ctx.moveTo(375, 375);
+                    ctx.lineTo(365, 385);
+                    ctx.stroke();
+                    ctx.moveTo(25, 25);
+                    ctx.lineTo(35, 35);
+                    ctx.stroke();
+                    ctx.moveTo(25, 25);
+                    ctx.lineTo(15, 35);
+                    ctx.stroke();
+                    ctx.moveTo(15, 75);
+                    ctx.lineTo(35, 75);
+                    ctx.stroke();
+                    ctx.fillText("1", 10, 105);
+
+                    ctx.save();
+                    ctx.font = "italic 10pt Arial";
+                    ctx.strokeStyle = ctx.fillStyle = 'black';
+                    ctx.textAlign = 'left';
+                    ctx.lineWidth = 1;
+
+                    ctx.restore();
+
+                    
                 }
             });
+
         };
 
 
@@ -332,19 +478,16 @@
     </div>
     <div class="first-rule" style="display:flex;flex-direction:row;justify-content:center;align-content:center;">
         <input type="button" value="Start Agregation" onclick="Send()" style="margin-top:30px;height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;" />
-        <p id="rule_first" style="font-size:25px; display:flex;flex-direction:column;justify-content:center;align-content:center; width:1000px; background:rgba(255,255,255,0.5); height:500px;color:#000;font-weight:bold;text-align:center;"></p>
+        <p id="rule_first" style="font-size:25px; display:flex;flex-direction:column;justify-content:center;align-content:center; width:1000px; background:rgba(255,255,255,0.5); height:1000px;color:#000;font-weight:bold;text-align:center;"></p>
     </div>
     <div class="first-rule" style="display:flex;flex-direction:row;justify-content:center;align-content:center;">
         <input type="button" value="Start Accumulation" onclick="Accept()" style="margin-top:30px;height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;" />
-        <p id="rule_second" style="font-size:25px; display:flex;flex-direction:column;justify-content:center;align-content:center; width:1000px; background:rgba(255,255,255,0.5); height:200px;color:#000;font-weight:bold;text-align:center;"></p>
+        <p id="rule_second" style="font-size:25px; display:flex;flex-direction:column;justify-content:center;align-content:center; width:1000px; background:rgba(255,255,255,0.5); height:500px;color:#000;font-weight:bold;text-align:center;"></p>
     </div>
+    <div class="Defuzzication" style="display:flex;flex-direction:row; height:500px; justify-content:flex-start; align-content:flex-start;">
     <input type="button" value="Start Defuzzication" onclick="Defuzzication()" style="margin-top:30px;height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;" />
-    <div class="form" style="display: flex; flex-direction: row;margin-left:1200px;margin-top:150px;">
-        <div id="div2" class="left-column" style="background:rgba(76, 255, 0, 0.5);height: 390px;justify-content:center;text-align:center; width: 400px;border:4px solid gray;display: flex;flex-direction:column;">
-            <br />
-        </div>
-        <canvas id="Canvas" style="background:rgba(255,255,255,0.5);" width="400px" height="400px"></canvas>
-        <div id="info" class="info_graf" style="padding:10px;margin-left:1450px; height:200px; width:200px; background:rgba(255,255,255,0.5);"></div>
+          <canvas id="Canvas" style="background:rgba(255,255,255,0.5);" width="400px" height="425px"></canvas>
+        <div id="info_sec" class="info_graf" style="padding:10px;margin-left:70px; height:200px; width:200px; background:rgba(255,255,255,0.5);"></div>
     </div>
     <div class="footer span12">
         <img class="logo1" src=" its.png" alt="logoits">
