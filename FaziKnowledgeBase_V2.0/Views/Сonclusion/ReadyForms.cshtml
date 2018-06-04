@@ -21,25 +21,26 @@
     {
         foreach (var b in Model)
         {
-            <p> @b.Name  </p>
+            <p style="color:#000;font-size:20px; font-weight:bold; background:rgba(255,255,255,0.8);width:330px;display:block;margin:0 auto;"> @b.Name  </p>
             <input type="text" class="input_value" name="valueLv" value="" />
             <br />
 }
 
-         <input type="button" name="action" onclick="Value()" value="Start conclusion" id="upload" alt="RedyForms" style="height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;">
+        <input type="button" name="action" onclick="Value()" value="Start conclusion" id="upload" alt="RedyForms" style="height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;">
+        <input type="button" onclick="Send()" value="View Defuzzication" id="upload" style="height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;">
 
 
 //document.location.href = "http://localhost:34976/Сonclusion/GetVievPhasing?valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787&valueLv=0,787";
 }
             <script type="text/javascript">
                 function Send() {
-                        var value_input = document.getElementsByClassName('input_value');
-                        var array_value = [];
-                        for (i = 0; i < value_input.length; i++) {
-                            array_value[i] = value_input[i].value.trim();
-                            console.log(array_value);
-                            localStorage.data = JSON.stringify(array_value);
-                        }
+                    var value_input = document.getElementsByClassName('input_value');
+                    var array_value = [];
+                    for (i = 0; i < value_input.length; i++) {
+                        array_value[i] = value_input[i].value.trim();
+                        console.log(array_value);
+                        localStorage.data = JSON.stringify(array_value);
+                    }
                     $.ajax({
                         type: 'POST',
                         url: 'http://localhost:34976/Chart/StartPhasing',
@@ -52,8 +53,7 @@
                     });
                     return false;
                 };
-                           </script>
-            <input type="button" onclick="Send()" value="View Defuzzication" id="upload" style="height: 70px;min-width: 60px;font-size:  1.3em;border-radius:  15px;border: 5px double green;background:rgba(255,255,255,0.8);font-style: italic; font-weight:    bold;color:blue;cursor:     pointer;     -webkit-transition: all 0.3s ease;;  -moz-transition: all 0.3s ease;;  -o-transition: all 0.3s ease;;  transition: all 0.3s ease;">
+            </script>
         </div>
     </div>
 </div>
