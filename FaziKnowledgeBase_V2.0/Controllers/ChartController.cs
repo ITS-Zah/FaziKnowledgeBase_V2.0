@@ -45,7 +45,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
                 string s = $"IF {item.Antecedents[0].NameLP} = {item.Antecedents[0].Name} ";
                 for (int i = 1; i < item.Antecedents.Count; i++)
                 {
-                    s += $"AND {item.Antecedents[i].Name} = {item.Cоnsequens.Name}";
+                    s += $"AND {item.Antecedents[i].NameLP} = {item.Antecedents[i].Name}";
                 }
                 s += $" THEN {item.Cоnsequens.NameLP} = {item.Cоnsequens.Name} ( Minimal value {item.MinZnach})";
                 result.Add(s);
@@ -62,7 +62,7 @@ namespace FaziKnowledgeBase_V2._0.Controllers
                 string s = $"IF {item.Antecedents[0].NameLP} = {item.Antecedents[0].Name} ";
                 for (int i = 1; i < item.Antecedents.Count; i++)
                 {
-                    s += $"AND {item.Antecedents[i].Name} = {item.Cоnsequens.Name}";
+                    s += $"AND {item.Antecedents[i].NameLP} = {item.Antecedents[i].Name}";
                 }
                 s += $" THEN {item.Cоnsequens.NameLP} = {item.Cоnsequens.Name} ( Minimal value {item.MinZnach})";
                 result.Add(s);
@@ -101,11 +101,14 @@ namespace FaziKnowledgeBase_V2._0.Controllers
             {
                 if (i == 0)
                 {
-                    chart.BoldLines[0].Points[0].Y = 1;
+                    chart.BoldLines[0].Points[0].X = 0;
+                    chart.BoldLines[0].Points[0].Y = chart.BoldLines[0].Points[1].Y;
                 }
                 if (i == chart.BoldLines.Count - 1)
                 {
-                    chart.BoldLines[chart.BoldLines.Count - 1].Points[2].Y = 1;
+                    chart.BoldLines[chart.BoldLines.Count - 1].Points[2].X = 1;
+                    chart.BoldLines[chart.BoldLines.Count - 1].Points[3].X = 1;
+                    chart.BoldLines[chart.BoldLines.Count - 1].Points[3].Y = chart.BoldLines[chart.BoldLines.Count - 1].Points[2].Y;
                 }
             }
             return chart;
