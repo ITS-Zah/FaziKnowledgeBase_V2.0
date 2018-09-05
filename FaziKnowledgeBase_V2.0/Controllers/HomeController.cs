@@ -27,6 +27,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         {
             
             string FileFormat = "";
+            ExelReader exelreader = new ExelReader();
             if (upload != null)
             {
                 // получаем имя файла
@@ -44,8 +45,8 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 }
                 else if (FileFormat == "xls")
                 {
-                    ExelReader.ReadFromXLS(Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
-                    K_means k = new K_means(ExelReader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
+                    exelreader.ReadFromXLS(Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
+                    K_means k = new K_means(exelreader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
                     double epsilon = 0.05;
                     k.Clustering(ExelReader.ClusterCount, epsilon);
                     k.FindRulesModelTypeMamdani(ExelReader.NameOfLinguisticVariables, ExelReader.ValueIntervalTerm, ExelReader.NameOfTerms, ExelReader.countColumnData, ExelReader.NumbersOfZonesOneLP, ExelReader.counterFoRowDataFromFile, "Трикутна", ExelReader.WeightOfTerms, FKB);

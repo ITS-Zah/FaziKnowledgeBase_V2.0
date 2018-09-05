@@ -15,7 +15,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
         public static int countColumnData = 0, counterFoRowDataFromFile = 0, NumbersOfZonesOneLP = 0, RecommendCountOfMaxClusterCount = 0, ClusterCount;
         public static List<string> NameOfLinguisticVariables = new List<string>();
         public static double[,] ElementsMatrix;
-        public static List<MultiDimensionalVector> ElementsMulti = new List<MultiDimensionalVector>();
+        public  List<MultiDimensionalVector> ElementsMulti = new List<MultiDimensionalVector>();
         public static double[,] FindMinMaxValueTerm;
         public static double[,] ValueIntervalTerm;
         public static double[,] ValueTermVithoutRepeat;
@@ -26,7 +26,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
         static HSSFWorkbook wb;
         static HSSFSheet sh;
         static double s;
-        public static void ReadFromXLS(string path) // Function for reading data from the file .xls
+        public void ReadFromXLS(string path) // Function for reading data from the file .xls
         {
             HSSFWorkbook hssfwb;
 
