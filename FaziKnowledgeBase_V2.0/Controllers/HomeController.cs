@@ -36,7 +36,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 FuzzyKnowledgeBase FKB = new FuzzyKnowledgeBase();
                 FKB.ListOfRule.Clear();
                 FKB.ListVar.Clear();
-                upload.SaveAs(System.Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
+                upload.SaveAs(Server.MapPath("~/Files/" + fileName));
                 HttpContext.Response.Cookies["FileName"].Value = fileName;
                 FileFormat = FileHelper.CheckFileFormat(fileName);
                 if(FileFormat == "txt")
