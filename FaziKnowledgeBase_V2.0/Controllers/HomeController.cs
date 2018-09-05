@@ -45,7 +45,8 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 }
                 else if (FileFormat == "xls")
                 {
-                    exelreader.ReadFromXLS(Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
+                    //exelreader.ReadFromXLS(Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
+                    exelreader.ReadingFromXlsFile(fileName);
                     K_means k = new K_means(exelreader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
                     double epsilon = 0.05;
                     k.Clustering(ExelReader.ClusterCount, epsilon);

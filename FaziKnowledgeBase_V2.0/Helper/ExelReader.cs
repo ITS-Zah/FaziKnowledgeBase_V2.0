@@ -87,7 +87,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
         }
         public static void ProcessedDataFromFile(List<Cluster> Clusters)  // найти термы, возможные их значения 
         {
-            GiveNameToTerms(ClusterCount, counterFoRowDataFromFile);  // выбор количества названий термов
+           
 
             int CheckerCount;  // Логическая проверка
             if (ClusterCount > countColumnData)
@@ -159,120 +159,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 }
             }
         }
-        public static void GiveNameToTerms(int ClusterCount, int counterFoRowDataFromFile)  // функция для определения просранства имен термов, а также количества зон (возможных значений термов) одной ЛП
-        {
-            /*if(ClusterCount <= 4 && ClusterCount > 0)
-            {
-                NameOfTerms.Add("якість низька");
-                NameOfTerms.Add("якість середня");
-                NameOfTerms.Add("якість висока");
-                WeightOfTerms.Add(1);
-                WeightOfTerms.Add(3);
-                WeightOfTerms.Add(5);
-                NumbersOfZonesOneLP = 3;
-           }
-            else if(ClusterCount > 4 && ClusterCount <=6)
-            {*/
-            /*NameOfTerms.Add("очень маленькая");
-            NameOfTerms.Add("маленькая");
-            NameOfTerms.Add("средняя");
-            NameOfTerms.Add("большая");
-            NameOfTerms.Add("очень большая");
-            WeightOfTerms.Add(0);
-            WeightOfTerms.Add(1);
-            WeightOfTerms.Add(3);
-            WeightOfTerms.Add(4);
-            WeightOfTerms.Add(5);
-            NumbersOfZonesOneLP = 5;*/
-            /*}
-             else if (ClusterCount >= 7 && ClusterCount <= (counterFoRowDataFromFile / 2) + 3) 
-             {*/
-            NameOfTerms.Add("low");
-            NameOfTerms.Add("middle");
-            NameOfTerms.Add("high");
-            NameOfTerms.Add("very high");
-            WeightOfTerms.Add(0);
-            WeightOfTerms.Add(1);
-            WeightOfTerms.Add(2);
-            WeightOfTerms.Add(3);
-            NumbersOfZonesOneLP = 4;
-            /*}*/
-        }
-        public static double Y(double p, int CheckerOfPart, double aGaus, double sigmGaus) // Нахождения координаты точки а
-        {
-            if (p == 0) // посмотреть детально
-            {
-                return 0;
-            }
-            else if (CheckerOfPart == 0)
-            {
-                return (aGaus - sigmGaus * (Math.Sqrt(-Math.Log(p)))) * p;
-            }
-            else if (CheckerOfPart == 1)
-            {
-                return (aGaus + sigmGaus * (Math.Sqrt(-Math.Log(p)))) * p;
-            }
-            else if (CheckerOfPart == 2)
-            {
-                return aGaus - sigmGaus * (Math.Sqrt(-Math.Log(p)));
-            }
-            else if (CheckerOfPart == 3)
-            {
-                return aGaus + sigmGaus * (Math.Sqrt(-Math.Log(p)));
-            }
-            else
-                return 0;
-        }
-        public static double Y(double p, int CheckerOfPart, int a, double aGaus, double sigmGaus)// Нахождения координаты точки b
-        {
-            if (p == 0)
-            {
-                return 0;
-            }
-            else if (CheckerOfPart == 0)
-            {
-                return aGaus - sigmGaus * (Math.Sqrt(-Math.Log(p)));
-            }
-            else if (CheckerOfPart == 1)
-            {
-                return aGaus + sigmGaus * (Math.Sqrt(-Math.Log(p)));
-            }
-            else if (CheckerOfPart == 2)
-            {
-                return (aGaus - sigmGaus * (Math.Sqrt(-Math.Log(p)))) * p;
-            }
-            else if (CheckerOfPart == 3)
-            {
-                return (aGaus + sigmGaus * (Math.Sqrt(-Math.Log(p)))) * p;
-            }
-            else
-                return 0;
-        }
-        public static double Y(double p, int CheckerOfPart, int a, int d, double aGaus, double sigmGaus) // Нахождения координаты точки c
-        {
-            if (p == 0)
-            {
-                return 0;
-            }
-            else if (CheckerOfPart == 0)
-            {
-                return aGaus - sigmGaus * (Math.Sqrt(-Math.Log(p)));
-            }
-            else if (CheckerOfPart == 1)
-            {
-                return aGaus + sigmGaus * (Math.Sqrt(-Math.Log(p)));
-            }
-            else if (CheckerOfPart == 2)
-            {
-                return (aGaus - sigmGaus * (Math.Sqrt(-Math.Log(p)))) * p;
-            }
-            else if (CheckerOfPart == 3)
-            {
-                return (aGaus + sigmGaus * (Math.Sqrt(-Math.Log(p)))) * p;
-            }
-            else
-                return 0;
-        }
+       
         public static void FindingPoints (double aGaus, double sigmGaus, int ClusterCount, int countColumnDataNow, int countColumnData, FuzzyKnowledgeBase FKB)
         {
             double A = aGaus - 3*sigmGaus;
@@ -292,131 +179,25 @@ namespace FaziKnowledgeBase_V2._0.Helper
             }
         }
 
-        public static void SimpsonsMethodFindingIntegrall(double aGaus, double sigmGaus, int ClusterCount, int countColumnDataNow, int countColumnData, FuzzyKnowledgeBase FKB)//интегрирует любые данные (для точек фп)
+        public void ReadingFromXlsFile(string path)
         {
-            double a = 0, b = 1, eps = 0.0001, result = 0; //Нижний и верхний пределы интегрирования (a, b), погрешность (eps).
-            double I = eps + 1, I1 = 0;//I-предыдущее вычисленное значение интеграла, I1-новое, с большим N.
+            HSSFWorkbook hssfwb;
 
-            //Запись новой точки (  a  )
-            for (int i = 0; i < 4; i++)
+            using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read)) 
             {
-                a = 0; b = 1; eps = 0.0001; //Нижний и верхний пределы интегрирования (a, b), погрешность (eps).
-                I = eps + 1; I1 = 0;//I-предыдущее вычисленное значение интеграла, I1-новое, с большим N.
-                for (int N = 2; (N <= 4) || (Math.Abs(I1 - I) > eps); N *= 2)
-                {
-                    double h, sum2 = 0, sum4 = 0, sum = 0;
-                    h = (b - a) / (2 * N);//Шаг интегрирования.
-                    for (int ind = 1; ind <= 2 * N - 1; ind += 2)
-                    {
-                        sum4 += Y(a + h * ind, i, aGaus, sigmGaus);//Значения с нечётными индексами, которые нужно умножить на 4.
-                        sum2 += Y(a + h * (ind + 1), i, aGaus, sigmGaus);//Значения с чётными индексами, которые нужно умножить на 2.
-                    }
-                    sum = Y(a, i, aGaus, sigmGaus) + 4 * sum4 + 2 * sum2 - Y(b, i, aGaus, sigmGaus);//Отнимаем значение f(b) так как ранее прибавили его дважды. 
-                    I = I1;
-                    I1 = (h / 3) * sum;
-                }
-                if (i < 1)
-                    result = 3 * I1;
-                else if (i == 1)
-                    result += 3 * I1;
-                else if (i > 1 && i <= 3)
-                    result -= I1;
+                hssfwb = new HSSFWorkbook(file);
             }
-            if (countColumnDataNow + 1 == countColumnData)
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a = result;
-            else
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a = result;
-
-            /*//Запись новой точки (  b  )
-            result = 0;
-            for (int i = 0; i < 4; i++)
+            ISheet sheet = hssfwb.GetSheet("FirstList");
+            List<string> Elements = new List<string>();
+            for (int Row = 1; sheet.GetRow(Row) != null; Row++) 
             {
-                a = 0; b = 1; eps = 0.0001; //Нижний и верхний пределы интегрирования (a, b), погрешность (eps).
-                I = eps + 1; I1 = 0;//I-предыдущее вычисленное значение интеграла, I1-новое, с большим N.
-                for (int N = 2; (N <= 4) || (Math.Abs(I1 - I) > eps); N *= 2)
+                for (int Col = 1; sheet.GetRow(Row).GetCell(Col) != null; Col++)
                 {
-                    double h, sum2 = 0, sum4 = 0, sum = 0;
-                    h = (b - a) / (2 * N);//Шаг интегрирования.
-                    for (int ind = 1; ind <= 2 * N - 1; ind += 2)
-                    {
-                        sum4 += Y(a + h * ind, i, i, aGaus, sigmGaus);//Значения с нечётными индексами, которые нужно умножить на 4.
-                        sum2 += Y(a + h * (ind + 1), i, i, aGaus, sigmGaus);//Значения с чётными индексами, которые нужно умножить на 2.
-                    }
-                    sum = Y(a, i, i, aGaus, sigmGaus) + 4 * sum4 + 2 * sum2 - Y(b, i, i, aGaus, sigmGaus);//Отнимаем значение f(b) так как ранее прибавили его дважды. 
-                    I = I1;
-                    I1 = (h / 3) * sum;
-                }
-                if (i == 0)
-                    result = (7 / 2) * I1;
-                else if (i == 1)
-                    result += (1 / 2) * I1;
-                else if (i == 2)
-                    result -= (9 / 2) * I1;
-                else if (i == 3)
-                    result -= (3 / 2) * I1;
-            }
-            if (countColumnDataNow + 1 == countColumnData) //часть для точки b
-                FKB.ListOfRule[FKB.ListOfRule.Count() - WebApplication1.FKB.Program.ClusterCount + ClusterCount].Cоnsequens.a = result;
-            else
-                FKB.ListOfRule[FKB.ListOfRule.Count() - WebApplication1.FKB.Program.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a = result;*/
-
-            //Запись новой точки (  c  )
-            result = 0;
-            for (int i = 0; i < 4; i++)
-            {
-                a = 0; b = 1; eps = 0.0001; //Нижний и верхний пределы интегрирования (a, b), погрешность (eps).
-                I = eps + 1; I1 = 0;//I-предыдущее вычисленное значение интеграла, I1-новое, с большим N.
-                for (int N = 2; (N <= 4) || (Math.Abs(I1 - I) > eps); N *= 2)
-                {
-                    double h, sum2 = 0, sum4 = 0, sum = 0;
-                    h = (b - a) / (2 * N);//Шаг интегрирования.
-                    for (int ind = 1; ind <= 2 * N - 1; ind += 2)
-                    {
-                        sum4 += Y(a + h * ind, i, i, i, aGaus, sigmGaus);//Значения с нечётными индексами, которые нужно умножить на 4.
-                        sum2 += Y(a + h * (ind + 1), i, i, i, aGaus, sigmGaus);//Значения с чётными индексами, которые нужно умножить на 2.
-                    }
-                    sum = Y(a, i, i, i, aGaus, sigmGaus) + 4 * sum4 + 2 * sum2 - Y(b, i, i, i, aGaus, sigmGaus);//Отнимаем значение f(b) так как ранее прибавили его дважды. 
-                    I = I1;
-                    I1 = (h / 3) * sum;
-                }
-                if (i == 0)
-                    result = (1 / 2) * I1;
-                else if (i == 1)
-                    result += (7 / 2) * I1;
-                else if (i == 2)
-                    result -= (3 / 2) * I1;
-                else if (i == 3)
-                    result -= (9 / 2) * I1;
-            }
-            if (countColumnDataNow + 1 == countColumnData) //часть для точки b
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c = result;
-            else
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c = result;
-
-            double tempTerm = 0;
-            if (countColumnDataNow + 1 == countColumnData) //часть для точки b
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.b = (FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a + FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c) / 2;
-            else
-                FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].b = (FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a + FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c) / 2;
-
-            if (countColumnDataNow + 1 == countColumnData)
-            {
-                if (FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a > FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c)
-                {
-                    tempTerm = FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c;
-                    FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.c = FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a;
-                    FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Cоnsequens.a = tempTerm;
-                }
-            }
-            else
-            {
-                if (FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a > FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c)
-                {
-                    tempTerm = FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c;
-                    FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].c = FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a;
-                    FKB.ListOfRule[FKB.ListOfRule.Count() - ExelReader.ClusterCount + ClusterCount].Antecedents[countColumnDataNow].a = tempTerm;
+                    Elements.Add(string.Format("{0: 0.0}", sheet.GetRow(Row).GetCell(Col)));
+                    List<double> result = Elements.Select(x => double.Parse(x)).ToList();
                 }
             }
         }
+        
     }
 }
