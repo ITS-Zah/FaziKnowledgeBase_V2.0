@@ -7,6 +7,7 @@ using System.IO;
 using NPOI.SS.UserModel;
 using FuzzyKnowledgeBase_V2._0.Models;
 using FaziKnowledgeBase_V2._0.FKB.DataStructures;
+using FaziKnowledgeBase_V2._0.Models.C_Means_Clustering;                    
 
 namespace FaziKnowledgeBase_V2._0.Helper
 {
@@ -15,17 +16,17 @@ namespace FaziKnowledgeBase_V2._0.Helper
         public static int countColumnData = 0, counterFoRowDataFromFile = 0, NumbersOfZonesOneLP = 0, RecommendCountOfMaxClusterCount = 0, ClusterCount;
         public static List<string> NameOfLinguisticVariables = new List<string>();
         public static double[,] ElementsMatrix;
+        public double[,] MatrixOfTheElements;
         public  List<MultiDimensionalVector> ElementsMulti = new List<MultiDimensionalVector>();
         public static double[,] FindMinMaxValueTerm;
         public static double[,] ValueIntervalTerm;
-        public static double[,] ValueTermVithoutRepeat;
+        public static double[,] ValueTermVithoutRepeat;                                                                             
         public static int ostanovkaLP = 0;
         public static int ostanovkaTM = 0;
         public static List<string> NameOfTerms = new List<string>();
         public static List<int> WeightOfTerms = new List<int>();
-        static HSSFWorkbook wb;
-        static HSSFSheet sh;
-        static double s;
+        public const int NUMBER_OF_CLUSTERS = 3; 
+
         public void ReadFromXLS(string path) // Function for reading data from the file .xls
         {
             HSSFWorkbook hssfwb;
@@ -189,15 +190,42 @@ namespace FaziKnowledgeBase_V2._0.Helper
             }
             ISheet sheet = hssfwb.GetSheet("FirstList");
             List<string> Elements = new List<string>();
+            List<ClusterPoint> points = new List<ClusterPoint>();
+            
+            int j = 0;
             for (int Row = 1; sheet.GetRow(Row) != null; Row++) 
             {
                 for (int Col = 1; sheet.GetRow(Row).GetCell(Col) != null; Col++)
                 {
                     Elements.Add(string.Format("{0: 0.0}", sheet.GetRow(Row).GetCell(Col)));
                     List<double> result = Elements.Select(x => double.Parse(x)).ToList();
+                    MatrixOfTheElements[Row,Col] = result.ElementAt(j);
+                    points.Add(new ClusterPoint(Row, Col, result.ElementAt(j)));
+                    j++;
                 }
+            }
+
+            for (int Row = 1; sheet.GetRow(Row).GetCell(0) != null; Row++)  // подсчет количества строк в файле
+            {
+                counterFoRowDataFromFile++;
+            }
+
+            for (int column = 1; sheet.GetRow(0).GetCell(column) != null; column++) // подсчет количества колонок в файле, а также запись названия ЛП
+            {
+                
+                countColumnData ++;
+            }
+            List<ClusterCentroid> centroids = new List<ClusterCentroid>();
+            Random random = new Random();
+            for (int i = 0; i < NUMBER_OF_CLUSTERS; i++)
+            {
+                int randomNumber1 = random.Next(countColumnData);
+                int randomNumber2 = random.Next(counterFoRowDataFromFile);
+                centroids.Add(new ClusterCentroid(randomNumber1, randomNumber2, MatrixOfTheElements[randomNumber2, randomNumber1]));
             }
         }
         
+
+
     }
 }

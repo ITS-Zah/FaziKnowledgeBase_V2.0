@@ -250,6 +250,8 @@
     <Compile Include="Models\Chart\Chart.cs" />
     <Compile Include="Models\Chart\Line.cs" />
     <Compile Include="Models\Chart\Point.cs" />
+    <Compile Include="Models\C_Means_Clustering\ClusterCentroid.cs" />
+    <Compile Include="Models\C_Means_Clustering\ClusterPoint.cs" />
     <Compile Include="Models\DataStructures\Cluster.cs" />
     <Compile Include="Models\DataStructures\MultiDimensionalVector.cs" />
     <Compile Include="FKB\FormingFKB\K_means.cs" />
