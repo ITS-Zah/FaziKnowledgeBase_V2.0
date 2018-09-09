@@ -25,7 +25,14 @@ namespace FaziKnowledgeBase_V2._0.Helper
         public static int ostanovkaTM = 0;
         public static List<string> NameOfTerms = new List<string>();
         public static List<int> WeightOfTerms = new List<int>();
-        public const int NUMBER_OF_CLUSTERS = 3; 
+
+        public List<string> Elements = new List<string>();
+        public List<ClusterPoint> points = new List<ClusterPoint>();
+        public List<ClusterCentroid> centroids = new List<ClusterCentroid>();
+        List<double> result = new List<double>();
+        public int NumberOfTheColums = 0;
+        public int NumberOfTheRows = 0;
+        public  int NUMBER_OF_CLUSTERS = 3; 
 
         public void ReadFromXLS(string path) // Function for reading data from the file .xls
         {
@@ -192,19 +199,17 @@ namespace FaziKnowledgeBase_V2._0.Helper
 
             for (int Row = 1; sheet.GetRow(Row) != null; Row++)  // подсчет количества строк в файле
             {
-                counterFoRowDataFromFile++;
+                NumberOfTheRows++;
             }
 
             for (int column = 1; sheet.GetRow(0).GetCell(column) != null; column++) // подсчет количества колонок в файле, а также запись названия ЛП
             {
 
-                countColumnData++;
+                NumberOfTheColums++;
             }
 
-            List<string> Elements = new List<string>();
-            List<ClusterPoint> points = new List<ClusterPoint>();
-            List<double> result = new List<double>();
-            MatrixOfTheElements = new double[counterFoRowDataFromFile, countColumnData];
+            
+            MatrixOfTheElements = new double[NumberOfTheRows, NumberOfTheColums];
             int j = 0;
             for (int Row = 1; sheet.GetRow(Row) != null; Row++) 
             {
@@ -213,14 +218,13 @@ namespace FaziKnowledgeBase_V2._0.Helper
                     Elements.Add(string.Format("{0: 0.0}", sheet.GetRow(Row).GetCell(Col)));
                     result = Elements.Select(x => double.Parse(x)).ToList();
                     points.Add(new ClusterPoint(Row, Col, result.ElementAt(j)));
-                    //MatrixOfTheElements[Row, Col] = result.ElementAt(j);
                     j++;
                 }
             }
             int n = 0;
-            for (int i = 0; i < counterFoRowDataFromFile; i++)
+            for (int i = 0; i < NumberOfTheRows; i++)
             {
-                for (int k = 0; k < countColumnData; k++)
+                for (int k = 0; k < NumberOfTheColums; k++)
                 {
                     MatrixOfTheElements[i, k] = result.ElementAt(n);
                     n++;
@@ -228,13 +232,13 @@ namespace FaziKnowledgeBase_V2._0.Helper
             }
 
 
-            List<ClusterCentroid> centroids = new List<ClusterCentroid>();
+            //List<ClusterCentroid> centroids = new List<ClusterCentroid>();
 
             Random random = new Random();
             for (int i = 0; i < NUMBER_OF_CLUSTERS; i++)
             {
-                int randomNumber1 = random.Next(0,countColumnData - 1);
-                int randomNumber2 = random.Next(0,counterFoRowDataFromFile - 1);
+                int randomNumber1 = random.Next(0, NumberOfTheColums - 1);
+                int randomNumber2 = random.Next(0, NumberOfTheRows - 1);
                 centroids.Add(new ClusterCentroid(randomNumber1, randomNumber2, MatrixOfTheElements[randomNumber2, randomNumber1]));
             }
         }

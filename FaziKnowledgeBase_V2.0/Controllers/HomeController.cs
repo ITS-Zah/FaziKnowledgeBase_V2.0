@@ -8,6 +8,7 @@ using FaziKnowledgeBase_V2._0.Helper;
 using FaziKnowledgeBase_V2._0.FKB.FormingFKB;
 using FuzzyKnowledgeBase_V2._0.Models;
 using FaziKnowledgeBase_V2._0.FKB.Helper;
+using FaziKnowledgeBase_V2._0.Models.C_Means_Clustering;
 
 namespace FuzzyKnowledgeBase_V2._0.Controllers
 {
@@ -46,12 +47,26 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 else if (FileFormat == "xls")
                 {
                     //exelreader.ReadFromXLS(Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
-                    exelreader.ReadingFromXlsFile(fileName);
-                    K_means k = new K_means(exelreader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
                     double epsilon = 0.05;
-                    k.Clustering(ExelReader.ClusterCount, epsilon);
-                    k.FindRulesModelTypeMamdani(ExelReader.NameOfLinguisticVariables, ExelReader.ValueIntervalTerm, ExelReader.NameOfTerms, ExelReader.countColumnData, ExelReader.NumbersOfZonesOneLP, ExelReader.counterFoRowDataFromFile, "Трикутна", ExelReader.WeightOfTerms, FKB);
-                    k.GausFunction(ExelReader.countColumnData, FKB);
+                    exelreader.ReadingFromXlsFile(fileName);
+                    //K_means k = new K_means(exelreader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
+                    FCM alg = new FCM(exelreader.points, exelreader.centroids, 2, exelreader.NumberOfTheRows, exelreader.NumberOfTheColums, exelreader.NumberOfTheColums);
+                    while (true)
+                    {
+                        alg.J = alg.CalculateObjectiveFunction();
+                        alg.CalculateClusterCentroids();
+                        alg.Step();
+                        double Jnew = alg.CalculateObjectiveFunction();
+                        if (Math.Abs(alg.J - Jnew) < epsilon)
+                        {
+                            double[,] asad = alg.U;
+                            break;
+                        }
+                    }
+                   // double epsilon = 0.05;
+                    //k.Clustering(ExelReader.ClusterCount, epsilon);
+                    //k.FindRulesModelTypeMamdani(ExelReader.NameOfLinguisticVariables, ExelReader.ValueIntervalTerm, ExelReader.NameOfTerms, ExelReader.countColumnData, ExelReader.NumbersOfZonesOneLP, ExelReader.counterFoRowDataFromFile, "Трикутна", ExelReader.WeightOfTerms, FKB);
+                    //k.GausFunction(ExelReader.countColumnData, FKB);
                     FKBHelper.WithRullToVar(FKB);
                     FKBHelper.Save_BNZ(FKB, System.Environment.GetEnvironmentVariable("PathFkbFiles")+ "BNZauto.txt");
                     return RedirectToAction("ReadyForms", "Сonclusion", new { FileName = "BNZauto.txt" });
