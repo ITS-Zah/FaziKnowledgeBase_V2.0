@@ -9,7 +9,7 @@ namespace FaziKnowledgeBase_V2._0.Models.C_Means_Clustering
     {
         private List<ClusterPoint> Points;
 
-        public List<ClusterCentroid> Clusters;
+        private List<ClusterCentroid> Clusters;
 
         public double[,] U;
 
