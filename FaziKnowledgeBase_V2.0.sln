@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzyKnowledgeBase_V2.0", "FaziKnowledgeBase_V2.0\FuzzyKnowledgeBase_V2.0.csproj", "{9FE7CC0D-7CC4-4A98-88FD-2F2840725FCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzyLogicLibrary", "E:\Fuzzy\FuzzyLogicLibrary\FuzzyLogicLibrary.csproj", "{5FCE77C6-C989-49C7-B82B-6F4B7779558C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9FE7CC0D-7CC4-4A98-88FD-2F2840725FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FE7CC0D-7CC4-4A98-88FD-2F2840725FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FE7CC0D-7CC4-4A98-88FD-2F2840725FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FCE77C6-C989-49C7-B82B-6F4B7779558C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCE77C6-C989-49C7-B82B-6F4B7779558C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCE77C6-C989-49C7-B82B-6F4B7779558C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FCE77C6-C989-49C7-B82B-6F4B7779558C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
