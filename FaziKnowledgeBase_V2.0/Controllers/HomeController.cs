@@ -54,6 +54,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                     FCM alg = new FCM(exelreader.points, exelreader.centroids, 2, exelreader.NumberOfTheRows, exelreader.NumberOfTheColums, exelreader.NumberOfTheColums);
                     double[] matWaiting = new double[alg.Clusters.Count];
                     double[] sigma = new double[alg.Clusters.Count];
+                    double[,] U;
                     while (true)
                     {
                         alg.J = alg.CalculateObjectiveFunction();
@@ -66,50 +67,51 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                             {
                                 matWaiting[i] = alg.Clusters[i].Value;
                             }
-                            Array.Sort(matWaiting);
+                            //Array.Sort(matWaiting);
+                            U = alg.U;
                             break;
                         }
                     }
-                    for (int i = 0; i < matWaiting.Length; i++)
-                    {
-                        if (i == matWaiting.Length - 1)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            sigma[i] = (matWaiting[i + 1] - matWaiting[i])/3;
-                        }
-                        if (i == matWaiting.Length - 2)
-                        {
-                            sigma[i + 1] = sigma[i];
-                            break;
-                        }
+                    //for (int i = 0; i < matWaiting.Length; i++)
+                    //{
+                    //    if (i == matWaiting.Length - 1)
+                    //    {
+                    //        break;
+                    //    }
+                    //    else
+                    //    {
+                    //        sigma[i] = (matWaiting[i + 1] - matWaiting[i])/3;
+                    //    }
+                    //    if (i == matWaiting.Length - 2)
+                    //    {
+                    //        sigma[i + 1] = sigma[i];
+                    //        break;
+                    //    }
 
-                    }
-                    MamdaniFuzzySystem qOS = new MamdaniFuzzySystem();
-                    FuzzyVariable callDrop = new FuzzyVariable("Call Drop", 0.0, 1.0);
-                    callDrop.Terms.Add(new FuzzyTerm("poor", new TriangularMembershipFunction(-0.33, 0.0, 0.33)));
-                    callDrop.Terms.Add(new FuzzyTerm("good", new TriangularMembershipFunction(0.0, 0.33, 0.66)));
-                    callDrop.Terms.Add(new FuzzyTerm("excellent", new TriangularMembershipFunction(0.33, 0.66, 0.99)));
-                    qOS.Input.Add(callDrop);
+                    //}
+                    //MamdaniFuzzySystem qOS = new MamdaniFuzzySystem();
+                    //FuzzyVariable callDrop = new FuzzyVariable("Call Drop", 0.0, 1.0);
+                    //callDrop.Terms.Add(new FuzzyTerm("poor", new TriangularMembershipFunction(-0.33, 0.0, 0.33)));
+                    //callDrop.Terms.Add(new FuzzyTerm("good", new TriangularMembershipFunction(0.0, 0.33, 0.66)));
+                    //callDrop.Terms.Add(new FuzzyTerm("excellent", new TriangularMembershipFunction(0.33, 0.66, 0.99)));
+                    //qOS.Input.Add(callDrop);
 
-                    FuzzyVariable voiceRAB = new FuzzyVariable("Voice RAB", 0.0, 1.0);
-                    voiceRAB.Terms.Add(new FuzzyTerm("poor1", new TriangularMembershipFunction(0.0, 0.1, 0.25)));
-                    voiceRAB.Terms.Add(new FuzzyTerm("good1", new TriangularMembershipFunction(0.1, 0.25, 0.5)));
-                    voiceRAB.Terms.Add(new FuzzyTerm("excellent1", new TriangularMembershipFunction(0.5, 0.75, 1.1)));
-                    qOS.Input.Add(voiceRAB);
+                    //FuzzyVariable voiceRAB = new FuzzyVariable("Voice RAB", 0.0, 1.0);
+                    //voiceRAB.Terms.Add(new FuzzyTerm("poor1", new TriangularMembershipFunction(0.0, 0.1, 0.25)));
+                    //voiceRAB.Terms.Add(new FuzzyTerm("good1", new TriangularMembershipFunction(0.1, 0.25, 0.5)));
+                    //voiceRAB.Terms.Add(new FuzzyTerm("excellent1", new TriangularMembershipFunction(0.5, 0.75, 1.1)));
+                    //qOS.Input.Add(voiceRAB);
 
-                    FuzzyVariable voiceSoft = new FuzzyVariable("Voice Soft", 0.0, 1.0);
-                    voiceSoft.Terms.Add(new FuzzyTerm("poor2", new TriangularMembershipFunction(0.0, 0.2, 0.3)));
-                    voiceSoft.Terms.Add(new FuzzyTerm("good2", new TriangularMembershipFunction(0.2, 0.45, 0.6)));
-                    voiceSoft.Terms.Add(new FuzzyTerm("excellent2", new TriangularMembershipFunction(0.5, 0.8, 1.2)));
-                    qOS.Input.Add(voiceSoft);
+                    //FuzzyVariable voiceSoft = new FuzzyVariable("Voice Soft", 0.0, 1.0);
+                    //voiceSoft.Terms.Add(new FuzzyTerm("poor2", new TriangularMembershipFunction(0.0, 0.2, 0.3)));
+                    //voiceSoft.Terms.Add(new FuzzyTerm("good2", new TriangularMembershipFunction(0.2, 0.45, 0.6)));
+                    //voiceSoft.Terms.Add(new FuzzyTerm("excellent2", new TriangularMembershipFunction(0.5, 0.8, 1.2)));
+                    //qOS.Input.Add(voiceSoft);
 
-                    FuzzyVariable output_qOS = new FuzzyVariable("qOS", 0.0, 1.0);
-                    output_qOS.Terms.Add(new FuzzyTerm("cheap", new NormalMembershipFunction(matWaiting.ElementAt(1),sigma.ElementAt(1))));
-                    output_qOS.Terms.Add(new FuzzyTerm("average", new NormalMembershipFunction(matWaiting.ElementAt(1), sigma.ElementAt(1))));
-                    output_qOS.Terms.Add(new FuzzyTerm("generous", new NormalMembershipFunction(matWaiting.ElementAt(1), sigma.ElementAt(1))));
+                    //FuzzyVariable output_qOS = new FuzzyVariable("qOS", 0.0, 1.0);
+                    //output_qOS.Terms.Add(new FuzzyTerm("cheap", new NormalMembershipFunction(matWaiting.ElementAt(1),sigma.ElementAt(1))));
+                    //output_qOS.Terms.Add(new FuzzyTerm("average", new NormalMembershipFunction(matWaiting.ElementAt(1), sigma.ElementAt(1))));
+                    //output_qOS.Terms.Add(new FuzzyTerm("generous", new NormalMembershipFunction(matWaiting.ElementAt(1), sigma.ElementAt(1))));
 
 
                     // double epsilon = 0.05;
