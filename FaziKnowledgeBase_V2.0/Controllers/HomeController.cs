@@ -9,13 +9,19 @@ using FaziKnowledgeBase_V2._0.FKB.FormingFKB;
 using FuzzyKnowledgeBase_V2._0.Models;
 using FaziKnowledgeBase_V2._0.FKB.Helper;
 using FaziKnowledgeBase_V2._0.Models.C_Means_Clustering;
-using AI.Fuzzy.Library;
+using Newtonsoft.Json;
+using System.IO;
+using System.Net;
+//using AI.Fuzzy.Library;
 
 namespace FuzzyKnowledgeBase_V2._0.Controllers
 {
     public class HomeController : Controller
     {
-        
+        const int CLUSTER_NUMBER = 3;
+        const int ARRAY_LENGTH = 342;
+        const string FILE_RESULT_PATH = @"C:\Users\Maria Grebinichenko\source\repos\FaziKnowledgeBase_V2.0\Results.txt";
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -69,6 +75,22 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                             }
                             //Array.Sort(matWaiting);
                             U = alg.U;
+                            
+                            using (var fs = new StreamWriter(FILE_RESULT_PATH, false))
+                            {
+                                string content = "x,y,z";
+                                fs.WriteLine(content);
+                                for (int i = 0; i < ARRAY_LENGTH; ++i)
+                                {
+                                    content = U[i, 0].ToString();
+                                    for (int j = 1; j < CLUSTER_NUMBER; ++j)
+                                    {
+                                        content += "," + U[i, j].ToString();
+                                    }
+
+                                    fs.WriteLine(content);
+                                }
+                            }
                             break;
                         }
                     }
@@ -129,5 +151,20 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         {
             return z;
         }
+
+        public ActionResult Result()
+        {
+            return View();
+        }
+
+        public string ReadPlotData()
+        {
+            using (var fs = new StreamReader(FILE_RESULT_PATH))
+            {
+                var data = fs.ReadToEnd();
+                return data;
+            }
+        }
+
     }
 }

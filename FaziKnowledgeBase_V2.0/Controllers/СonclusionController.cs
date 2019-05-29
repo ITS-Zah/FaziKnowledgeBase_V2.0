@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using FuzzyKnowledgeBase_V2._0.ActionsFKB;
 using SimpleChart = System.Web.Helpers;
+using Newtonsoft.Json;
 namespace FuzzyKnowledgeBase_V2._0.Controllers
 {
     public class СonclusionController : Controller
@@ -31,20 +32,38 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
         {
             HttpContext.Response.Cookies["FileName"].Value = FileName;
             List<LinguisticVariable> ParametrsLp = new List<LinguisticVariable>();
-            using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName, FileMode.Open))
+
+            using (var fs = new StreamReader(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName))
             {
-                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
-                FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
+                var file = fs.ReadToEnd();
+                FKB = JsonConvert.DeserializeObject<FuzzyKnowledgeBase>(file);
                 string LvConclusions = FKB.ListOfRule[0].Cоnsequens.NameLP;
-                ViewData["NameLv"] = LvConclusions;               
-                for(int i =0; i < FKB.ListVar.Count; i++)
+                ViewData["NameLv"] = LvConclusions;
+                for (int i = 0; i < FKB.ListVar.Count; i++)
                 {
-                    if(FKB.ListVar[i].Name != LvConclusions)
+                    if (FKB.ListVar[i].Name != LvConclusions)
                     {
                         ParametrsLp.Add(FKB.ListVar[i]);
                     }
                 }
+
             }
+
+            //using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName, FileMode.Open))
+            //{
+            //    DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(FuzzyKnowledgeBase));
+            //    FKB = (FuzzyKnowledgeBase)jsonFormatter.ReadObject(fs);
+            //    string LvConclusions = FKB.ListOfRule[0].Cоnsequens.NameLP;
+            //    ViewData["NameLv"] = LvConclusions;               
+            //    for(int i =0; i < FKB.ListVar.Count; i++)
+            //    {
+            //        if(FKB.ListVar[i].Name != LvConclusions)
+            //        {
+            //            ParametrsLp.Add(FKB.ListVar[i]);
+            //        }
+            //    }
+            //}
+
             return View(ParametrsLp);
         } 
         public ActionResult GetConclusion(string action,string file,params string [] valueLv)
