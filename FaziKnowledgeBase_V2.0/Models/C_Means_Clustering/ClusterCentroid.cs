@@ -14,13 +14,25 @@ namespace FaziKnowledgeBase_V2._0.Models.C_Means_Clustering
         public double MembershipSum { get; set; }
         public double Value { get; set; }
 
-        public ClusterCentroid(int column, int row, double value)
+        public List<double> ParametersValues { get; set; }
+
+        public ClusterCentroid(int row, List<double> parameters)
         {
-            this.Column = column;
-            this.Row = row;
-            this.ValueCount = 0;
-            this.MembershipSum = 0;
-            this.Value = value;
+            ParametersValues = parameters;
+            Row = row;
+
+            ValueCount = 0;
+            MembershipSum = 0;
+
+            Value = 1;
+
+            foreach (var parameter in ParametersValues)
+            {
+                Value *= parameter;
+            }
+
+            var pow = 1 / ParametersValues.Count;
+            Value = Math.Pow(Value, pow);
         }
     }
 }

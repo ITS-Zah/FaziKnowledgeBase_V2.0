@@ -28,6 +28,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
 
         public List<string> Elements = new List<string>();
         public List<ClusterPoint> points = new List<ClusterPoint>();
+        public List<ClusterPoint> rowPoints = new List<ClusterPoint>();
         public List<ClusterCentroid> centroids = new List<ClusterCentroid>();
         List<double> result = new List<double>();
         public int NumberOfTheColums = 0;
@@ -213,11 +214,20 @@ namespace FaziKnowledgeBase_V2._0.Helper
             int j = 0;
             for (int Row = 1; sheet.GetRow(Row) != null; Row++) 
             {
+                var cells = sheet.GetRow(Row).Cells;
+                var parameters = new List<double>();
+
+                foreach (var cell in cells)
+                {
+                    parameters.Add(cell.NumericCellValue);
+                }
+
+                rowPoints.Add(new ClusterPoint(Row, parameters));
                 for (int Col = 1; sheet.GetRow(Row).GetCell(Col) != null; Col++)
                 {
                     Elements.Add(string.Format("{0: 0.0}", sheet.GetRow(Row).GetCell(Col)));
                     result = Elements.Select(x => double.Parse(x)).ToList();
-                    points.Add(new ClusterPoint(Row, Col, result.ElementAt(j)));
+                    points.Add(new ClusterPoint(Row, result));
                     j++;
                 }
             }
@@ -237,9 +247,16 @@ namespace FaziKnowledgeBase_V2._0.Helper
             Random random = new Random();
             for (int i = 0; i < NUMBER_OF_CLUSTERS; i++)
             {
-                int randomNumber1 = random.Next(0, NumberOfTheColums - 1);
-                int randomNumber2 = random.Next(0, NumberOfTheRows - 1);
-                centroids.Add(new ClusterCentroid(randomNumber1, randomNumber2, MatrixOfTheElements[randomNumber2, randomNumber1]));
+                int randomRow = random.Next(0, NumberOfTheRows - 1);
+                var cells = sheet.GetRow(randomRow).Cells;
+                var parameters = new List<double>();
+
+                foreach (var cell in cells)
+                {
+                    parameters.Add(cell.NumericCellValue);
+                }
+
+                centroids.Add(new ClusterCentroid(randomRow, parameters));
             }
         }
         

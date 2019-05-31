@@ -12,6 +12,7 @@ using FaziKnowledgeBase_V2._0.Models.C_Means_Clustering;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net;
+using System.Drawing;
 //using AI.Fuzzy.Library;
 
 namespace FuzzyKnowledgeBase_V2._0.Controllers
@@ -75,23 +76,28 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                             }
                             //Array.Sort(matWaiting);
                             U = alg.U;
-                            
+
                             using (var fs = new StreamWriter(FILE_RESULT_PATH, false))
                             {
-                                string content = "x,y,z";
+                                string content = "x,y,z,color";
                                 fs.WriteLine(content);
+                                //displaying data
                                 for (int i = 0; i < ARRAY_LENGTH; ++i)
                                 {
-                                    content = U[i, 0].ToString();
-                                    for (int j = 1; j < CLUSTER_NUMBER; ++j)
-                                    {
-                                        content += "," + U[i, j].ToString();
-                                    }
-
+                                    content = String.Join(",", exelreader.rowPoints[i].ParametersValues.Skip(1));
+                                    content += ",rgb(23, 190, 27)";
                                     fs.WriteLine(content);
                                 }
+
+                                //displaying centers
+
+                                //for (int i = 0; i < CLUSTER_NUMBER; ++i)
+                                //{
+                                //    content = String.Join(",", alg.Clusters[i].ParametersValues);
+                                //    fs.WriteLine(content);
+                                //}
+                                break;
                             }
-                            break;
                         }
                     }
                     //for (int i = 0; i < matWaiting.Length; i++)
