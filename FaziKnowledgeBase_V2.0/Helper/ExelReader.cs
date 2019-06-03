@@ -16,7 +16,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
         public static int countColumnData = 0, counterFoRowDataFromFile = 0, NumbersOfZonesOneLP = 0, RecommendCountOfMaxClusterCount = 0, ClusterCount;
         public static List<string> NameOfLinguisticVariables = new List<string>();
         public static double[,] ElementsMatrix;
-        public double[,] MatrixOfTheElements;
+        //public double[,] MatrixOfTheElements;
         public  List<MultiDimensionalVector> ElementsMulti = new List<MultiDimensionalVector>();
         public static double[,] FindMinMaxValueTerm;
         public static double[,] ValueIntervalTerm;
@@ -27,7 +27,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
         public static List<int> WeightOfTerms = new List<int>();
 
         public List<string> Elements = new List<string>();
-        public List<ClusterPoint> points = new List<ClusterPoint>();
+        //public List<ClusterPoint> points = new List<ClusterPoint>();
         public List<ClusterPoint> rowPoints = new List<ClusterPoint>();
         public List<ClusterCentroid> centroids = new List<ClusterCentroid>();
         List<double> result = new List<double>();
@@ -210,7 +210,7 @@ namespace FaziKnowledgeBase_V2._0.Helper
             }
 
             
-            MatrixOfTheElements = new double[NumberOfTheRows, NumberOfTheColums];
+            //MatrixOfTheElements = new double[NumberOfTheRows, NumberOfTheColums];
             int j = 0;
             for (int Row = 1; sheet.GetRow(Row) != null; Row++) 
             {
@@ -223,24 +223,23 @@ namespace FaziKnowledgeBase_V2._0.Helper
                 }
 
                 rowPoints.Add(new ClusterPoint(Row, parameters));
-                for (int Col = 1; sheet.GetRow(Row).GetCell(Col) != null; Col++)
-                {
-                    Elements.Add(string.Format("{0: 0.0}", sheet.GetRow(Row).GetCell(Col)));
-                    result = Elements.Select(x => double.Parse(x)).ToList();
-                    points.Add(new ClusterPoint(Row, result));
-                    j++;
-                }
+                //for (int Col = 1; sheet.GetRow(Row).GetCell(Col) != null; Col++)
+                //{
+                //    Elements.Add(string.Format("{0: 0.0}", sheet.GetRow(Row).GetCell(Col)));
+                //    result = Elements.Select(x => double.Parse(x)).ToList();
+                //    points.Add(new ClusterPoint(Row, result));
+                //    j++;
+                //}
             }
-            int n = 0;
-            for (int i = 0; i < NumberOfTheRows; i++)
-            {
-                for (int k = 0; k < NumberOfTheColums; k++)
-                {
-                    MatrixOfTheElements[i, k] = result.ElementAt(n);
-                    n++;
-                }
-            }
-
+            //int n = 0;
+            //for (int i = 0; i < NumberOfTheRows; i++)
+            //{
+            //    for (int k = 0; k < NumberOfTheColums; k++)
+            //    {
+            //        MatrixOfTheElements[i, k] = result.ElementAt(n);
+            //        n++;
+            //    }
+            //}
 
             //List<ClusterCentroid> centroids = new List<ClusterCentroid>();
 

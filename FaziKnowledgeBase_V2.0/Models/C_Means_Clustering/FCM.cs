@@ -143,7 +143,7 @@ namespace FaziKnowledgeBase_V2._0.Models.C_Means_Clustering
 
                     ClusterPoint p = this.Points[i];
                     l = Math.Pow(U[i, j], this.Fuzzyness);
-                    c.Value += l * p.ValueCell;
+                    c.Value += l * p.Value;
                     c.MembershipSum += l;
 
                     if (U[i, j] == p.ClusterIndex)
@@ -173,7 +173,7 @@ namespace FaziKnowledgeBase_V2._0.Models.C_Means_Clustering
 
         private double CalculateEuclideanDistance(ClusterPoint p, ClusterCentroid c)
         {
-            return Math.Sqrt(Math.Pow(p.ValueCell - c.Value, 2.0));
+            return Math.Sqrt(Math.Pow(p.Value - c.Value, 2.0));
         }
     }
 }

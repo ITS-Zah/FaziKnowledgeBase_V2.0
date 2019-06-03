@@ -20,7 +20,7 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
     public class HomeController : Controller
     {
         const int CLUSTER_NUMBER = 3;
-        const int ARRAY_LENGTH = 342;
+        const int ARRAY_LENGTH = 1400;
         const string FILE_RESULT_PATH = @"C:\Users\Maria Grebinichenko\source\repos\FaziKnowledgeBase_V2.0\Results.txt";
 
         [HttpGet]
@@ -55,10 +55,10 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                 else if (FileFormat == "xls")
                 {
                     //exelreader.ReadFromXLS(Environment.GetEnvironmentVariable("PathFkbFiles") + fileName);
-                    double epsilon = 0.05;
+                    double epsilon = 0.00005;
                     exelreader.ReadingFromXlsFile(fileName);
                     //K_means k = new K_means(exelreader.ElementsMulti, null, ExelReader.ClusterCount, ExelReader.ElementsMatrix);
-                    FCM alg = new FCM(exelreader.points, exelreader.centroids, 2, exelreader.NumberOfTheRows, exelreader.NumberOfTheColums, exelreader.NumberOfTheColums);
+                    FCM alg = new FCM(exelreader.rowPoints, exelreader.centroids, 2, exelreader.NumberOfTheRows, exelreader.NumberOfTheColums, exelreader.NumberOfTheColums);
                     double[] matWaiting = new double[alg.Clusters.Count];
                     double[] sigma = new double[alg.Clusters.Count];
                     double[,] U;
@@ -85,7 +85,12 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                                 for (int i = 0; i < ARRAY_LENGTH; ++i)
                                 {
                                     content = String.Join(",", exelreader.rowPoints[i].ParametersValues.Skip(1));
-                                    content += ",rgb(23, 190, 27)";
+                                    
+                                    Color myColor = Color.FromArgb((int)(255 * U[i, 0]),(int)(255 * U[i, 1]), (int)(255 * U[i, 2]));
+                                    string hex = myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2");
+
+                                    content += $",#{hex}";
+
                                     fs.WriteLine(content);
                                 }
 
