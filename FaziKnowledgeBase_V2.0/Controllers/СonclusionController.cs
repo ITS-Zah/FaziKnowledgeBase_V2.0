@@ -33,21 +33,21 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
             HttpContext.Response.Cookies["FileName"].Value = FileName;
             List<LinguisticVariable> ParametrsLp = new List<LinguisticVariable>();
 
-            using (var fs = new StreamReader(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName))
-            {
-                var file = fs.ReadToEnd();
-                FKB = JsonConvert.DeserializeObject<FuzzyKnowledgeBase>(file);
-                string LvConclusions = FKB.ListOfRule[0].Cоnsequens.NameLP;
-                ViewData["NameLv"] = LvConclusions;
-                for (int i = 0; i < FKB.ListVar.Count; i++)
-                {
-                    if (FKB.ListVar[i].Name != LvConclusions)
-                    {
-                        ParametrsLp.Add(FKB.ListVar[i]);
-                    }
-                }
+            //using (var fs = new StreamReader(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName))
+            //{
+            //    var file = fs.ReadToEnd();
+            //    FKB = JsonConvert.DeserializeObject<FuzzyKnowledgeBase>(file);
+            //    string LvConclusions = FKB.ListOfRule[0].Cоnsequens.NameLP;
+            //    ViewData["NameLv"] = LvConclusions;
+            //    for (int i = 0; i < FKB.ListVar.Count; i++)
+            //    {
+            //        if (FKB.ListVar[i].Name != LvConclusions)
+            //        {
+            //            ParametrsLp.Add(FKB.ListVar[i]);
+            //        }
+            //    }
 
-            }
+            //}
 
             //using (FileStream fs = new FileStream(System.Environment.GetEnvironmentVariable("PathFkbFiles") + FileName, FileMode.Open))
             //{

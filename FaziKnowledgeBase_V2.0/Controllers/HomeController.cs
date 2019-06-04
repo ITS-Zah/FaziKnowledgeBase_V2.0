@@ -20,8 +20,9 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
     public class HomeController : Controller
     {
         const int CLUSTER_NUMBER = 3;
-        const int ARRAY_LENGTH = 1400;
-        const string FILE_RESULT_PATH = @"C:\Users\Maria Grebinichenko\source\repos\FaziKnowledgeBase_V2.0\Results.txt";
+        const int ARRAY_LENGTH = 600;
+        //const string FILE_RESULT_PATH = @"C:\Users\Maria Grebinichenko\source\repos\FaziKnowledgeBase_V2.0\Results.txt";
+        const string FILE_RESULT_PATH = @"C:\Users\grebi\source\repos\FaziKnowledgeBase_V2.0\Results.txt";
 
         [HttpGet]
         public ActionResult Index()
@@ -156,7 +157,8 @@ namespace FuzzyKnowledgeBase_V2._0.Controllers
                     //return RedirectToAction("ReadyForms", "Сonclusion", new { FileName = "BNZauto.txt" });
                 }
             }
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return RedirectToAction("Result", "Home");
         }
         public string Test(string z)
         {
